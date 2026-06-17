@@ -47,11 +47,6 @@ export default function HeroBackground() {
       transition={{ duration: 1.1, ease: "easeOut" }}
       className="pointer-events-none absolute inset-0 z-0 overflow-hidden"
     >
-      {/* Static fallback — always painted behind the WebGL canvas so the hero
-          never goes blank if the GL context is unavailable or gets lost (common
-          in dev after many hot reloads exhaust the browser's context limit). */}
-      <div className="absolute inset-0 bg-[radial-gradient(125%_125%_at_72%_28%,rgba(235,235,235,0.12),transparent_55%),radial-gradient(90%_90%_at_15%_90%,rgba(120,120,120,0.10),transparent_60%)]" />
-
       <motion.div
         className="absolute inset-0"
         animate={zoom ? { scale: [1, 1.05] } : { scale: 1 }}

@@ -14,6 +14,7 @@ type MediaItem = {
   type: "live" | "render";
   title: string;
   desc: string;
+  showcase?: boolean;
 };
 
 export default function DarkroomProject() {
@@ -32,36 +33,7 @@ export default function DarkroomProject() {
   ];
 
   const mediaItems: MediaItem[] = [
-    {
-      src: "/images/darkroom/darkroom1.gif",
-      type: "live",
-      title: lang === "ro" ? "Portal — Proiecție Live" : "Portal — Live Projection",
-      desc: lang === "ro" ? "Test de proiecție în timp real în camera Portal, calibrând interacțiunea geometrică." : "Real-time projection test in the Portal room, calibrating geometric interaction."
-    },
-    {
-      src: "/images/darkroom/darkroom2.gif",
-      type: "live",
-      title: lang === "ro" ? "Odyssey — Flux Generativ" : "Odyssey — Generative Flow",
-      desc: lang === "ro" ? "Particule generative care curg pe suprafețele fizice tridimensionale." : "Generative particles flowing over physical three-dimensional surfaces."
-    },
-    {
-      src: "/images/darkroom/darkroom3.gif",
-      type: "live",
-      title: lang === "ro" ? "Link — Interacțiune Optică" : "Link — Optical Interaction",
-      desc: lang === "ro" ? "Sincronizare între sunet și vizualurile proiectate pe colțuri." : "Synchronicity between sound and projected corner visuals."
-    },
-    {
-      src: "/images/darkroom/darkroom9.gif",
-      type: "live",
-      title: lang === "ro" ? "Alter Ego — Feedback Video" : "Alter Ego — Video Feedback",
-      desc: lang === "ro" ? "Efecte generative complexe obținute prin bucle de feedback optic în timp real." : "Complex generative effects achieved via real-time optical feedback loops."
-    },
-    {
-      src: "/images/darkroom/darkroom12.gif",
-      type: "live",
-      title: lang === "ro" ? "Syntesys — Finalul Imersiv" : "Syntesys — Immersive Climax",
-      desc: lang === "ro" ? "Fuziunea tuturor camerelor tematice într-un spectacol total de lumini." : "The fusion of all themed rooms into a total light show."
-    },
+    // 1. Portal Room
     {
       src: "/images/darkroom/darkroom5.png",
       type: "render",
@@ -69,11 +41,26 @@ export default function DarkroomProject() {
       desc: lang === "ro" ? "Studiu inițial pentru geometria și unghiurile de proiecție în spațiul 3D." : "Initial study for projection geometry and angles in 3D space."
     },
     {
+      src: "/images/darkroom/darkroom1.gif",
+      type: "live",
+      title: lang === "ro" ? "Portal — Proiecție Live" : "Portal — Live Projection",
+      desc: lang === "ro" ? "Test de proiecție în timp real în camera Portal, calibrând interacțiunea geometrică." : "Real-time projection test in the Portal room, calibrating geometric interaction.",
+      showcase: true
+    },
+    // 2. Odyssey Room
+    {
       src: "/images/darkroom/darkroom6.png",
       type: "render",
       title: lang === "ro" ? "Odyssey — Randare Vizuală" : "Odyssey — Visual Render",
       desc: lang === "ro" ? "Texturi organice generate procedural pentru al doilea spațiu tematic." : "Procedurally generated organic textures for the second themed space."
     },
+    {
+      src: "/images/darkroom/darkroom2.gif",
+      type: "live",
+      title: lang === "ro" ? "Odyssey — Flux Generativ" : "Odyssey — Generative Flow",
+      desc: lang === "ro" ? "Particule generative care curg pe suprafețele fizice tridimensionale." : "Generative particles flowing over physical three-dimensional surfaces."
+    },
+    // 3. Link Room
     {
       src: "/images/darkroom/darkroom7.png",
       type: "render",
@@ -81,28 +68,52 @@ export default function DarkroomProject() {
       desc: lang === "ro" ? "Reprezentare artistică a fluxului de informație digitală." : "Artistic representation of digital information flow."
     },
     {
+      src: "/images/darkroom/darkroom11.png",
+      type: "render",
+      title: lang === "ro" ? "Cadru din Proiecție (Link)" : "Projection Frame (Link)",
+      desc: lang === "ro" ? "Cadru exportat direct din aplicația TouchDesigner la rezoluție înaltă." : "Frame exported directly from the TouchDesigner patch at high resolution."
+    },
+    {
+      src: "/images/darkroom/darkroom3.gif",
+      type: "live",
+      title: lang === "ro" ? "Link — Interacțiune Optică" : "Link — Optical Interaction",
+      desc: lang === "ro" ? "Sincronizare între sunet și vizualurile proiectate pe colțuri." : "Synchronicity between sound and projected corner visuals.",
+      showcase: true
+    },
+    // 4. Alter Ego Room
+    {
       src: "/images/darkroom/darkroom8.png",
       type: "render",
       title: lang === "ro" ? "Alter Ego — Reflexie Digitală" : "Alter Ego — Digital Reflection",
       desc: lang === "ro" ? "Randare conceptuală a oglinzii generative bazate pe senzori." : "Conceptual render of the sensor-based generative mirror."
     },
     {
+      src: "/images/darkroom/darkroom9.gif",
+      type: "live",
+      title: lang === "ro" ? "Alter Ego — Feedback Video" : "Alter Ego — Video Feedback",
+      desc: lang === "ro" ? "Efecte generative complexe obținute prin bucle de feedback optic în timp real." : "Complex generative effects achieved via real-time optical feedback loops."
+    },
+    // 5. Syntesys Room
+    {
+      src: "/images/darkroom/darkroom12.gif",
+      type: "live",
+      title: lang === "ro" ? "Syntesys — Finalul Imersiv" : "Syntesys — Immersive Climax",
+      desc: lang === "ro" ? "Fuziunea tuturor camerelor tematice într-un spectacol total de lumini." : "The fusion of all themed rooms into a total light show.",
+      showcase: true
+    },
+    // 6. Behind the Scenes / Tech Setup
+    {
       src: "/images/darkroom/darmroom4.png",
       type: "render",
       title: lang === "ro" ? "Setup Tehnic & Hardware" : "Technical Setup & Hardware",
-      desc: lang === "ro" ? "Schema de amplasare a videoproiectoarelor în interiorul spațiului." : "Placement schema of the video projectors inside the space."
+      desc: lang === "ro" ? "Schema de amplasare a videoproiectoarelor în interiorul spațiului." : "Placement schema of the video projectors inside the space.",
+      showcase: true
     },
     {
       src: "/images/darkroom/darkroom10.png",
       type: "render",
       title: lang === "ro" ? "Hartă de Calibrare Geometrică" : "Geometric Calibration Map",
       desc: lang === "ro" ? "Grila utilizată pentru ajustarea fină a keystone-ului." : "Grid used for fine-tuning the projector keystone."
-    },
-    {
-      src: "/images/darkroom/darkroom11.png",
-      type: "render",
-      title: lang === "ro" ? "Cadru din Proiecție (Link)" : "Projection Frame (Link)",
-      desc: lang === "ro" ? "Cadru exportat direct din aplicația TouchDesigner la rezoluție înaltă." : "Frame exported directly from the TouchDesigner patch at high resolution."
     },
     {
       src: "/images/darkroom/darkroom12.png",
@@ -320,7 +331,7 @@ export default function DarkroomProject() {
           </div>
 
           {/* Grid Layout of Images */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10 mt-10">
             <AnimatePresence mode="popLayout">
               {filteredItems.map((item, idx) => {
                 // Find actual index in the fully complete list of images for lightbox mapping
@@ -335,7 +346,7 @@ export default function DarkroomProject() {
                     transition={{ duration: 0.3 }}
                     key={item.src}
                     onClick={() => setLightboxIndex(originalIdx)}
-                    className="group cursor-pointer relative"
+                    className={`group cursor-pointer relative ${item.showcase ? "md:col-span-2" : ""}`}
                   >
                     <BorderGlow
                       edgeSensitivity={30}
@@ -347,13 +358,15 @@ export default function DarkroomProject() {
                       colors={item.type === "live" ? ["#c084fc", "#e879f9"] : ["#60a5fa", "#34d399"]}
                       fillOpacity={0.2}
                     >
-                      <div className="p-2">
-                        <div className="relative aspect-video overflow-hidden rounded-xl bg-surface/50">
+                      <div className="p-3">
+                        <div className={`relative overflow-hidden rounded-xl bg-surface/50 transition-all duration-300 ${
+                          item.showcase ? "aspect-[16/9] md:aspect-[21/9]" : "aspect-[4/3] md:aspect-[16/10]"
+                        }`}>
                           <Image
                             src={item.src}
                             alt={item.title}
                             fill
-                            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                            sizes={item.showcase ? "100vw" : "(max-width: 768px) 100vw, 50vw"}
                             className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
                           />
 
