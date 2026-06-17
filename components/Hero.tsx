@@ -27,11 +27,11 @@ function slugify(text: string) {
 
 // Profile photos cycled in the hero, swapped every few seconds.
 const profileImages = [
-  "/images/front face.png",
-  "/images/spate wall.png",
-  "/images/scaun pe fata.png",
-  "/images/pahar in mana.png",
-  "/images/bllured2.png",
+  "/images/eu/front face.png",
+  "/images/eu/spate wall.png",
+  "/images/eu/scaun pe fata.png",
+  "/images/eu/pahar in mana.png",
+  "/images/eu/bllured2.png",
 ];
 
 export default function Hero() {
@@ -183,7 +183,7 @@ export default function Hero() {
     arranged[1] = currentProjects[1];
     arranged[2] = currentProjects[2];
     arranged[3] = currentProjects[3];
-    arranged[4] = { title: "empty-4", isEmptySlot: true } as any;
+    arranged[4] = currentProjects[4]; // Place Darkroom project in slot 4 instead of empty-4
     arranged[5] = currentProjects[0];
     currentProjects = arranged;
   }
@@ -442,7 +442,10 @@ export default function Hero() {
                       <span className="text-sm font-medium tracking-wide">Slot Liber</span>
                     </div>
                   ) : (
-                    <Link href={`/projects#${slugify(project.title)}`} className="block h-full">
+                    <Link
+                      href={(project as any).href?.startsWith("/") ? (project as any).href : `/projects#${slugify(project.title)}`}
+                      className="block h-full"
+                    >
                       <BorderGlow
                         className="h-full"
                         edgeSensitivity={40}

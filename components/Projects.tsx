@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 import { ArrowUpRight, ExternalLink } from "lucide-react";
 import { useLanguage } from "@/lib/LanguageContext";
 import Reveal from "./Reveal";
@@ -15,7 +16,7 @@ function slugify(text: string) {
 }
 
 export default function Projects() {
-  const { dict } = useLanguage();
+  const { dict, lang } = useLanguage();
 
   // Scroll to the correct project when arriving via hash (e.g. /projects#terasa-florilor)
   useEffect(() => {
@@ -100,14 +101,23 @@ export default function Projects() {
                     );
 
                     return href ? (
-                      <a
-                        href={href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={`block w-full ${reversed ? "lg:order-2" : ""}`}
-                      >
-                        {content}
-                      </a>
+                      href.startsWith("/") ? (
+                        <Link
+                          href={href}
+                          className={`block w-full ${reversed ? "lg:order-2" : ""}`}
+                        >
+                          {content}
+                        </Link>
+                      ) : (
+                        <a
+                          href={href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={`block w-full ${reversed ? "lg:order-2" : ""}`}
+                        >
+                          {content}
+                        </a>
+                      )
                     ) : (
                       content
                     );
@@ -139,17 +149,27 @@ export default function Projects() {
                       ))}
                     </ul>
 
-                    {/* View Website button */}
+                    {/* View Website / View Details button */}
                     {href && (
-                      <a
-                        href={href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="mt-6 inline-flex items-center gap-2 rounded-full border border-line bg-surface px-5 py-2.5 text-sm font-medium text-foreground transition-all duration-300 hover:border-foreground/40 hover:bg-foreground hover:text-background"
-                      >
-                        <ExternalLink size={16} strokeWidth={1.8} />
-                        {(dict.projects as any).viewWebsite ?? "View website"}
-                      </a>
+                      href.startsWith("/") ? (
+                        <Link
+                          href={href}
+                          className="mt-6 inline-flex items-center gap-2 rounded-full border border-line bg-surface px-5 py-2.5 text-sm font-medium text-foreground transition-all duration-300 hover:border-foreground/40 hover:bg-foreground hover:text-background"
+                        >
+                          <ArrowUpRight size={16} strokeWidth={1.8} />
+                          {lang === "ro" ? "Vezi detalii proiect" : "View project details"}
+                        </Link>
+                      ) : (
+                        <a
+                          href={href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="mt-6 inline-flex items-center gap-2 rounded-full border border-line bg-surface px-5 py-2.5 text-sm font-medium text-foreground transition-all duration-300 hover:border-foreground/40 hover:bg-foreground hover:text-background"
+                        >
+                          <ExternalLink size={16} strokeWidth={1.8} />
+                          {(dict.projects as any).viewWebsite ?? "View website"}
+                        </a>
+                      )
                     )}
                   </div>
                 </article>

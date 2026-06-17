@@ -303,7 +303,8 @@
           "Installation"
         ],
         "image": "/images/darkroom/darkroom5.png",
-        "imageAlt": "Darkroom Projection Mapping"
+        "imageAlt": "Darkroom Projection Mapping",
+        "href": "/projects/darkroom"
       },
       {
         "title": "Magazin online",
