@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 6rem;
+}
+
+body {
+  @apply bg-background text-foreground antialiased;
+}
+
+::selection {
+  @apply bg-foreground text-background;
+}
+
+input,
+textarea,
+select {
+  @apply outline-none;
+}
+
+/* Hide the native cursor when the custom "player" cursor is active (desktop
+   only — the class is added by JS). Keep a text caret inside form fields. */
+.custom-cursor-active,
+.custom-cursor-active * {
+  cursor: none !important;
+}
+
+.custom-cursor-active input,
+.custom-cursor-active textarea,
+.custom-cursor-active select {
+  cursor: text !important;
+}

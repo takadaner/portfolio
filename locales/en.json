@@ -1,0 +1,702 @@
+{
+  "common": {
+    "shortName": "Abdula Daner"
+  },
+  "nav": {
+    "logo": "Abdula Daner",
+    "links": [
+      {
+        "label": "Services",
+        "href": "/services"
+      },
+      {
+        "label": "Experience",
+        "href": "/experience"
+      },
+      {
+        "label": "Projects",
+        "href": "/projects"
+      },
+      {
+        "label": "Testimonials",
+        "href": "/testimonials"
+      },
+      {
+        "label": "About",
+        "href": "/about"
+      }
+    ],
+    "cta": "Contact",
+    "ctaHref": "/contact",
+    "home": "Home"
+  },
+  "hero": {
+    "badge": "Available for work",
+    "role": "Full-Stack Developer & Tech Builder",
+    "name": "Abdula Daner",
+    "tagline": "I build web apps and automations for the industry — from AI-powered bots to internal tools.",
+    "ctaProjects": "See Projects",
+    "ctaContact": "Contact",
+    "floatLeft": "WhatsApp Bot UI",
+    "floatRight": "Hotel Dashboard",
+    "testimonials": [
+      {
+        "quote": "His bot fully automated our bookings.",
+        "author": "— Partner hotel"
+      },
+      {
+        "quote": "We cut our guest response time by 90%.",
+        "author": "— Client"
+      },
+      {
+        "quote": "Professional and fast. He shipped a solution that works.",
+        "author": "— Startup founder"
+      }
+    ]
+  },
+  "skills": {
+    "label": "What I do",
+    "title1": "Skills",
+    "title2": "& Technologies",
+    "subtitle": "The full stack I use to build products — from backend to interface.",
+    "items": [
+      {
+        "icon": "server",
+        "title": "Backend",
+        "description": "Fast, reliable APIs, databases and business logic.",
+        "tags": [
+          "Python",
+          "FastAPI",
+          "Supabase",
+          "PostgreSQL"
+        ]
+      },
+      {
+        "icon": "monitor",
+        "title": "Frontend",
+        "description": "Modern, fast and fully responsive interfaces.",
+        "tags": [
+          "Next.js",
+          "React",
+          "TypeScript",
+          "Tailwind CSS"
+        ]
+      },
+      {
+        "icon": "bot",
+        "title": "AI & Automation",
+        "description": "Smart bots and automated workflows that run around the clock.",
+        "tags": [
+          "Anthropic Claude API",
+          "WhatsApp (Meta Cloud API)",
+          "APScheduler",
+          "Web Scraping"
+        ]
+      },
+      {
+        "icon": "wrench",
+        "title": "Tools",
+        "description": "A toolkit for fast delivery and painless deployments.",
+        "tags": [
+          "Git",
+          "Railway",
+          "Vercel",
+          "Antigravity IDE"
+        ]
+      }
+    ],
+    "categories": [
+      {
+        "category": "Frontend",
+        "tags": [
+          "Next.js",
+          "React",
+          "TypeScript",
+          "Tailwind CSS",
+          "Framer Motion"
+        ]
+      },
+      {
+        "category": "Backend",
+        "tags": [
+          "Python",
+          "FastAPI",
+          "Node.js",
+          "REST APIs"
+        ]
+      },
+      {
+        "category": "Database & Cloud",
+        "tags": [
+          "Supabase",
+          "PostgreSQL",
+          "Railway",
+          "Vercel",
+          "Netlify"
+        ]
+      },
+      {
+        "category": "AI & Automation",
+        "tags": [
+          "Claude API",
+          "Meta Cloud API",
+          "WhatsApp Business API",
+          "APScheduler",
+          "Playwright"
+        ]
+      },
+      {
+        "category": "Tools",
+        "tags": [
+          "Git",
+          "GitHub",
+          "VS Code",
+          "Figma",
+          "Postman"
+        ]
+      },
+      {
+        "category": "Soft Skills",
+        "tags": [
+          "Client communication",
+          "Team leadership",
+          "Problem solving",
+          "Bilingual RO/EN"
+        ]
+      }
+    ]
+  },
+  "experience": {
+    "label": "Journey",
+    "title1": "Professional",
+    "title2": "& Education",
+    "subtitle": "Where I've worked and what I'm building now.",
+    "items": [
+      {
+        "role": "Independent Developer",
+        "company": "Hotel SaaS Suite",
+        "period": "2025 — Present",
+        "description": "Building WhatsApp Concierge AI — a smart bot for small hospitality businesses that answers guests and automates reservations.",
+        "tags": [
+          "Python",
+          "FastAPI",
+          "Supabase",
+          "Claude API",
+          "Meta Cloud API"
+        ]
+      },
+      {
+        "role": "Hotel Receptionist",
+        "company": "Hotel Terra — Neptun, Constanța",
+        "period": "2026 · Seasonal",
+        "description": "Hybrid reception + reservations role: check-in/check-out, managing bookings and direct guest relations.",
+        "tags": []
+      }
+    ],
+    "work": [
+      {
+        "role": "Freelance Developer",
+        "company": "Independent",
+        "period": "2022 — Present",
+        "description": "Building websites and SaaS applications for local and international clients. Specialized in automation, AI bots, and web solutions for the hospitality industry.",
+        "tags": []
+      },
+      {
+        "role": "Front Desk Manager",
+        "company": "Hospitality Industry",
+        "period": "2023 — 2025",
+        "description": "Coordinated the reception team, managed reservations, check-in/check-out, guest relations, and optimized internal processes.",
+        "tags": []
+      },
+      {
+        "role": "Receptionist",
+        "company": "Hospitality Industry",
+        "period": "2021 — 2022",
+        "description": "Operational role in reception — reservations, check-in/check-out, direct guest relations.",
+        "tags": []
+      }
+    ],
+    "education": [
+      {
+        "role": "Computer Science (taught in English)",
+        "company": "Ovidius University, Constanța",
+        "period": "2021 — 2024",
+        "description": "Bachelor's degree in Computer Science.",
+        "tags": []
+      },
+      {
+        "role": "Mathematics-Informatics",
+        "company": "Callatis High School, Mangalia",
+        "period": "2017 — 2021",
+        "description": "Real profile, specializing in mathematics and computer science.",
+        "tags": []
+      }
+    ],
+    "workLabel": "Professional Experience",
+    "educationLabel": "Education"
+  },
+  "projects": {
+    "label": "Recent Projects",
+    "title1": "Products that automate",
+    "title2": "and grow businesses",
+    "subtitle": "A selection of the projects I've been working on recently.",
+    "view": "View project",
+    "viewWebsite": "View website",
+    "items": [
+      {
+        "title": "Hotel SaaS Suite",
+        "description": "WhatsApp Concierge AI, Digital Compendium, Review Automator",
+        "tags": [
+          "Python",
+          "FastAPI",
+          "Supabase",
+          "Claude API",
+          "Meta Cloud API"
+        ],
+        "image": "/images/placeholder-whatsapp.svg",
+        "imageAlt": "Hotel SaaS Suite"
+      },
+      {
+        "title": "Law Firm Website — Secoșan N. Ovidiu",
+        "description": "Style: dark/gold premium, bilingual RO/EN",
+        "tags": [
+          "Next.js 14",
+          "TypeScript",
+          "Tailwind CSS"
+        ],
+        "image": "/images/placeholder-hueknew.svg",
+        "imageAlt": "Law Firm Website"
+      },
+      {
+        "title": "Freelance websites & web apps",
+        "description": "Custom web solutions for various clients.",
+        "tags": [
+          "React",
+          "Next.js",
+          "Tailwind CSS"
+        ],
+        "image": "/images/placeholder-toontone.svg",
+        "imageAlt": "Freelance projects"
+      },
+      {
+        "title": "Darkroom — Projection Mapping",
+        "description": "Immersive projection mapping installation with 5 themed rooms: Portal, Odyssey, Link, Alter Ego and Syntesys. Generative visuals created through the aestheticization of data — nature, man, space, computer and artificial intelligence — composed on a narrative of action-reaction. An 8-minute projection with over 14,000 frames, built end-to-end from concept to execution.",
+        "tags": [
+          "Projection Mapping",
+          "Generative Art",
+          "TouchDesigner",
+          "3D Modeling",
+          "Installation"
+        ],
+        "image": "/images/darkroom/darkroom5.png",
+        "imageAlt": "Darkroom Projection Mapping"
+      },
+      {
+        "title": "Online Store",
+        "description": "Online store with shopping cart, payments and an admin panel.",
+        "tags": [
+          "Next.js",
+          "Stripe",
+          "Supabase"
+        ],
+        "image": "/images/placeholder-hotel-suite.svg",
+        "imageAlt": "Online Store"
+      },
+      {
+        "title": "Product Landing Page",
+        "description": "Conversion-focused landing page with smooth animations.",
+        "tags": [
+          "Next.js",
+          "Tailwind CSS",
+          "Framer Motion"
+        ],
+        "image": "/images/placeholder-whatsapp.svg",
+        "imageAlt": "Product Landing Page"
+      },
+      {
+        "title": "Analytics Dashboard",
+        "description": "Analytics panel with real-time charts and exportable reports.",
+        "tags": [
+          "React",
+          "TypeScript",
+          "PostgreSQL"
+        ],
+        "image": "/images/placeholder-hueknew.svg",
+        "imageAlt": "Analytics Dashboard"
+      },
+      {
+        "title": "Blog Platform",
+        "description": "Blog platform with an article editor, categories and built-in SEO.",
+        "tags": [
+          "Next.js",
+          "MDX",
+          "Tailwind CSS"
+        ],
+        "image": "/images/placeholder-toontone.svg",
+        "imageAlt": "Blog Platform"
+      },
+      {
+        "title": "Booking System",
+        "description": "Online booking app with a calendar, notifications and payments.",
+        "tags": [
+          "Next.js",
+          "Stripe",
+          "PostgreSQL"
+        ],
+        "image": "/images/placeholder-hotel-suite.svg",
+        "imageAlt": "Booking System"
+      },
+      {
+        "title": "Real Estate Portal",
+        "description": "Real estate listings portal with advanced search and an interactive map.",
+        "tags": [
+          "React",
+          "Node.js",
+          "MapBox"
+        ],
+        "image": "/images/placeholder-hueknew.svg",
+        "imageAlt": "Real Estate Portal"
+      },
+      {
+        "title": "Chat App",
+        "description": "Real-time chat app with rooms, notifications and presence.",
+        "tags": [
+          "Next.js",
+          "WebSocket",
+          "Supabase"
+        ],
+        "image": "/images/placeholder-whatsapp.svg",
+        "imageAlt": "Chat App"
+      },
+      {
+        "title": "Restaurant Website",
+        "description": "Restaurant website with a digital menu, reservations and online orders.",
+        "tags": [
+          "Next.js",
+          "Tailwind CSS",
+          "Stripe"
+        ],
+        "image": "/images/placeholder-toontone.svg",
+        "imageAlt": "Restaurant Website"
+      },
+      {
+        "title": "CRM System",
+        "description": "CRM system for managing customers, leads and the sales pipeline.",
+        "tags": [
+          "React",
+          "FastAPI",
+          "PostgreSQL"
+        ],
+        "image": "/images/placeholder-hotel-suite.svg",
+        "imageAlt": "CRM System"
+      },
+      {
+        "title": "Fitness App",
+        "description": "Fitness app with workout plans, tracking and statistics.",
+        "tags": [
+          "React Native",
+          "Expo",
+          "Supabase"
+        ],
+        "image": "/images/placeholder-hueknew.svg",
+        "imageAlt": "Fitness App"
+      },
+      {
+        "title": "Marketplace",
+        "description": "Marketplace platform with multiple vendors, payments and reviews.",
+        "tags": [
+          "Next.js",
+          "Stripe Connect",
+          "PostgreSQL"
+        ],
+        "image": "/images/placeholder-whatsapp.svg",
+        "imageAlt": "Marketplace"
+      },
+      {
+        "title": "Invoice Generator",
+        "description": "Invoice generation tool with PDF export and payment tracking.",
+        "tags": [
+          "Next.js",
+          "TypeScript",
+          "PDF"
+        ],
+        "image": "/images/placeholder-toontone.svg",
+        "imageAlt": "Invoice Generator"
+      },
+      {
+        "title": "Events Platform",
+        "description": "Events platform with ticketing, check-in and attendee management.",
+        "tags": [
+          "Next.js",
+          "Stripe",
+          "QR"
+        ],
+        "image": "/images/placeholder-hotel-suite.svg",
+        "imageAlt": "Events Platform"
+      },
+      {
+        "title": "Portfolio Website",
+        "description": "Modern, fast and fully responsive portfolio website with animations.",
+        "tags": [
+          "Next.js",
+          "Framer Motion",
+          "Tailwind CSS"
+        ],
+        "image": "/images/placeholder-hueknew.svg",
+        "imageAlt": "Portfolio Website"
+      },
+      {
+        "title": "Task Manager",
+        "description": "Task organization app with boards, labels and collaboration.",
+        "tags": [
+          "React",
+          "TypeScript",
+          "Supabase"
+        ],
+        "image": "/images/placeholder-whatsapp.svg",
+        "imageAlt": "Task Manager"
+      }
+    ]
+  },
+  "testimonials": {
+    "label": "What clients say",
+    "title1": "People who",
+    "title2": "worked with me",
+    "subtitle": "A few words from the partners and clients I've collaborated with.",
+    "items": [
+      {
+        "quote": "His bot fully automated our bookings. Guests get instant answers and we got rid of dozens of messages a day.",
+        "author": "Andrei Popescu",
+        "role": "Manager, Partner hotel",
+        "rating": 5
+      },
+      {
+        "quote": "We cut our guest response time by 90%. The front desk basically works at night now, with zero effort from us.",
+        "author": "Maria Ionescu",
+        "role": "Guesthouse owner",
+        "rating": 5
+      },
+      {
+        "quote": "Professional and fast. He understood exactly what we needed and shipped a solution that actually works in production.",
+        "author": "Vlad Georgescu",
+        "role": "Founder, Hospitality startup",
+        "rating": 5
+      },
+      {
+        "quote": "The hotel digital suite saved us hours of manual work every single week. Highly recommended.",
+        "author": "Elena Dumitru",
+        "role": "Operations director",
+        "rating": 5
+      }
+    ]
+  },
+  "about": {
+    "label": "About me",
+    "title1": "Abdula Daner,",
+    "title2": "Developer",
+    "subtitle": "A brief introduction about me and what I build.",
+    "badge": "Available for freelance & collaborations",
+    "photoGreeting": "Hello, I'm Abdula Daner",
+    "photoRole": "Full-Stack Developer based in Constanța",
+    "bio": "I'm a developer based in Constanța, Romania, specialized in software for the hotel industry and AI automation. I combine hands-on hospitality experience with a passion for code to build tools that solve real problems.",
+    "tags": [
+      "Next.js",
+      "React",
+      "Python",
+      "Supabase",
+      "Claude API",
+      "FastAPI"
+    ],
+    "connect": "Let's talk",
+    "socials": [
+      {
+        "label": "Instagram",
+        "href": "https://www.instagram.com/abduladaner/"
+      },
+      {
+        "label": "LinkedIn",
+        "href": "https://www.linkedin.com/in/daner-abdula-816425188/"
+      }
+    ]
+  },
+  "services": {
+    "label": "Development services",
+    "title1": "Development",
+    "title2": "Services",
+    "subtitle": "Explore a full suite of development services to elevate your business.",
+    "cta": "Contact Now",
+    "items": [
+      {
+        "icon": "globe",
+        "title": "Web Development",
+        "description": "Building breathtaking, user-centric web apps that boost engagement, conversions and growth, perfectly aligned with your business.",
+        "media": "image",
+        "image": "/images/placeholder-hotel-suite.svg",
+        "imageAlt": "Web app dashboard"
+      },
+      {
+        "icon": "bot",
+        "title": "AI Automation",
+        "description": "Smart bots and automated workflows that run around the clock — answering customers and handling repetitive tasks for you.",
+        "media": "none"
+      },
+      {
+        "icon": "hotel",
+        "title": "Hotel Software",
+        "description": "Bringing ideas to life with interactive, hotel-focused tools that simplify operations and elevate the guest experience.",
+        "media": "gallery",
+        "gallery": [
+          {
+            "image": "/images/placeholder-whatsapp.svg",
+            "imageAlt": "WhatsApp concierge bot"
+          },
+          {
+            "image": "/images/placeholder-toontone.svg",
+            "imageAlt": "Hotel guest app"
+          }
+        ]
+      },
+      {
+        "icon": "server",
+        "title": "Backend & APIs",
+        "description": "Fast, reliable APIs, databases and business logic that power your products end to end.",
+        "media": "none"
+      },
+      {
+        "icon": "palette",
+        "title": "UI/UX Design",
+        "description": "Modern, intuitive interfaces built around the user — from wireframe to finished product, with care for every detail.",
+        "media": "none"
+      }
+    ],
+    "tags": [
+      {
+        "icon": "workflow",
+        "label": "Automation"
+      },
+      {
+        "icon": "plug",
+        "label": "API Integration"
+      },
+      {
+        "icon": "layout",
+        "label": "Dashboards"
+      },
+      {
+        "icon": "search",
+        "label": "SEO"
+      },
+      {
+        "icon": "code",
+        "label": "Custom Code"
+      },
+      {
+        "icon": "database",
+        "label": "Databases"
+      },
+      {
+        "icon": "message",
+        "label": "WhatsApp Bots"
+      },
+      {
+        "icon": "panel",
+        "label": "Landing Pages"
+      },
+      {
+        "icon": "zap",
+        "label": "Optimization"
+      },
+      {
+        "icon": "radio",
+        "label": "Real-time"
+      },
+      {
+        "icon": "smartphone",
+        "label": "PWA"
+      },
+      {
+        "icon": "cpu",
+        "label": "AI Integration"
+      }
+    ],
+    "recent": {
+      "label": "Recent Projects",
+      "title1": "Recent",
+      "title2": "Work",
+      "subtitle": "Showcase of some of my recent sleek products.",
+      "seeAll": "See All Projects",
+      "cta": "Contact Now"
+    },
+    "why": {
+      "label": "Why choose me",
+      "title1": "Why me as your",
+      "title2": "Tech Partner",
+      "subtitle": "Why partner with me for development excellence.",
+      "rows": [
+        {
+          "pro": {
+            "title": "Skilled Professional",
+            "description": "Gain access to a developer with real production experience, ensuring flawless execution."
+          },
+          "con": {
+            "title": "Amateur Developer",
+            "description": "Lack of experience may result in buggy code and overlooked edge cases."
+          }
+        },
+        {
+          "pro": {
+            "title": "Future-Ready Builds",
+            "description": "Modern, scalable architecture that grows with your business and stays ahead of trends."
+          },
+          "con": {
+            "title": "Outdated Stack",
+            "description": "Stale tech that doesn't scale or reflect your evolving needs."
+          }
+        },
+        {
+          "pro": {
+            "title": "Client-Centric Collaboration",
+            "description": "Your vision leads the way — I work closely with you to bring ideas to life with precision."
+          },
+          "con": {
+            "title": "Detached Communication",
+            "description": "Poor collaboration and feedback loops can result in misaligned outcomes."
+          }
+        },
+        {
+          "pro": {
+            "title": "Timely Project Tracking",
+            "description": "Stay informed with regular progress updates and on-time deliverables."
+          },
+          "con": {
+            "title": "Unstructured & Unreliable Work",
+            "description": "Inconsistent timelines and last-minute changes can compromise quality."
+          }
+        }
+      ]
+    }
+  },
+  "contact": {
+    "label": "Let's Connect",
+    "title1": "Let's Collaborate",
+    "title2": "and Begin the work",
+    "subtitle": "Got a project or an idea? Write to me and I'll get back within 48 hours.",
+    "emailLabel": "Email",
+    "email": "abduladaner70@gmail.com",
+    "socialsLabel": "You can also find me on",
+    "form": {
+      "name": "Name",
+      "namePlaceholder": "Your Name",
+      "email": "Email",
+      "emailPlaceholder": "Your Email",
+      "message": "Message",
+      "messagePlaceholder": "Your Message",
+      "submit": "Send Message",
+      "note": "(I will reach out to you within 48hrs)"
+    }
+  },
+  "footer": {
+    "copyright": "© 2026 Abdula Daner. All rights reserved.",
+    "built": "Built with Next.js & Tailwind CSS"
+  }
+}

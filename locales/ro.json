@@ -1,0 +1,716 @@
+{
+  "common": {
+    "shortName": "Abdula Daner"
+  },
+  "nav": {
+    "logo": "Abdula Daner",
+    "links": [
+      {
+        "label": "Servicii",
+        "href": "/services"
+      },
+      {
+        "label": "Experiență",
+        "href": "/experience"
+      },
+      {
+        "label": "Proiecte",
+        "href": "/projects"
+      },
+      {
+        "label": "Testimoniale",
+        "href": "/testimonials"
+      },
+      {
+        "label": "Despre",
+        "href": "/about"
+      }
+    ],
+    "cta": "Contact",
+    "ctaHref": "/contact",
+    "home": "Acasă"
+  },
+  "hero": {
+    "badge": "Disponibil pentru proiecte",
+    "role": "Full-Stack Developer & Tech Builder",
+    "name": "Abdula Daner",
+    "tagline": "Construiesc aplicații web și automatizări — de la boți AI până la tool-uri interne.",
+    "ctaProjects": "Vezi Proiecte",
+    "ctaContact": "Contact",
+    "floatLeft": "WhatsApp Bot UI",
+    "floatRight": "Hotel Dashboard",
+    "testimonials": [
+      {
+        "quote": "Botul lui ne-a automatizat complet rezervările.",
+        "author": "— Hotel partener"
+      },
+      {
+        "quote": "Am redus timpul de răspuns către oaspeți cu 90%.",
+        "author": "— Client"
+      },
+      {
+        "quote": "Profesionist și rapid. A înțeles exact ce aveam nevoie.",
+        "author": "— Startup fondator"
+      }
+    ]
+  },
+  "skills": {
+    "label": "Ce știu să fac",
+    "title1": "Competențe",
+    "title2": "& Tehnologii",
+    "subtitle": "Stack-ul complet cu care construiesc produse — de la backend la interfață.",
+    "items": [
+      {
+        "icon": "server",
+        "title": "Backend",
+        "description": "API-uri rapide și fiabile, baze de date și logică de business.",
+        "tags": [
+          "Python",
+          "FastAPI",
+          "Supabase",
+          "PostgreSQL"
+        ]
+      },
+      {
+        "icon": "monitor",
+        "title": "Frontend",
+        "description": "Interfețe moderne, rapide și complet responsive.",
+        "tags": [
+          "Next.js",
+          "React",
+          "TypeScript",
+          "Tailwind CSS"
+        ]
+      },
+      {
+        "icon": "bot",
+        "title": "AI & Automatizare",
+        "description": "Boți inteligenți și fluxuri automate care lucrează non-stop.",
+        "tags": [
+          "Anthropic Claude API",
+          "WhatsApp (Meta Cloud API)",
+          "APScheduler",
+          "Web Scraping"
+        ]
+      },
+      {
+        "icon": "wrench",
+        "title": "Tools",
+        "description": "Unelte de lucru pentru livrare rapidă și deploy fără bătăi de cap.",
+        "tags": [
+          "Git",
+          "Railway",
+          "Vercel",
+          "Antigravity IDE"
+        ]
+      }
+    ],
+    "categories": [
+      {
+        "category": "Frontend",
+        "tags": [
+          "Next.js",
+          "React",
+          "TypeScript",
+          "Tailwind CSS",
+          "Framer Motion"
+        ]
+      },
+      {
+        "category": "Backend",
+        "tags": [
+          "Python",
+          "FastAPI",
+          "Node.js",
+          "REST APIs"
+        ]
+      },
+      {
+        "category": "Database & Cloud",
+        "tags": [
+          "Supabase",
+          "PostgreSQL",
+          "Railway",
+          "Vercel",
+          "Netlify"
+        ]
+      },
+      {
+        "category": "AI & Automation",
+        "tags": [
+          "Claude API",
+          "Meta Cloud API",
+          "WhatsApp Business API",
+          "APScheduler",
+          "Playwright"
+        ]
+      },
+      {
+        "category": "Tools",
+        "tags": [
+          "Git",
+          "GitHub",
+          "VS Code",
+          "Figma",
+          "Postman"
+        ]
+      },
+      {
+        "category": "Soft Skills",
+        "tags": [
+          "Client communication",
+          "Team leadership",
+          "Problem solving",
+          "Bilingual RO/EN"
+        ]
+      }
+    ]
+  },
+  "experience": {
+    "label": "Parcurs",
+    "title1": "Experiență",
+    "title2": "& Educație",
+    "subtitle": "Unde am lucrat și ce construiesc acum.",
+    "items": [
+      {
+        "role": "Developer Independent",
+        "company": "Hotel SaaS Suite",
+        "period": "2025 — Prezent",
+        "description": "Construiesc WhatsApp Concierge AI — un bot inteligent pentru afaceri mici din ospitalitate, care răspunde oaspeților și automatizează rezervările.",
+        "tags": [
+          "Python",
+          "FastAPI",
+          "Supabase",
+          "Claude API",
+          "Meta Cloud API"
+        ]
+      },
+      {
+        "role": "Recepționer Hotel",
+        "company": "Hotel Terra — Neptun, Constanța",
+        "period": "2026 · Sezonier",
+        "description": "Rol hibrid recepție + rezervări: check-in/check-out, gestionarea rezervărilor și relația directă cu oaspeții.",
+        "tags": []
+      }
+    ],
+    "work": [
+      {
+        "role": "Freelance Developer",
+        "company": "Independent",
+        "period": "2022 — Prezent",
+        "description": "Construiesc website-uri și aplicații SaaS pentru clienți din România și internațional. Specializat în automatizări, boți AI și soluții web pentru industria ospitalității.",
+        "tags": []
+      },
+      {
+        "role": "Șef Recepție",
+        "company": "Industria Hotelieră",
+        "period": "2023 — 2025",
+        "description": "Coordonarea echipei de recepție, gestionarea rezervărilor, check-in/check-out, relația cu oaspeții și optimizarea proceselor interne.",
+        "tags": []
+      },
+      {
+        "role": "Recepționer",
+        "company": "Industria Hotelieră",
+        "period": "2021 — 2022",
+        "description": "Rol operațional în recepție — rezervări, check-in/check-out, relația directă cu oaspeții.",
+        "tags": []
+      }
+    ],
+    "education": [
+      {
+        "role": "Informatică (taught in English)",
+        "company": "Universitatea Ovidius, Constanța",
+        "period": "2021 — 2024",
+        "description": "Studii universitare de licență în domeniul Informaticii.",
+        "tags": []
+      },
+      {
+        "role": "Matematică-Informatică",
+        "company": "Liceul Teoretic Callatis, Mangalia",
+        "period": "2017 — 2021",
+        "description": "Profil real, specializarea matematică-informatică.",
+        "tags": []
+      }
+    ],
+    "workLabel": "Experiență Profesională",
+    "educationLabel": "Educație"
+  },
+  "projects": {
+    "label": "Proiecte recente",
+    "title1": "Produse care automatizează",
+    "title2": "și cresc afaceri",
+    "subtitle": "O selecție din proiectele la care am lucrat recent.",
+    "view": "Vezi proiect",
+    "viewWebsite": "Vezi website",
+    "items": [
+      {
+        "title": "Terasa Florilor",
+        "description": "Restaurant brand website with admin panel (Sep 2025). Custom-built website for a Bucharest restaurant brand. Includes a bold visual identity, full ordering flow with cart and checkout, multi-step pickup/delivery + cash/online payment options, event management with ticketing, and a custom admin panel for products, orders, events, comments, newsletter, and fiscal receipts. Built end-to-end as a freelance project: brand-aligned design, frontend development, custom backend, content management, hosting.",
+        "tags": [
+          "React",
+          "Node.js",
+          "Vite",
+          "Tailwind CSS"
+        ],
+        "image": "/images/logo-CVw5qNv3.png",
+        "imageAlt": "Terasa Florilor",
+        "href": "https://terasaflorilor.ro"
+      },
+      {
+        "title": "Site avocatură — Secoșan N. Ovidiu",
+        "description": "Style: dark/gold premium, bilingual RO/EN",
+        "tags": [
+          "Next.js 14",
+          "TypeScript",
+          "Tailwind CSS"
+        ],
+        "image": "/images/download.png",
+        "imageAlt": "Site avocatură",
+        "href": "https://secosan.netlify.app"
+      },
+      {
+        "title": "Hotel SaaS Suite",
+        "description": "WhatsApp Concierge AI, Digital Compendium, Review Automator",
+        "tags": [
+          "Python",
+          "FastAPI",
+          "Supabase",
+          "Claude API",
+          "Meta Cloud API"
+        ],
+        "image": "/images/placeholder-whatsapp.svg",
+        "imageAlt": "Hotel SaaS Suite"
+      },
+      {
+        "title": "Freelance websites & web apps",
+        "description": "Soluții web custom pentru diverși clienți.",
+        "tags": [
+          "React",
+          "Next.js",
+          "Tailwind CSS"
+        ],
+        "image": "/images/proiect3.avif",
+        "imageAlt": "Freelance projects"
+      },
+      {
+        "title": "Darkroom — Projection Mapping",
+        "description": "Instalație imersivă de projection mapping cu 5 camere tematice: Portal, Odyssey, Link, Alter Ego și Syntesys. Vizualuri generative create din estetizarea datelor — natură, om, spațiu, computer și inteligență artificială — compuse într-o narațiune de acțiune-reacțiune. Proiecție de 8 minute cu peste 14.000 de cadre, construită integral de la concept la execuție.",
+        "tags": [
+          "Projection Mapping",
+          "Generative Art",
+          "TouchDesigner",
+          "3D Modeling",
+          "Installation"
+        ],
+        "image": "/images/darkroom/darkroom5.png",
+        "imageAlt": "Darkroom Projection Mapping"
+      },
+      {
+        "title": "Magazin online",
+        "description": "Magazin online cu coș de cumpărături, plăți și panou de administrare.",
+        "tags": [
+          "Next.js",
+          "Stripe",
+          "Supabase"
+        ],
+        "image": "/images/placeholder-hotel-suite.svg",
+        "imageAlt": "Magazin online"
+      },
+      {
+        "title": "Landing page produs",
+        "description": "Pagină de prezentare optimizată pentru conversii, cu animații fluide.",
+        "tags": [
+          "Next.js",
+          "Tailwind CSS",
+          "Framer Motion"
+        ],
+        "image": "/images/placeholder-whatsapp.svg",
+        "imageAlt": "Landing page produs"
+      },
+      {
+        "title": "Dashboard analytics",
+        "description": "Panou de analiză cu grafice în timp real și rapoarte exportabile.",
+        "tags": [
+          "React",
+          "TypeScript",
+          "PostgreSQL"
+        ],
+        "image": "/images/placeholder-hueknew.svg",
+        "imageAlt": "Dashboard analytics"
+      },
+      {
+        "title": "Platformă de blog",
+        "description": "Platformă de blog cu editor de articole, categorii și SEO integrat.",
+        "tags": [
+          "Next.js",
+          "MDX",
+          "Tailwind CSS"
+        ],
+        "image": "/images/placeholder-toontone.svg",
+        "imageAlt": "Platformă de blog"
+      },
+      {
+        "title": "Sistem de rezervări",
+        "description": "Aplicație de rezervări online cu calendar, notificări și plăți.",
+        "tags": [
+          "Next.js",
+          "Stripe",
+          "PostgreSQL"
+        ],
+        "image": "/images/placeholder-hotel-suite.svg",
+        "imageAlt": "Sistem de rezervări"
+      },
+      {
+        "title": "Portal imobiliar",
+        "description": "Portal de anunțuri imobiliare cu căutare avansată și hartă interactivă.",
+        "tags": [
+          "React",
+          "Node.js",
+          "MapBox"
+        ],
+        "image": "/images/placeholder-hueknew.svg",
+        "imageAlt": "Portal imobiliar"
+      },
+      {
+        "title": "Aplicație de chat",
+        "description": "Aplicație de chat în timp real cu camere, notificări și prezență.",
+        "tags": [
+          "Next.js",
+          "WebSocket",
+          "Supabase"
+        ],
+        "image": "/images/placeholder-whatsapp.svg",
+        "imageAlt": "Aplicație de chat"
+      },
+      {
+        "title": "Site restaurant",
+        "description": "Site de restaurant cu meniu digital, rezervări și comenzi online.",
+        "tags": [
+          "Next.js",
+          "Tailwind CSS",
+          "Stripe"
+        ],
+        "image": "/images/placeholder-toontone.svg",
+        "imageAlt": "Site restaurant"
+      },
+      {
+        "title": "CRM pentru clienți",
+        "description": "Sistem CRM pentru gestionarea clienților, lead-urilor și a pipeline-ului de vânzări.",
+        "tags": [
+          "React",
+          "FastAPI",
+          "PostgreSQL"
+        ],
+        "image": "/images/placeholder-hotel-suite.svg",
+        "imageAlt": "CRM pentru clienți"
+      },
+      {
+        "title": "Aplicație fitness",
+        "description": "Aplicație de fitness cu planuri de antrenament, tracking și statistici.",
+        "tags": [
+          "React Native",
+          "Expo",
+          "Supabase"
+        ],
+        "image": "/images/placeholder-hueknew.svg",
+        "imageAlt": "Aplicație fitness"
+      },
+      {
+        "title": "Marketplace",
+        "description": "Platformă de tip marketplace cu vânzători multipli, plăți și recenzii.",
+        "tags": [
+          "Next.js",
+          "Stripe Connect",
+          "PostgreSQL"
+        ],
+        "image": "/images/placeholder-whatsapp.svg",
+        "imageAlt": "Marketplace"
+      },
+      {
+        "title": "Generator de facturi",
+        "description": "Unealtă de generare a facturilor cu export PDF și evidența plăților.",
+        "tags": [
+          "Next.js",
+          "TypeScript",
+          "PDF"
+        ],
+        "image": "/images/placeholder-toontone.svg",
+        "imageAlt": "Generator de facturi"
+      },
+      {
+        "title": "Platformă de evenimente",
+        "description": "Platformă de evenimente cu bilete, check-in și management participanți.",
+        "tags": [
+          "Next.js",
+          "Stripe",
+          "QR"
+        ],
+        "image": "/images/placeholder-hotel-suite.svg",
+        "imageAlt": "Platformă de evenimente"
+      },
+      {
+        "title": "Site portofoliu",
+        "description": "Site de portofoliu modern, rapid și complet responsive, cu animații.",
+        "tags": [
+          "Next.js",
+          "Framer Motion",
+          "Tailwind CSS"
+        ],
+        "image": "/images/placeholder-hueknew.svg",
+        "imageAlt": "Site portofoliu"
+      },
+      {
+        "title": "Aplicație task management",
+        "description": "Aplicație de organizare a sarcinilor cu board-uri, etichete și colaborare.",
+        "tags": [
+          "React",
+          "TypeScript",
+          "Supabase"
+        ],
+        "image": "/images/placeholder-whatsapp.svg",
+        "imageAlt": "Aplicație task management"
+      }
+    ]
+  },
+  "testimonials": {
+    "label": "Ce spun clienții",
+    "title1": "Oameni care",
+    "title2": "au lucrat cu mine",
+    "subtitle": "Câteva cuvinte de la partenerii și clienții cu care am colaborat.",
+    "items": [
+      {
+        "quote": "Botul lui ne-a automatizat complet rezervările. Oaspeții primesc răspunsuri instant, iar noi am scăpat de zeci de mesaje pe zi.",
+        "author": "Andrei Popescu",
+        "role": "Manager, Hotel partener",
+        "rating": 5
+      },
+      {
+        "quote": "Am redus timpul de răspuns către oaspeți cu 90%. Practic, recepția lucrează acum și noaptea, fără efort din partea noastră.",
+        "author": "Maria Ionescu",
+        "role": "Proprietar pensiune",
+        "rating": 5
+      },
+      {
+        "quote": "Profesionist și rapid. A înțeles exact ce aveam nevoie și a livrat o soluție care chiar funcționează în producție.",
+        "author": "Vlad Georgescu",
+        "role": "Fondator, Startup ospitalitate",
+        "rating": 5
+      },
+      {
+        "quote": "Suita digitală pentru hotel ne-a economisit ore întregi de muncă manuală în fiecare săptămână. Recomand cu încredere.",
+        "author": "Elena Dumitru",
+        "role": "Director operațiuni",
+        "rating": 5
+      }
+    ]
+  },
+  "about": {
+    "label": "Despre mine",
+    "title1": "Abdula Daner,",
+    "title2": "Developer",
+    "subtitle": "O scurtă prezentare despre mine și despre ce construiesc.",
+    "badge": "Disponibil pentru freelance & colaborări",
+    "photoGreeting": "Salut, sunt Abdula Daner",
+    "photoRole": "Full-Stack Developer din Constanța",
+    "bio": "Sunt developer în Constanța, România, specializat în software pentru industria hotelieră și automatizări cu AI. Îmbin experiența directă din ospitalitate cu pasiunea pentru cod, ca să construiesc unelte care rezolvă probleme reale.",
+    "tags": [
+      "Next.js",
+      "React",
+      "Python",
+      "Supabase",
+      "Claude API",
+      "FastAPI"
+    ],
+    "connect": "Hai să vorbim",
+    "socials": [
+      {
+        "label": "Instagram",
+        "href": "https://www.instagram.com/abduladaner/"
+      },
+      {
+        "label": "LinkedIn",
+        "href": "https://www.linkedin.com/in/daner-abdula-816425188/"
+      }
+    ]
+  },
+  "services": {
+    "label": "Servicii de dezvoltare",
+    "title1": "Servicii de",
+    "title2": "Dezvoltare",
+    "subtitle": "Explorează o suită completă de servicii de dezvoltare care îți cresc afacerea.",
+    "cta": "Contactează-mă",
+    "items": [
+      {
+        "icon": "globe",
+        "title": "Dezvoltare Web",
+        "description": "Construiesc aplicații web spectaculoase, centrate pe utilizator, care cresc engagement-ul, conversiile și creșterea, perfect aliniate cu afacerea ta.",
+        "media": "image",
+        "image": "/images/placeholder-hotel-suite.svg",
+        "imageAlt": "Dashboard aplicație web"
+      },
+      {
+        "icon": "bot",
+        "title": "Automatizări AI",
+        "description": "Boți inteligenți și fluxuri automate care funcționează non-stop — răspund clienților și preiau sarcinile repetitive pentru tine.",
+        "media": "none"
+      },
+      {
+        "icon": "hotel",
+        "title": "Software pentru Hoteluri",
+        "description": "Dau viață ideilor prin unelte interactive, dedicate hotelurilor, care simplifică operațiunile și îmbunătățesc experiența oaspeților.",
+        "media": "gallery",
+        "gallery": [
+          {
+            "image": "/images/placeholder-whatsapp.svg",
+            "imageAlt": "Bot concierge WhatsApp"
+          },
+          {
+            "image": "/images/placeholder-toontone.svg",
+            "imageAlt": "Aplicație pentru oaspeți"
+          }
+        ]
+      },
+      {
+        "icon": "server",
+        "title": "Backend & API-uri",
+        "description": "API-uri rapide și fiabile, baze de date și logică de business care îți susțin produsele de la cap la coadă.",
+        "media": "none"
+      },
+      {
+        "icon": "palette",
+        "title": "Design UI/UX",
+        "description": "Interfețe moderne și intuitive, gândite în jurul utilizatorului — de la wireframe la produs finit, cu atenție la fiecare detaliu.",
+        "media": "none"
+      }
+    ],
+    "tags": [
+      {
+        "icon": "workflow",
+        "label": "Automatizare"
+      },
+      {
+        "icon": "plug",
+        "label": "Integrare API"
+      },
+      {
+        "icon": "layout",
+        "label": "Dashboard-uri"
+      },
+      {
+        "icon": "search",
+        "label": "SEO"
+      },
+      {
+        "icon": "code",
+        "label": "Cod Custom"
+      },
+      {
+        "icon": "database",
+        "label": "Baze de date"
+      },
+      {
+        "icon": "message",
+        "label": "Boți WhatsApp"
+      },
+      {
+        "icon": "panel",
+        "label": "Landing Pages"
+      },
+      {
+        "icon": "zap",
+        "label": "Optimizare"
+      },
+      {
+        "icon": "radio",
+        "label": "Real-time"
+      },
+      {
+        "icon": "smartphone",
+        "label": "PWA"
+      },
+      {
+        "icon": "cpu",
+        "label": "Integrare AI"
+      }
+    ],
+    "recent": {
+      "label": "Proiecte recente",
+      "title1": "Proiecte",
+      "title2": "Recente",
+      "subtitle": "O selecție din produsele elegante la care am lucrat recent.",
+      "seeAll": "Vezi toate proiectele",
+      "cta": "Contactează-mă"
+    },
+    "why": {
+      "label": "De ce eu",
+      "title1": "De ce eu ca",
+      "title2": "Partener Tehnic",
+      "subtitle": "De ce să colaborezi cu mine pentru excelență în dezvoltare.",
+      "rows": [
+        {
+          "pro": {
+            "title": "Profesionist cu experiență",
+            "description": "Ai acces la un developer cu experiență reală în producție, care asigură o execuție impecabilă."
+          },
+          "con": {
+            "title": "Developer amator",
+            "description": "Lipsa experienței poate duce la cod cu erori și cazuri-limită trecute cu vederea."
+          }
+        },
+        {
+          "pro": {
+            "title": "Soluții pregătite pentru viitor",
+            "description": "Arhitectură modernă și scalabilă, care crește odată cu afacerea ta și rămâne în pas cu trendurile."
+          },
+          "con": {
+            "title": "Tehnologii învechite",
+            "description": "Tehnologii depășite care nu scalează și nu reflectă nevoile tale în continuă schimbare."
+          }
+        },
+        {
+          "pro": {
+            "title": "Colaborare centrată pe client",
+            "description": "Viziunea ta conduce — lucrez îndeaproape cu tine ca să dau viață ideilor cu precizie."
+          },
+          "con": {
+            "title": "Comunicare deficitară",
+            "description": "Colaborarea slabă și feedback-ul rar pot duce la rezultate nealiniate."
+          }
+        },
+        {
+          "pro": {
+            "title": "Urmărire la timp a proiectului",
+            "description": "Ești la curent cu actualizări periodice și livrări la termen."
+          },
+          "con": {
+            "title": "Muncă haotică și nesigură",
+            "description": "Termenele inconsistente și schimbările de ultim moment pot compromite calitatea."
+          }
+        }
+      ]
+    }
+  },
+  "contact": {
+    "label": "Hai să vorbim",
+    "title1": "Hai să colaborăm",
+    "title2": "și să începem treaba",
+    "subtitle": "Ai un proiect sau o idee? Scrie-mi și revin în maximum 48 de ore.",
+    "emailLabel": "Email",
+    "email": "abduladaner70@gmail.com",
+    "socialsLabel": "Mă găsești și pe",
+    "form": {
+      "name": "Nume",
+      "namePlaceholder": "Numele tău",
+      "email": "Email",
+      "emailPlaceholder": "Emailul tău",
+      "message": "Mesaj",
+      "messagePlaceholder": "Mesajul tău",
+      "submit": "Trimite mesajul",
+      "note": "(Îți răspund în maximum 48 de ore)"
+    }
+  },
+  "footer": {
+    "copyright": "© 2026 Abdula Daner. Toate drepturile rezervate.",
+    "built": "Construit cu Next.js & Tailwind CSS"
+  }
+}

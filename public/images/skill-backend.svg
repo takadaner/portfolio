@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360" viewBox="0 0 640 360" fill="none">
+  <rect width="640" height="360" fill="#0d0d0d"/>
+  <!-- code / terminal panel -->
+  <rect x="40" y="48" width="330" height="264" rx="16" fill="#161616" stroke="#222222" stroke-width="1.5"/>
+  <circle cx="68" cy="78" r="5" fill="#2e2e2e"/>
+  <circle cx="86" cy="78" r="5" fill="#2e2e2e"/>
+  <circle cx="104" cy="78" r="5" fill="#2e2e2e"/>
+  <rect x="64" y="116" width="40" height="10" rx="5" fill="#b9b1a4"/>
+  <rect x="112" y="116" width="120" height="10" rx="5" fill="#333333"/>
+  <rect x="84" y="142" width="90" height="10" rx="5" fill="#2e2e2e"/>
+  <rect x="182" y="142" width="110" height="10" rx="5" fill="#262626"/>
+  <rect x="84" y="168" width="150" height="10" rx="5" fill="#2e2e2e"/>
+  <rect x="64" y="194" width="60" height="10" rx="5" fill="#333333"/>
+  <rect x="132" y="194" width="80" height="10" rx="5" fill="#262626"/>
+  <rect x="84" y="220" width="120" height="10" rx="5" fill="#2e2e2e"/>
+  <rect x="84" y="246" width="70" height="10" rx="5" fill="#262626"/>
+  <rect x="64" y="272" width="100" height="10" rx="5" fill="#2e2e2e"/>
+  <!-- database cylinder -->
+  <g transform="translate(430 64)">
+    <ellipse cx="85" cy="22" rx="80" ry="22" fill="#1f1f1f" stroke="#2e2e2e" stroke-width="1.5"/>
+    <path d="M5 22 V118 a80 22 0 0 0 160 0 V22" fill="#1a1a1a" stroke="#2e2e2e" stroke-width="1.5"/>
+    <ellipse cx="85" cy="70" rx="80" ry="22" fill="none" stroke="#262626" stroke-width="1.5"/>
+    <ellipse cx="85" cy="118" rx="80" ry="22" fill="none" stroke="#262626" stroke-width="1.5"/>
+    <circle cx="40" cy="22" r="4" fill="#b9b1a4"/>
+  </g>
+  <!-- endpoint rows -->
+  <rect x="430" y="216" width="170" height="32" rx="10" fill="#161616" stroke="#222222" stroke-width="1.5"/>
+  <rect x="446" y="228" width="34" height="8" rx="4" fill="#b9b1a4"/>
+  <rect x="492" y="228" width="92" height="8" rx="4" fill="#2e2e2e"/>
+  <rect x="430" y="258" width="170" height="32" rx="10" fill="#161616" stroke="#222222" stroke-width="1.5"/>
+  <rect x="446" y="270" width="34" height="8" rx="4" fill="#333333"/>
+  <rect x="492" y="270" width="78" height="8" rx="4" fill="#262626"/>
+</svg>

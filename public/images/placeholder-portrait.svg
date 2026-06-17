@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1000" viewBox="0 0 800 1000" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#141414"/>
+      <stop offset="1" stop-color="#0a0a0a"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="38%" r="55%">
+      <stop offset="0" stop-color="#1c1c1c"/>
+      <stop offset="1" stop-color="#0d0d0d" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="800" height="1000" fill="url(#bg)"/>
+  <rect width="800" height="1000" fill="url(#glow)"/>
+  <!-- soft geometric accents -->
+  <circle cx="650" cy="200" r="120" fill="none" stroke="#1d1d1d" stroke-width="2"/>
+  <circle cx="150" cy="820" r="160" fill="none" stroke="#181818" stroke-width="2"/>
+  <circle cx="400" cy="430" r="250" fill="none" stroke="#161616" stroke-width="1.5"/>
+  <!-- monogram badge -->
+  <rect x="290" y="320" width="220" height="220" rx="48" fill="#161616" stroke="#262626" stroke-width="2"/>
+  <path d="M340 470 L400 360 L460 470" stroke="#f5f5f5" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M362 432 H438" stroke="#f5f5f5" stroke-width="14" stroke-linecap="round"/>
+  <circle cx="400" cy="338" r="13" fill="#b9b1a4"/>
+  <!-- name + role -->
+  <text x="400" y="630" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="46" fill="#f5f5f5" font-weight="600">Abdula Daner</text>
+  <text x="400" y="676" text-anchor="middle" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="22" fill="#9c9c9c" font-weight="400">Full-Stack Developer · Constanța</text>
+  <!-- availability pill -->
+  <rect x="300" y="720" width="200" height="48" rx="24" fill="#101010" stroke="#222222" stroke-width="1.5"/>
+  <circle cx="346" cy="744" r="6" fill="#4ade80"/>
+  <text x="372" y="751" text-anchor="start" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="18" fill="#9c9c9c">Disponibil</text>
+</svg>
