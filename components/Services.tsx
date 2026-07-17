@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, type ReactNode } from "react";
+import { useRef, type ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -8,7 +8,6 @@ import {
   MotionConfig,
   useScroll,
   useTransform,
-  useReducedMotion,
 } from "framer-motion";
 import {
   Globe,
@@ -70,7 +69,8 @@ type ServiceItem = {
   media: string;
   image?: string;
   imageAlt?: string;
-  gallery?: { image: string; imageAlt: string }[];
+  url?: string;
+  features?: string[];
 };
 
 type Tag = { icon: string; label: string };
@@ -176,17 +176,136 @@ function SectionHead({
   );
 }
 
+function FeatureList({ features }: { features: string[] }) {
+  return (
+    <ul className="mt-5 flex flex-col gap-2.5">
+      {features.map((feature) => (
+        <li
+          key={feature}
+          className="flex items-start gap-2.5 text-sm leading-relaxed text-muted"
+        >
+          <span className="mt-1 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-surface-2 text-foreground ring-1 ring-line">
+            <Check size={10} strokeWidth={2.6} />
+          </span>
+          {feature}
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+/** Minimal browser chrome around a real project screenshot. */
+function BrowserFrame({
+  url,
+  image,
+  alt,
+}: {
+  url?: string;
+  image: string;
+  alt: string;
+}) {
+  return (
+    <div className="overflow-hidden rounded-2xl border border-line bg-surface-2 shadow-2xl shadow-black/50">
+      <div className="flex items-center gap-1.5 border-b border-line px-4 py-2.5">
+        <span className="h-2.5 w-2.5 rounded-full bg-[#3a3a3a]" />
+        <span className="h-2.5 w-2.5 rounded-full bg-[#3a3a3a]" />
+        <span className="h-2.5 w-2.5 rounded-full bg-[#3a3a3a]" />
+        {url && (
+          <span className="ml-3 flex min-w-0 flex-1 items-center gap-1.5 rounded-md bg-background/60 px-3 py-1 text-[11px] text-muted-2">
+            <Globe size={11} className="shrink-0" />
+            <span className="truncate">{url}</span>
+          </span>
+        )}
+      </div>
+      <div className="relative aspect-[16/10]">
+        <Image
+          src={image}
+          alt={alt}
+          fill
+          sizes="(max-width: 1024px) 100vw, 50vw"
+          className="object-cover object-top"
+        />
+      </div>
+    </div>
+  );
+}
+
+function NumberBadge({ index }: { index: number }) {
+  return (
+    <span className="text-xs font-medium tracking-widest text-muted-2">
+      {String(index).padStart(2, "0")}
+    </span>
+  );
+}
+
+/** Full-width hero card: copy + feature list on the left, live-site
+    preview in a browser frame on the right. */
+function FeaturedServiceCard({ item }: { item: ServiceItem }) {
+  const Icon = serviceIcons[item.icon] ?? Globe;
+
+  return (
+    <motion.article
+      initial={{ opacity: 0, y: 28 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-60px" }}
+      transition={{ duration: 0.6, ease: EASE }}
+      className="group relative overflow-hidden rounded-card border border-line bg-surface transition-colors duration-300 hover:border-[#333]"
+    >
+      <div className="grid gap-8 p-6 sm:p-8 lg:grid-cols-[1fr_1.15fr] lg:items-center lg:gap-12 lg:p-10">
+        <div>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <span className="flex h-9 w-9 items-center justify-center rounded-lg border border-line bg-surface-2 text-muted transition-colors duration-300 group-hover:text-foreground">
+                <Icon size={17} strokeWidth={1.6} />
+              </span>
+              <h3 className="text-xl font-semibold text-foreground">
+                {item.title}
+              </h3>
+            </div>
+            <NumberBadge index={1} />
+          </div>
+
+          <p className="mt-4 text-sm leading-relaxed text-muted">
+            {item.description}
+          </p>
+
+          {item.features && <FeatureList features={item.features} />}
+        </div>
+
+        {item.image && (
+          <div className="relative">
+            <div
+              aria-hidden
+              className="pointer-events-none absolute -inset-6 rounded-[2.5rem] bg-gradient-to-tr from-foreground/[0.04] via-transparent to-foreground/[0.08] blur-xl"
+            />
+            <motion.div
+              whileHover={{ y: -5 }}
+              transition={{ duration: 0.5, ease: EASE }}
+              className="relative"
+            >
+              <BrowserFrame
+                url={item.url}
+                image={item.image}
+                alt={item.imageAlt ?? item.title}
+              />
+            </motion.div>
+          </div>
+        )}
+      </div>
+    </motion.article>
+  );
+}
+
 function ServiceCard({
   item,
   delay,
-  showMedia = false,
+  index,
 }: {
   item: ServiceItem;
   delay: number;
-  showMedia?: boolean;
+  index: number;
 }) {
   const Icon = serviceIcons[item.icon] ?? Globe;
-  const { paused } = useAnimationToggle();
 
   return (
     <motion.article
@@ -197,59 +316,33 @@ function ServiceCard({
       whileHover={{ y: -4 }}
       className="group relative flex h-full flex-col overflow-hidden rounded-card border border-line bg-surface p-6 transition-colors duration-300 hover:border-[#333] sm:p-7"
     >
-      <div className="flex items-center gap-3">
-        <span className="flex h-9 w-9 items-center justify-center rounded-lg border border-line bg-surface-2 text-muted transition-colors duration-300 group-hover:text-foreground">
-          <Icon size={17} strokeWidth={1.6} />
-        </span>
-        <h3 className="text-lg font-semibold text-foreground">{item.title}</h3>
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <span className="flex h-9 w-9 items-center justify-center rounded-lg border border-line bg-surface-2 text-muted transition-colors duration-300 group-hover:text-foreground">
+            <Icon size={17} strokeWidth={1.6} />
+          </span>
+          <h3 className="text-lg font-semibold text-foreground">{item.title}</h3>
+        </div>
+        <NumberBadge index={index} />
       </div>
 
-      <p className="mt-4 max-w-md text-sm leading-relaxed text-muted">
+      <p className="mt-4 text-sm leading-relaxed text-muted">
         {item.description}
       </p>
 
-      {showMedia && item.media === "image" && item.image && (
-        <div className="mt-6 overflow-hidden rounded-2xl border border-line">
-          <motion.div
-            variants={{ rest: { scale: 1 }, hover: { scale: 1.04 } }}
-            initial="rest"
-            whileHover="hover"
-            animate="rest"
-            transition={{ duration: 0.6, ease: EASE }}
-          >
+      {item.features && <FeatureList features={item.features} />}
+
+      {item.image && (
+        <div className="relative mt-6 flex-1">
+          <div className="relative aspect-[16/10] min-h-full overflow-hidden rounded-2xl border border-line">
             <Image
               src={item.image}
               alt={item.imageAlt ?? item.title}
-              width={1200}
-              height={760}
-              className="h-auto w-full"
+              fill
+              sizes="(max-width: 640px) 100vw, 50vw"
+              className="object-cover object-top transition-transform duration-700 ease-out-soft group-hover:scale-[1.03]"
             />
-          </motion.div>
-        </div>
-      )}
-
-      {showMedia && item.media === "gallery" && item.gallery && (
-        <div className="relative mt-6 flex-1">
-          <motion.div
-            className="-mr-7 flex gap-4 sm:-mr-8"
-            animate={paused ? { x: 0 } : { x: [0, -28, 0] }}
-            transition={paused ? { duration: 0 } : { duration: 10, ease: "easeInOut", repeat: Infinity }}
-          >
-            {item.gallery.map((g) => (
-              <div
-                key={g.image + g.imageAlt}
-                className="w-[62%] shrink-0 overflow-hidden rounded-xl border border-line"
-              >
-                <Image
-                  src={g.image}
-                  alt={g.imageAlt}
-                  width={800}
-                  height={560}
-                  className="h-auto w-full"
-                />
-              </div>
-            ))}
-          </motion.div>
+          </div>
         </div>
       )}
     </motion.article>
@@ -351,6 +444,13 @@ function RecentCard({
   );
 
   if (href) {
+    if (href.startsWith("/")) {
+      return (
+        <Link href={href} className="block w-full">
+          {content}
+        </Link>
+      );
+    }
     return (
       <a href={href} target="_blank" rel="noopener noreferrer" className="block w-full">
         {content}
@@ -359,18 +459,6 @@ function RecentCard({
   }
 
   return content;
-}
-
-function EmptyCard({ ratio, delay }: { ratio: string; delay: number }) {
-  return (
-    <Reveal delay={delay}>
-      <div
-        className={`flex w-full flex-col items-center justify-center overflow-hidden rounded-card border-2 border-dashed border-line bg-surface/30 text-muted transition-colors duration-300 hover:border-muted-2 hover:bg-surface/50 ${ratio}`}
-      >
-        <span className="text-sm font-medium tracking-wide">Slot Liber</span>
-      </div>
-    </Reveal>
-  );
 }
 
 function WhyRow({ row, index }: { row: WhyRowData; index: number }) {
@@ -467,6 +555,38 @@ function WhyMe() {
   );
 }
 
+function FinalCta() {
+  const { dict } = useLanguage();
+  const c = dict.services.finalCta;
+
+  return (
+    <section className="px-6 pb-32">
+      <div className="mx-auto max-w-content">
+        <Reveal>
+          <div className="relative overflow-hidden rounded-card border border-line bg-surface px-6 py-16 text-center sm:py-20">
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(255,255,255,0.05),transparent_60%)]"
+            />
+            <div className="relative flex flex-col items-center">
+              <Pill label={c.label} />
+              <h2 className="mt-5 text-4xl font-semibold leading-[1.05] tracking-tight sm:text-5xl">
+                <span className="text-foreground">{c.title1} </span>
+                <span className="text-muted-2">{c.title2}</span>
+              </h2>
+              <p className="mt-4 max-w-xl text-base text-muted">{c.subtitle}</p>
+              <div className="mt-8 flex flex-wrap justify-center gap-3">
+                <ContactButton label={c.cta} />
+                <GhostButton label={c.secondary} href="/projects" />
+              </div>
+            </div>
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
 function SectionDivider() {
   return (
     <div className="px-6" aria-hidden>
@@ -503,13 +623,14 @@ export default function Services() {
           />
 
           <div className="mt-14 flex flex-col gap-6">
-            {/* featured card keeps its visual; the rest form a symmetric grid */}
-            <ServiceCard item={items[0]} delay={0} showMedia />
+            {/* featured card: copy + live-site preview; the rest form a symmetric grid */}
+            <FeaturedServiceCard item={items[0]} />
             <div className="grid gap-6 [grid-auto-rows:1fr] sm:grid-cols-2">
               {items.slice(1).map((item, i) => (
                 <ServiceCard
                   key={item.title}
                   item={item}
+                  index={i + 2}
                   delay={0.05 + i * 0.05}
                 />
               ))}
@@ -543,8 +664,28 @@ export default function Services() {
 
           <div className="mt-14 grid items-start gap-6 sm:grid-cols-2">
             <div className="flex flex-col gap-6">
-              <EmptyCard ratio={ratios[0]} delay={0} />
-              <EmptyCard ratio={ratios[3]} delay={0.15} />
+              {recent[2] && (
+                <RecentCard
+                  title={recent[2].title}
+                  alt={recent[2].imageAlt}
+                  image={recent[2].image}
+                  ratio={ratios[0]}
+                  cursor={dict.projects.view}
+                  delay={0}
+                  href={(recent[2] as any).href}
+                />
+              )}
+              {recent[3] && (
+                <RecentCard
+                  title={recent[3].title}
+                  alt={recent[3].imageAlt}
+                  image={recent[3].image}
+                  ratio={ratios[3]}
+                  cursor={dict.projects.view}
+                  delay={0.15}
+                  href={(recent[3] as any).href}
+                />
+              )}
             </div>
             <div className="flex flex-col gap-6">
               {recent[1] && (
@@ -576,9 +717,11 @@ export default function Services() {
 
       <SectionDivider />
 
-      <MotionConfig reducedMotion="never">
+      <MotionConfig reducedMotion="user">
         <WhyMe />
       </MotionConfig>
+
+      <FinalCta />
     </>
   );
 }

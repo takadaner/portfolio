@@ -14,6 +14,9 @@ export default function BottomNav() {
   const { dict } = useLanguage();
   const pathname = usePathname();
 
+  // Hide on immersive full-screen pages
+  if (pathname.startsWith("/mcp")) return null;
+
   const tabs: { href: string; label: string; icon: LucideIcon }[] = [
     { href: "/", label: dict.nav.home, icon: Home },
     { href: "/services", label: dict.nav.links[0].label, icon: LayoutGrid },

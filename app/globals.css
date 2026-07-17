@@ -3,8 +3,13 @@
 @tailwind utilities;
 
 html {
-  scroll-behavior: smooth;
   scroll-padding-top: 6rem;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+html::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
 }
 
 body {
@@ -32,4 +37,15 @@ select {
 .custom-cursor-active textarea,
 .custom-cursor-active select {
   cursor: text !important;
+}
+
+@keyframes marquee-y {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(calc(-50% - 10px)); }
+}
+.animate-marquee-y {
+  animation: marquee-y 40s linear infinite;
+}
+.animate-marquee-y:hover {
+  animation-play-state: paused;
 }

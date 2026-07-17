@@ -5,6 +5,7 @@ import { AnimationProvider } from "@/lib/AnimationContext";
 import Navbar from "@/components/Navbar";
 import BottomNav from "@/components/BottomNav";
 import CustomCursor from "@/components/CustomCursor";
+import ScrollBehavior from "@/components/ScrollBehavior";
 import "./globals.css";
 
 const inter = Inter({
@@ -23,10 +24,11 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="ro" className={inter.variable}>
-      <body className="font-sans">
+      <body className="font-sans" suppressHydrationWarning>
         <LanguageProvider>
           <AnimationProvider>
             <CustomCursor />
+            <ScrollBehavior />
             <Navbar />
             <main className="min-h-screen">{children}</main>
             <BottomNav />

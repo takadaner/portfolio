@@ -25,13 +25,67 @@ function slugify(text: string) {
     .replace(/(^-|-$)/g, "");
 }
 
+// Bento card media — renders a silent looping video when the project has one,
+// falling back to the still image while animations are paused or the visitor
+// prefers reduced motion (the poster keeps the content visible either way).
+function BentoCardMedia({
+  project,
+  priority,
+  playing,
+}: {
+  project: { image: string; imageAlt: string; video?: string };
+  priority: boolean;
+  playing: boolean;
+}) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+    if (playing) {
+      v.muted = true; // must be set before play() for autoplay policies
+      v.play().catch(() => {});
+    } else {
+      v.pause();
+    }
+  }, [playing]);
+
+  if (!project.video) {
+    return (
+      <Image
+        src={project.image}
+        alt={project.imageAlt}
+        width={1200}
+        height={900}
+        priority={priority}
+        className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+      />
+    );
+  }
+
+  return (
+    <video
+      ref={videoRef}
+      src={project.video}
+      poster={project.image}
+      autoPlay={playing}
+      muted
+      loop
+      playsInline
+      preload="metadata"
+      aria-label={project.imageAlt}
+      className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+    />
+  );
+}
+
 // Profile photos cycled in the hero, swapped every few seconds.
 const profileImages = [
-  "/images/eu/front face.png",
-  "/images/eu/spate wall.png",
-  "/images/eu/scaun pe fata.png",
-  "/images/eu/pahar in mana.png",
-  "/images/eu/bllured2.png",
+  "/images/eu/front-face.webp",
+  "/images/eu/spate-wall.webp",
+  "/images/eu/scaun-pe-fata.webp",
+  "/images/eu/pahar-in-mana.webp",
+  "/images/eu/bllured2.webp",
 ];
 
 export default function Hero() {
@@ -179,10 +233,10 @@ export default function Hero() {
 
   if (bentoPage === 0 && currentProjects.length >= 6) {
     const arranged = [...currentProjects];
-    arranged[0] = { title: "empty-0", isEmptySlot: true } as any;
+    arranged[0] = currentProjects[3]; // Villa 3D walkthrough video in the big square
     arranged[1] = currentProjects[1];
     arranged[2] = currentProjects[2];
-    arranged[3] = currentProjects[3];
+    arranged[3] = { title: "empty-3", isEmptySlot: true } as any;
     arranged[4] = currentProjects[4]; // Place Darkroom project in slot 4 instead of empty-4
     arranged[5] = currentProjects[0];
     currentProjects = arranged;
@@ -460,13 +514,10 @@ export default function Hero() {
                       >
                         <div className="relative h-full overflow-hidden rounded-xl p-2">
                           <div className="h-full overflow-hidden rounded-lg">
-                            <Image
-                              src={project.image}
-                              alt={project.imageAlt}
-                              width={1200}
-                              height={900}
+                            <BentoCardMedia
+                              project={project as any}
                               priority={bentoPage === 0 && i < 2}
-                              className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+                              playing={!paused && !reduceMotion}
                             />
                           </div>
 

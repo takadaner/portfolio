@@ -244,17 +244,67 @@
     "viewWebsite": "View website",
     "items": [
       {
-        "title": "Hotel SaaS Suite",
-        "description": "WhatsApp Concierge AI, Digital Compendium, Review Automator",
+        "title": "SOL Restaurant",
+        "description": "Modern website built for SOL Restaurant & Terrace in Bucharest. Features a sleek design with video backgrounds, interactive menus, and seamless reservation integration.",
         "tags": [
-          "Python",
-          "FastAPI",
-          "Supabase",
-          "Claude API",
-          "Meta Cloud API"
+          "WordPress",
+          "Web Design",
+          "Development"
         ],
-        "image": "/images/placeholder-whatsapp.svg",
-        "imageAlt": "Hotel SaaS Suite"
+        "image": "/images/proiecte/sol/main.png",
+        "imageAlt": "SOL Restaurant",
+        "href": "https://solrestaurant.ro"
+      },
+      {
+        "title": "Le Bab Bucharest",
+        "description": "Dynamic, vibrant website for Le Bab, a modern Middle Eastern restaurant and cocktail bar with multiple locations in Bucharest. Includes interactive menus and booking system.",
+        "tags": [
+          "Webflow",
+          "Web Design",
+          "UI/UX"
+        ],
+        "image": "/images/proiecte/lebab/main.png",
+        "imageAlt": "Le Bab",
+        "href": "https://www.lebab.ro"
+      },
+      {
+        "title": "Website Templates — Architecture & Real Estate",
+        "description": "Premium website templates designed for architecture studios and real estate agencies. Dark/gold aesthetics, featured project galleries, statistics sections, and responsive layouts crafted to showcase portfolios with maximum visual impact.",
+        "tags": [
+          "Web Design",
+          "UI/UX",
+          "Figma",
+          "Templates"
+        ],
+        "image": "/images/proiecte/templates/template.jpg",
+        "imageAlt": "Architecture Website Template"
+      },
+      {
+        "title": "Villa Visualizations — 3D Architectural Renders",
+        "description": "Photorealistic 3D architectural visualizations of luxury villas and residences. From minimalist waterfront retreats to contemporary woodland homes — concept renders with blueprint overlays, floor plans, and walkthrough videos.",
+        "tags": [
+          "3D Rendering",
+          "Architecture",
+          "Visualization",
+          "Video"
+        ],
+        "image": "/images/proiecte/villas/Villa.jpg",
+        "imageAlt": "Villa 3D Visualization",
+        "href": "/projects/villa-visualizations",
+        "video": "/images/proiecte/villas/villa.mp4"
+      },
+      {
+        "title": "Terasa Florilor",
+        "description": "Restaurant brand website with admin panel (Sep 2025). Custom-built website for a Bucharest restaurant brand. Includes a bold visual identity, full ordering flow with cart and checkout, multi-step pickup/delivery + cash/online payment options, event management with ticketing, and a custom admin panel for products, orders, events, comments, newsletter, and fiscal receipts. Built end-to-end as a freelance project: brand-aligned design, frontend development, custom backend, content management, hosting.",
+        "tags": [
+          "React",
+          "Node.js",
+          "Vite",
+          "Tailwind CSS"
+        ],
+        "image": "/images/proiecte/logo-CVw5qNv3.webp",
+        "imageAlt": "Terasa Florilor",
+        "href": "https://terasaflorilor.ro"
       },
       {
         "title": "Law Firm Website — Secoșan N. Ovidiu",
@@ -264,8 +314,23 @@
           "TypeScript",
           "Tailwind CSS"
         ],
-        "image": "/images/placeholder-hueknew.svg",
-        "imageAlt": "Law Firm Website"
+        "image": "/images/download.webp",
+        "imageAlt": "Law Firm Website",
+        "href": "https://secosan.netlify.app"
+      },
+      {
+        "title": "Hotel SaaS Suite",
+        "description": "WhatsApp Concierge AI, Digital Compendium, Review Automator",
+        "tags": [
+          "Python",
+          "FastAPI",
+          "Supabase",
+          "Claude API",
+          "Meta Cloud API"
+        ],
+        "image": "/images/proiecte/Hotel Saas Suite/wapp concierge.webp",
+        "imageAlt": "Hotel SaaS Suite",
+        "href": "/projects/hotel-saas-suite"
       },
       {
         "title": "Freelance websites & web apps",
@@ -275,7 +340,7 @@
           "Next.js",
           "Tailwind CSS"
         ],
-        "image": "/images/placeholder-toontone.svg",
+        "image": "/images/proiecte/proiect3.avif",
         "imageAlt": "Freelance projects"
       },
       {
@@ -288,7 +353,7 @@
           "3D Modeling",
           "Installation"
         ],
-        "image": "/images/darkroom/darkroom5.png",
+        "image": "/images/darkroom/darkroom5.webp",
         "imageAlt": "Darkroom Projection Mapping",
         "href": "/projects/darkroom"
       },
@@ -304,15 +369,16 @@
         "imageAlt": "Online Store"
       },
       {
-        "title": "Product Landing Page",
-        "description": "Conversion-focused landing page with smooth animations.",
+        "title": "MPC Playground",
+        "description": "Interactive browser instrument — a pixel-faithful AKAI MPC2000XL with 16 pads you play with your keyboard.",
         "tags": [
-          "Next.js",
-          "Tailwind CSS",
-          "Framer Motion"
+          "Web Audio",
+          "React",
+          "Interactive"
         ],
-        "image": "/images/placeholder-whatsapp.svg",
-        "imageAlt": "Product Landing Page"
+        "image": "/images/proiecte/mcp-playground.webp",
+        "imageAlt": "MPC Playground — interactive AKAI MPC2000XL in the browser",
+        "href": "/mcp"
       },
       {
         "title": "Analytics Dashboard",
@@ -532,42 +598,65 @@
         "title": "Web Development",
         "description": "Building breathtaking, user-centric web apps that boost engagement, conversions and growth, perfectly aligned with your business.",
         "media": "image",
-        "image": "/images/placeholder-hotel-suite.svg",
-        "imageAlt": "Web app dashboard"
+        "image": "/images/proiecte/sol/main.png",
+        "imageAlt": "SOL Restaurant & Terrace website",
+        "url": "solrestaurant.ro",
+        "features": [
+          "Presentation sites & complete web apps",
+          "Responsive, mobile-first design",
+          "Technical SEO & top performance",
+          "Admin panel & CMS when needed"
+        ]
       },
       {
         "icon": "bot",
         "title": "AI Automation",
         "description": "Smart bots and automated workflows that run around the clock — answering customers and handling repetitive tasks for you.",
-        "media": "none"
+        "media": "image",
+        "image": "/images/proiecte/mcp-playground.webp",
+        "imageAlt": "Interactive AI playground",
+        "features": [
+          "WhatsApp bots & AI assistants",
+          "Automated workflows for repetitive tasks",
+          "Integration with your existing systems"
+        ]
       },
       {
         "icon": "hotel",
         "title": "Hotel Software",
         "description": "Bringing ideas to life with interactive, hotel-focused tools that simplify operations and elevate the guest experience.",
-        "media": "gallery",
-        "gallery": [
-          {
-            "image": "/images/placeholder-whatsapp.svg",
-            "imageAlt": "WhatsApp concierge bot"
-          },
-          {
-            "image": "/images/placeholder-toontone.svg",
-            "imageAlt": "Hotel guest app"
-          }
+        "media": "image",
+        "image": "/images/proiecte/Hotel Saas Suite/wapp concierge.webp",
+        "imageAlt": "WhatsApp AI concierge",
+        "features": [
+          "24/7 WhatsApp AI concierge",
+          "Digital guest compendium",
+          "Review & booking automation"
         ]
       },
       {
         "icon": "server",
         "title": "Backend & APIs",
         "description": "Fast, reliable APIs, databases and business logic that power your products end to end.",
-        "media": "none"
+        "media": "none",
+        "features": [
+          "Fast, well-documented APIs",
+          "Scalable, secure databases",
+          "Auth, payments & third-party integrations",
+          "Monitoring & automated deploys"
+        ]
       },
       {
         "icon": "palette",
         "title": "UI/UX Design",
         "description": "Modern, intuitive interfaces built around the user — from wireframe to finished product, with care for every detail.",
-        "media": "none"
+        "media": "none",
+        "features": [
+          "Wireframes & Figma prototypes",
+          "Consistent design systems",
+          "Refined micro-interactions & animations",
+          "Accessibility & readability on any screen"
+        ]
       }
     ],
     "tags": [
@@ -675,6 +764,14 @@
           }
         }
       ]
+    },
+    "finalCta": {
+      "label": "Start a project",
+      "title1": "Let's build",
+      "title2": "something together",
+      "subtitle": "Tell me about your idea and I'll get back to you within 48 hours with a concrete proposal.",
+      "cta": "Contact Now",
+      "secondary": "See Projects"
     }
   },
   "contact": {

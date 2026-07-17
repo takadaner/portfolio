@@ -244,6 +244,56 @@
     "viewWebsite": "Vezi website",
     "items": [
       {
+        "title": "SOL Restaurant",
+        "description": "Website modern creat pentru SOL Restaurant & Terrace din București. Dispune de un design elegant, meniuri interactive și integrare facilă a rezervărilor.",
+        "tags": [
+          "WordPress",
+          "Web Design",
+          "Dezvoltare"
+        ],
+        "image": "/images/proiecte/sol/main.png",
+        "imageAlt": "SOL Restaurant",
+        "href": "https://solrestaurant.ro"
+      },
+      {
+        "title": "Le Bab București",
+        "description": "Website dinamic și vibrant pentru Le Bab, un restaurant modern cu specific oriental și cocktail bar cu mai multe locații în București. Include meniu interactiv și sistem de rezervări.",
+        "tags": [
+          "Webflow",
+          "Web Design",
+          "UI/UX"
+        ],
+        "image": "/images/proiecte/lebab/main.png",
+        "imageAlt": "Le Bab",
+        "href": "https://www.lebab.ro"
+      },
+      {
+        "title": "Template-uri Website — Arhitectură & Imobiliare",
+        "description": "Template-uri web premium pentru studiouri de arhitectură și agenții imobiliare. Estetică dark/gold, galerii de proiecte, secțiuni statistice și layout-uri responsive, create pentru a prezenta portofolii cu impact vizual maxim.",
+        "tags": [
+          "Web Design",
+          "UI/UX",
+          "Figma",
+          "Template-uri"
+        ],
+        "image": "/images/proiecte/templates/template.jpg",
+        "imageAlt": "Template Website Arhitectură"
+      },
+      {
+        "title": "Vizualizări Vile — Randări 3D Arhitecturale",
+        "description": "Vizualizări 3D fotorealiste ale vilelor și rezidențelor de lux. De la refugii minimaliste pe malul apei la case contemporane în pădure — randări concept cu suprapuneri de planuri, planimetrii și videouri walkthrough.",
+        "tags": [
+          "Randare 3D",
+          "Arhitectură",
+          "Vizualizare",
+          "Video"
+        ],
+        "image": "/images/proiecte/villas/Villa.jpg",
+        "imageAlt": "Vizualizare 3D Vilă",
+        "href": "/projects/villa-visualizations",
+        "video": "/images/proiecte/villas/villa.mp4"
+      },
+      {
         "title": "Terasa Florilor",
         "description": "Restaurant brand website with admin panel (Sep 2025). Custom-built website for a Bucharest restaurant brand. Includes a bold visual identity, full ordering flow with cart and checkout, multi-step pickup/delivery + cash/online payment options, event management with ticketing, and a custom admin panel for products, orders, events, comments, newsletter, and fiscal receipts. Built end-to-end as a freelance project: brand-aligned design, frontend development, custom backend, content management, hosting.",
         "tags": [
@@ -252,7 +302,7 @@
           "Vite",
           "Tailwind CSS"
         ],
-        "image": "/images/logo-CVw5qNv3.png",
+        "image": "/images/proiecte/logo-CVw5qNv3.webp",
         "imageAlt": "Terasa Florilor",
         "href": "https://terasaflorilor.ro"
       },
@@ -264,7 +314,7 @@
           "TypeScript",
           "Tailwind CSS"
         ],
-        "image": "/images/download.png",
+        "image": "/images/download.webp",
         "imageAlt": "Site avocatură",
         "href": "https://secosan.netlify.app"
       },
@@ -278,8 +328,9 @@
           "Claude API",
           "Meta Cloud API"
         ],
-        "image": "/images/placeholder-whatsapp.svg",
-        "imageAlt": "Hotel SaaS Suite"
+        "image": "/images/proiecte/Hotel Saas Suite/wapp concierge.webp",
+        "imageAlt": "Hotel SaaS Suite",
+        "href": "/projects/hotel-saas-suite"
       },
       {
         "title": "Freelance websites & web apps",
@@ -289,7 +340,7 @@
           "Next.js",
           "Tailwind CSS"
         ],
-        "image": "/images/proiect3.avif",
+        "image": "/images/proiecte/proiect3.avif",
         "imageAlt": "Freelance projects"
       },
       {
@@ -302,7 +353,7 @@
           "3D Modeling",
           "Installation"
         ],
-        "image": "/images/darkroom/darkroom5.png",
+        "image": "/images/darkroom/darkroom5.webp",
         "imageAlt": "Darkroom Projection Mapping",
         "href": "/projects/darkroom"
       },
@@ -318,15 +369,16 @@
         "imageAlt": "Magazin online"
       },
       {
-        "title": "Landing page produs",
-        "description": "Pagină de prezentare optimizată pentru conversii, cu animații fluide.",
+        "title": "MPC Playground",
+        "description": "Instrument muzical interactiv în browser — un AKAI MPC2000XL recreat pixel cu pixel, cu 16 pad-uri pe care le cânți cu tastatura.",
         "tags": [
-          "Next.js",
-          "Tailwind CSS",
-          "Framer Motion"
+          "Web Audio",
+          "React",
+          "Interactiv"
         ],
-        "image": "/images/placeholder-whatsapp.svg",
-        "imageAlt": "Landing page produs"
+        "image": "/images/proiecte/mcp-playground.webp",
+        "imageAlt": "MPC Playground — AKAI MPC2000XL interactiv în browser",
+        "href": "/mcp"
       },
       {
         "title": "Dashboard analytics",
@@ -546,42 +598,65 @@
         "title": "Dezvoltare Web",
         "description": "Construiesc aplicații web spectaculoase, centrate pe utilizator, care cresc engagement-ul, conversiile și creșterea, perfect aliniate cu afacerea ta.",
         "media": "image",
-        "image": "/images/placeholder-hotel-suite.svg",
-        "imageAlt": "Dashboard aplicație web"
+        "image": "/images/proiecte/sol/main.png",
+        "imageAlt": "Website SOL Restaurant & Terrace",
+        "url": "solrestaurant.ro",
+        "features": [
+          "Site-uri de prezentare și aplicații web complete",
+          "Design responsive, gândit mobile-first",
+          "SEO tehnic și performanță excelentă",
+          "Panou de administrare și CMS la nevoie"
+        ]
       },
       {
         "icon": "bot",
         "title": "Automatizări AI",
         "description": "Boți inteligenți și fluxuri automate care funcționează non-stop — răspund clienților și preiau sarcinile repetitive pentru tine.",
-        "media": "none"
+        "media": "image",
+        "image": "/images/proiecte/mcp-playground.webp",
+        "imageAlt": "Playground AI interactiv",
+        "features": [
+          "Boți WhatsApp și asistenți AI",
+          "Fluxuri automate pentru sarcini repetitive",
+          "Integrare cu sistemele tale existente"
+        ]
       },
       {
         "icon": "hotel",
         "title": "Software pentru Hoteluri",
         "description": "Dau viață ideilor prin unelte interactive, dedicate hotelurilor, care simplifică operațiunile și îmbunătățesc experiența oaspeților.",
-        "media": "gallery",
-        "gallery": [
-          {
-            "image": "/images/placeholder-whatsapp.svg",
-            "imageAlt": "Bot concierge WhatsApp"
-          },
-          {
-            "image": "/images/placeholder-toontone.svg",
-            "imageAlt": "Aplicație pentru oaspeți"
-          }
+        "media": "image",
+        "image": "/images/proiecte/Hotel Saas Suite/wapp concierge.webp",
+        "imageAlt": "Concierge AI pe WhatsApp",
+        "features": [
+          "Concierge AI pe WhatsApp, non-stop",
+          "Compendiu digital pentru oaspeți",
+          "Automatizare recenzii și rezervări"
         ]
       },
       {
         "icon": "server",
         "title": "Backend & API-uri",
         "description": "API-uri rapide și fiabile, baze de date și logică de business care îți susțin produsele de la cap la coadă.",
-        "media": "none"
+        "media": "none",
+        "features": [
+          "API-uri rapide și bine documentate",
+          "Baze de date scalabile și sigure",
+          "Autentificare, plăți și integrări cu servicii externe",
+          "Monitorizare și deploy automatizat"
+        ]
       },
       {
         "icon": "palette",
         "title": "Design UI/UX",
         "description": "Interfețe moderne și intuitive, gândite în jurul utilizatorului — de la wireframe la produs finit, cu atenție la fiecare detaliu.",
-        "media": "none"
+        "media": "none",
+        "features": [
+          "Wireframe și prototipuri în Figma",
+          "Design system consistent",
+          "Micro-interacțiuni și animații rafinate",
+          "Accesibilitate și lizibilitate pe orice ecran"
+        ]
       }
     ],
     "tags": [
@@ -689,6 +764,14 @@
           }
         }
       ]
+    },
+    "finalCta": {
+      "label": "Începe un proiect",
+      "title1": "Hai să construim",
+      "title2": "ceva împreună",
+      "subtitle": "Spune-mi ideea ta și îți răspund în maximum 48 de ore cu o propunere concretă.",
+      "cta": "Contactează-mă",
+      "secondary": "Vezi proiectele"
     }
   },
   "contact": {

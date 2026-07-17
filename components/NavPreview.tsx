@@ -11,6 +11,9 @@ import {
   Users,
   ArrowUpRight,
   Star,
+  Globe,
+  Hotel,
+  Palette,
   type LucideIcon,
 } from "lucide-react";
 import { useLanguage } from "@/lib/LanguageContext";
@@ -23,6 +26,25 @@ const skillIcons: Record<string, LucideIcon> = {
   "Tools": Wrench,
   "Soft Skills": Users,
 };
+
+const serviceIcons: Record<string, LucideIcon> = {
+  globe: Globe,
+  bot: Bot,
+  hotel: Hotel,
+  server: Server,
+  palette: Palette,
+};
+
+/** Routes that have a hover preview — the navbar only renders the
+    dropdown shell for these, avoiding an empty box on other links. */
+export const PREVIEW_ROUTES = [
+  "/services",
+  "/skills",
+  "/experience",
+  "/projects",
+  "/testimonials",
+  "/about",
+];
 
 function Shell({ title, children }: { title: string; children: ReactNode }) {
   return (
@@ -49,6 +71,26 @@ export default function NavPreview({
   const { dict } = useLanguage();
 
   switch (href) {
+    case "/services":
+      return (
+        <Shell title={label}>
+          <div className="flex flex-col gap-2">
+            {dict.services.items.map((s: any) => {
+              const Icon = serviceIcons[s.icon] ?? Globe;
+              return (
+                <div
+                  key={s.title}
+                  className="flex items-center gap-2.5 rounded-lg border border-line bg-surface-2 px-3 py-2"
+                >
+                  <Icon size={15} className="shrink-0 text-muted" />
+                  <span className="truncate text-xs font-medium">{s.title}</span>
+                </div>
+              );
+            })}
+          </div>
+        </Shell>
+      );
+
     case "/skills":
       return (
         <Shell title={label}>

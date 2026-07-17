@@ -1,0 +1,110 @@
+// ─── MPC Song Registry ────────────────────────────────────────────────────────
+// Add a new song by appending an MPCSong object and dropping audio files into
+// public/mpc/songs/<slug>/pad-01.mp3 … pad-16.mp3
+// ─────────────────────────────────────────────────────────────────────────────
+
+export type MPCSkin = "sage" | "black" | "red";
+
+export interface MPCPad {
+  /** 1-based index */
+  id: number;
+  /** Label shown on the pad */
+  label: string;
+  /** Keyboard shortcut key (lowercase) */
+  key: string;
+  /** Path to the audio file under /public */
+  audioSrc: string;
+}
+
+export interface MPCSong {
+  slug: string;
+  title: string;
+  artist: string;
+  bpm: number;
+  padBank: "A" | "B" | "C" | "D";
+  /** Visual colour theme of the MPC shell */
+  skin: MPCSkin;
+  /** MPC model name shown on the badge */
+  model: string;
+  pads: MPCPad[];
+}
+
+// Standard 16-key keyboard layout (matching the reference screenshots)
+// Displayed top-to-bottom in the 4×4 grid left-to-right
+const KEYS: string[] = [
+  "a", "s", "d", "f",  // row 1  (pads  1 – 4)
+  "g", "h", "j", "k",  // row 2  (pads  5 – 8)
+  "z", "x", "c", "v",  // row 3  (pads  9 – 12)
+  "b", "n", "m", "l",  // row 4  (pads 13 – 16)
+];
+
+/** Keyboard rows for on-screen key maps (4 groups of 4, matching pad rows) */
+export const KEY_ROWS: string[][] = [0, 1, 2, 3].map((r) =>
+  KEYS.slice(r * 4, r * 4 + 4)
+);
+
+function makePads(labels: string[], slug: string): MPCPad[] {
+  return labels.map((label, i) => ({
+    id: i + 1,
+    label,
+    key: KEYS[i],
+    audioSrc: `/mpc/songs/${slug}/pad-${String(i + 1).padStart(2, "0")}.mp3`,
+  }));
+}
+
+export const MPC_SONGS: MPCSong[] = [
+  {
+    slug: "runaway",
+    title: "Runaway",
+    artist: "Kanye West",
+    bpm: 84,
+    padBank: "A",
+    skin: "sage",
+    model: "MPC2000XL",
+    pads: makePads(
+      [
+        "Piano 1",        "Piano 2",        "Piano 3",        "Piano 4",
+        "Piano 5",        "Piano 6",        "Piano 7",        "Piano 8",
+        "Beat Loop",      "LOOKATCHA",      "Beau. Stars",    "Ladies & Gents",
+        "Hey!",           "Stop",           "Camera",         "Info",
+      ],
+      "runaway"
+    ),
+  },
+  {
+    slug: "father",
+    title: "Father",
+    artist: "Ye feat. Travis Scott",
+    bpm: 130,
+    padBank: "A",
+    skin: "black",
+    model: "MPC2000XL",
+    pads: makePads(
+      [
+        "Kick",    "Snare",   "Hi-Hat",  "Open HH",
+        "Clap",    "Ride",    "Tom 1",   "Tom 2",
+        "Bass",    "Chord 1", "Chord 2", "Melody",
+        "FX 1",    "FX 2",   "Loop",    "Vocal",
+      ],
+      "father"
+    ),
+  },
+  {
+    slug: "power",
+    title: "Power",
+    artist: "Kanye West",
+    bpm: 152,
+    padBank: "A",
+    skin: "red",
+    model: "MPC2000XL",
+    pads: makePads(
+      [
+        "AH",        "EY",       "EY EY",    "EY×4",
+        "CLAP",      "GUITAR",   "SCHIZ",    "REVERB HOL",
+        "DRUMS",     "ECHO CULT","C",        "V",
+        "Q",         "Slap",     "Camera",   "Info",
+      ],
+      "power"
+    ),
+  },
+];

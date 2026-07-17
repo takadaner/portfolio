@@ -8,7 +8,7 @@ import { Sparkle, Pause, Play } from "lucide-react";
 import { useLanguage, type Lang } from "@/lib/LanguageContext";
 import { useAnimationToggle } from "@/lib/AnimationContext";
 import Logo from "@/components/Logo";
-import NavPreview from "@/components/NavPreview";
+import NavPreview, { PREVIEW_ROUTES } from "@/components/NavPreview";
 
 export default function Navbar() {
   const { lang, setLang, dict } = useLanguage();
@@ -22,6 +22,10 @@ export default function Navbar() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  // Hide on immersive full-screen pages (after all hooks — early returns
+  // before a hook crash React when the pathname changes client-side)
+  if (pathname.startsWith("/mcp")) return null;
 
   const toggleLang = (next: Lang) => setLang(next);
   const isActive = (href: string) => pathname === href;
@@ -65,11 +69,13 @@ export default function Navbar() {
                 </motion.span>
 
                 {/* hover preview of the section */}
-                <div className="pointer-events-none absolute left-0 top-full z-50 w-80 pt-3 opacity-0 transition-all duration-200 group-hover:pointer-events-auto group-hover:opacity-100">
-                  <div className="translate-y-1 rounded-2xl border border-line bg-background/95 p-4 shadow-2xl backdrop-blur-md transition-transform duration-200 group-hover:translate-y-0">
-                    <NavPreview href={link.href} label={link.label} />
+                {PREVIEW_ROUTES.includes(link.href) && (
+                  <div className="pointer-events-none absolute left-0 top-full z-50 w-80 pt-3 opacity-0 transition-all duration-200 group-hover:pointer-events-auto group-hover:opacity-100">
+                    <div className="translate-y-1 rounded-2xl border border-line bg-background/95 p-4 shadow-2xl backdrop-blur-md transition-transform duration-200 group-hover:translate-y-0">
+                      <NavPreview href={link.href} label={link.label} />
+                    </div>
                   </div>
-                </div>
+                )}
               </li>
             ))}
           </ul>

@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowLeft, Maximize2, X, ChevronLeft, ChevronRight, Play, Eye } from "lucide-react";
+import { ArrowLeft, X, ChevronLeft, ChevronRight, Play, Eye } from "lucide-react";
 import { useLanguage } from "@/lib/LanguageContext";
 import Reveal from "@/components/Reveal";
 import BorderGlow from "@/components/BorderGlow";
@@ -35,13 +35,13 @@ export default function DarkroomProject() {
   const mediaItems: MediaItem[] = [
     // 1. Portal Room
     {
-      src: "/images/darkroom/darkroom5.png",
+      src: "/images/darkroom/darkroom5.webp",
       type: "render",
       title: lang === "ro" ? "Portal — Concept 3D" : "Portal — 3D Concept",
       desc: lang === "ro" ? "Studiu inițial pentru geometria și unghiurile de proiecție în spațiul 3D." : "Initial study for projection geometry and angles in 3D space."
     },
     {
-      src: "/images/darkroom/darkroom1.gif",
+      src: "/images/darkroom/darkroom1.webp",
       type: "live",
       title: lang === "ro" ? "Portal — Proiecție Live" : "Portal — Live Projection",
       desc: lang === "ro" ? "Test de proiecție în timp real în camera Portal, calibrând interacțiunea geometrică." : "Real-time projection test in the Portal room, calibrating geometric interaction.",
@@ -49,32 +49,32 @@ export default function DarkroomProject() {
     },
     // 2. Odyssey Room
     {
-      src: "/images/darkroom/darkroom6.png",
+      src: "/images/darkroom/darkroom6.webp",
       type: "render",
       title: lang === "ro" ? "Odyssey — Randare Vizuală" : "Odyssey — Visual Render",
       desc: lang === "ro" ? "Texturi organice generate procedural pentru al doilea spațiu tematic." : "Procedurally generated organic textures for the second themed space."
     },
     {
-      src: "/images/darkroom/darkroom2.gif",
+      src: "/images/darkroom/darkroom2.webp",
       type: "live",
       title: lang === "ro" ? "Odyssey — Flux Generativ" : "Odyssey — Generative Flow",
       desc: lang === "ro" ? "Particule generative care curg pe suprafețele fizice tridimensionale." : "Generative particles flowing over physical three-dimensional surfaces."
     },
     // 3. Link Room
     {
-      src: "/images/darkroom/darkroom7.png",
+      src: "/images/darkroom/darkroom7.webp",
       type: "render",
       title: lang === "ro" ? "Link — Structură de Date" : "Link — Data Structure",
       desc: lang === "ro" ? "Reprezentare artistică a fluxului de informație digitală." : "Artistic representation of digital information flow."
     },
     {
-      src: "/images/darkroom/darkroom11.png",
+      src: "/images/darkroom/darkroom11.webp",
       type: "render",
       title: lang === "ro" ? "Cadru din Proiecție (Link)" : "Projection Frame (Link)",
       desc: lang === "ro" ? "Cadru exportat direct din aplicația TouchDesigner la rezoluție înaltă." : "Frame exported directly from the TouchDesigner patch at high resolution."
     },
     {
-      src: "/images/darkroom/darkroom3.gif",
+      src: "/images/darkroom/darkroom3.webp",
       type: "live",
       title: lang === "ro" ? "Link — Interacțiune Optică" : "Link — Optical Interaction",
       desc: lang === "ro" ? "Sincronizare între sunet și vizualurile proiectate pe colțuri." : "Synchronicity between sound and projected corner visuals.",
@@ -82,20 +82,20 @@ export default function DarkroomProject() {
     },
     // 4. Alter Ego Room
     {
-      src: "/images/darkroom/darkroom8.png",
+      src: "/images/darkroom/darkroom8.webp",
       type: "render",
       title: lang === "ro" ? "Alter Ego — Reflexie Digitală" : "Alter Ego — Digital Reflection",
       desc: lang === "ro" ? "Randare conceptuală a oglinzii generative bazate pe senzori." : "Conceptual render of the sensor-based generative mirror."
     },
     {
-      src: "/images/darkroom/darkroom9.gif",
+      src: "/images/darkroom/darkroom9.webp",
       type: "live",
       title: lang === "ro" ? "Alter Ego — Feedback Video" : "Alter Ego — Video Feedback",
       desc: lang === "ro" ? "Efecte generative complexe obținute prin bucle de feedback optic în timp real." : "Complex generative effects achieved via real-time optical feedback loops."
     },
     // 5. Syntesys Room
     {
-      src: "/images/darkroom/darkroom12.gif",
+      src: "/images/darkroom/darkroom12.webp",
       type: "live",
       title: lang === "ro" ? "Syntesys — Finalul Imersiv" : "Syntesys — Immersive Climax",
       desc: lang === "ro" ? "Fuziunea tuturor camerelor tematice într-un spectacol total de lumini." : "The fusion of all themed rooms into a total light show.",
@@ -103,20 +103,20 @@ export default function DarkroomProject() {
     },
     // 6. Behind the Scenes / Tech Setup
     {
-      src: "/images/darkroom/darmroom4.png",
+      src: "/images/darkroom/darmroom4.webp",
       type: "render",
       title: lang === "ro" ? "Setup Tehnic & Hardware" : "Technical Setup & Hardware",
       desc: lang === "ro" ? "Schema de amplasare a videoproiectoarelor în interiorul spațiului." : "Placement schema of the video projectors inside the space.",
       showcase: true
     },
     {
-      src: "/images/darkroom/darkroom10.png",
+      src: "/images/darkroom/darkroom10.webp",
       type: "render",
       title: lang === "ro" ? "Hartă de Calibrare Geometrică" : "Geometric Calibration Map",
       desc: lang === "ro" ? "Grila utilizată pentru ajustarea fină a keystone-ului." : "Grid used for fine-tuning the projector keystone."
     },
     {
-      src: "/images/darkroom/darkroom12.png",
+      src: "/images/darkroom/darkroom12.webp",
       type: "render",
       title: lang === "ro" ? "Ajustări de Margini & Blending" : "Edge Blending & Calibration",
       desc: lang === "ro" ? "Configurarea îmbinării dintre cele două proiectoare principale." : "Configuring the blend zone between the two main projectors."
@@ -311,8 +311,8 @@ export default function DarkroomProject() {
               <div className="flex gap-2 p-1 rounded-full border border-line bg-surface/40 max-w-fit">
                 {[
                   { id: "all", label_ro: "Toate", label_en: "All" },
-                  { id: "live", label_ro: "Proiecții Live (GIF)", label_en: "Live Projections (GIF)" },
-                  { id: "render", label_ro: "Randări & Concepte (PNG)", label_en: "Renders & Concepts (PNG)" }
+                  { id: "live", label_ro: "Proiecții Live", label_en: "Live Projections" },
+                  { id: "render", label_ro: "Randări & Concepte", label_en: "Renders & Concepts" }
                 ].map((btn) => (
                   <button
                     key={btn.id}
@@ -333,19 +333,17 @@ export default function DarkroomProject() {
           {/* Grid Layout of Images */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10 mt-10">
             <AnimatePresence mode="popLayout">
-              {filteredItems.map((item, idx) => {
-                // Find actual index in the fully complete list of images for lightbox mapping
-                const originalIdx = mediaItems.findIndex((orig) => orig.src === item.src);
-
-                return (
+              {filteredItems.map((item, idx) => (
                   <motion.div
                     layout
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 0.95 }}
                     transition={{ duration: 0.3 }}
-                    key={item.src}
-                    onClick={() => setLightboxIndex(originalIdx)}
+                    // src alone isn't unique (one image is reused), so pair it with
+                    // the type to keep keys stable across filtering.
+                    key={`${item.src}-${item.type}`}
+                    onClick={() => setLightboxIndex(idx)}
                     className={`group cursor-pointer relative ${item.showcase ? "md:col-span-2" : ""}`}
                   >
                     <BorderGlow
@@ -366,6 +364,8 @@ export default function DarkroomProject() {
                             src={item.src}
                             alt={item.title}
                             fill
+                            // Animated WebP (live items) must bypass the optimizer to keep moving.
+                            unoptimized={item.type === "live"}
                             sizes={item.showcase ? "100vw" : "(max-width: 768px) 100vw, 50vw"}
                             className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
                           />
@@ -404,8 +404,7 @@ export default function DarkroomProject() {
                       </div>
                     </BorderGlow>
                   </motion.div>
-                );
-              })}
+              ))}
             </AnimatePresence>
           </div>
         </div>
@@ -424,10 +423,10 @@ export default function DarkroomProject() {
             <div className="absolute top-4 left-4 right-4 flex justify-between items-center text-white z-55">
               <div className="flex flex-col">
                 <span className="font-mono text-xs text-muted-2">
-                  {lightboxIndex + 1} / {mediaItems.length}
+                  {lightboxIndex + 1} / {filteredItems.length}
                 </span>
                 <span className="font-semibold text-sm sm:text-base mt-0.5">
-                  {mediaItems[lightboxIndex].title}
+                  {filteredItems[lightboxIndex].title}
                 </span>
               </div>
               <button
@@ -444,7 +443,7 @@ export default function DarkroomProject() {
               onClick={(e) => {
                 e.stopPropagation();
                 setLightboxIndex((prev) =>
-                  prev !== null ? (prev - 1 + mediaItems.length) % mediaItems.length : null
+                  prev !== null ? (prev - 1 + filteredItems.length) % filteredItems.length : null
                 );
               }}
               className="absolute left-4 p-3 rounded-full bg-white/5 hover:bg-white/10 text-white transition-colors"
@@ -457,7 +456,7 @@ export default function DarkroomProject() {
               onClick={(e) => {
                 e.stopPropagation();
                 setLightboxIndex((prev) =>
-                  prev !== null ? (prev + 1) % mediaItems.length : null
+                  prev !== null ? (prev + 1) % filteredItems.length : null
                 );
               }}
               className="absolute right-4 p-3 rounded-full bg-white/5 hover:bg-white/10 text-white transition-colors"
@@ -480,10 +479,11 @@ export default function DarkroomProject() {
                 className="w-full h-full relative"
               >
                 <Image
-                  src={mediaItems[lightboxIndex].src}
-                  alt={mediaItems[lightboxIndex].title}
+                  src={filteredItems[lightboxIndex].src}
+                  alt={filteredItems[lightboxIndex].title}
                   fill
                   priority
+                  unoptimized={filteredItems[lightboxIndex].type === "live"}
                   className="object-contain"
                   sizes="100vw"
                 />
@@ -493,7 +493,7 @@ export default function DarkroomProject() {
             {/* Bottom Caption */}
             <div className="absolute bottom-6 max-w-2xl text-center px-4">
               <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed">
-                {mediaItems[lightboxIndex].desc}
+                {filteredItems[lightboxIndex].desc}
               </p>
             </div>
           </motion.div>
