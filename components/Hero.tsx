@@ -518,12 +518,20 @@ export default function Hero() {
                         fillOpacity={0.3}
                       >
                         <div className="relative h-full overflow-hidden rounded-xl p-2">
-                          <div className="h-full overflow-hidden rounded-lg">
+                          <div className="relative h-full overflow-hidden rounded-lg">
                             <BentoCardMedia
                               project={project as any}
                               priority={bentoPage === 0 && i < 2}
                               playing={!paused}
                             />
+                            {/* Hover title overlay */}
+                            {project.title && !project.title.includes("empty") && (
+                              <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-background/70 p-4 text-center opacity-0 transition-all duration-300 group-hover:opacity-100">
+                                <span className="translate-y-4 text-lg font-bold tracking-tight text-white drop-shadow-xl transition-transform duration-500 group-hover:translate-y-0 sm:text-xl md:text-2xl">
+                                  {project.title}
+                                </span>
+                              </div>
+                            )}
                           </div>
 
                           {/* corner arrow button / Try me badge */}
