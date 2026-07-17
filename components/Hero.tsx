@@ -26,8 +26,10 @@ function slugify(text: string) {
 }
 
 // Bento card media — renders a silent looping video when the project has one,
-// falling back to the still image while animations are paused or the visitor
-// prefers reduced motion (the poster keeps the content visible either way).
+// otherwise the still image. The video autoplays by default (its poster keeps
+// the frame visible instantly) and only pauses via the global animation
+// toggle; reduced motion doesn't stop it, since the user asked for the clip
+// here and the pause button remains the manual control.
 function BentoCardMedia({
   project,
   priority,
@@ -517,7 +519,7 @@ export default function Hero() {
                             <BentoCardMedia
                               project={project as any}
                               priority={bentoPage === 0 && i < 2}
-                              playing={!paused && !reduceMotion}
+                              playing={!paused}
                             />
                           </div>
 

@@ -268,16 +268,17 @@
         "href": "https://www.lebab.ro"
       },
       {
-        "title": "Website Templates — Architecture & Real Estate",
-        "description": "Premium website templates designed for architecture studios and real estate agencies. Dark/gold aesthetics, featured project galleries, statistics sections, and responsive layouts crafted to showcase portfolios with maximum visual impact.",
+        "title": "AI Music Studio — MCP Audio Playground",
+        "description": "Interactive Web Audio workspace using AI & Model Context Protocol. Features an 8-pad MPC drum machine, responsive audio visualizer, real-time audio manipulation, and dynamic keyboard playback. Build beats directly in the browser.",
         "tags": [
-          "Web Design",
-          "UI/UX",
-          "Figma",
-          "Templates"
+          "React",
+          "Web Audio API",
+          "Framer Motion",
+          "MCP"
         ],
-        "image": "/images/proiecte/templates/template.jpg",
-        "imageAlt": "Architecture Website Template"
+        "image": "/images/proiecte/mcp-playground.webp",
+        "imageAlt": "MCP Audio Playground",
+        "href": "/mcp"
       },
       {
         "title": "Villa Visualizations — 3D Architectural Renders",

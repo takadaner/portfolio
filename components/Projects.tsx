@@ -95,8 +95,19 @@ export default function Projects() {
                         <motion.div
                           variants={{ rest: { opacity: 0 }, hover: { opacity: 1 } }}
                           transition={{ duration: 0.3 }}
-                          className="pointer-events-none absolute inset-0 bg-background/30"
-                        />
+                          className="pointer-events-none absolute inset-0 bg-background/70 flex items-center justify-center p-6 text-center"
+                        >
+                          <span className="text-white text-2xl md:text-3xl font-bold tracking-tight drop-shadow-xl translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                            {project.title}
+                          </span>
+                        </motion.div>
+                        {project.title.includes("MCP") && (
+                          <div className="absolute top-4 right-4 z-10 pointer-events-none">
+                            <span className="animate-pulse inline-flex items-center gap-2 rounded-full border border-amber-500/50 bg-amber-500/90 px-3 py-1 text-[10px] uppercase tracking-wider font-bold text-white shadow-lg backdrop-blur">
+                              Try me
+                            </span>
+                          </div>
+                        )}
                       </motion.div>
                     );
 

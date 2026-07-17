@@ -268,16 +268,17 @@
         "href": "https://www.lebab.ro"
       },
       {
-        "title": "Template-uri Website — Arhitectură & Imobiliare",
-        "description": "Template-uri web premium pentru studiouri de arhitectură și agenții imobiliare. Estetică dark/gold, galerii de proiecte, secțiuni statistice și layout-uri responsive, create pentru a prezenta portofolii cu impact vizual maxim.",
+        "title": "Studio Muzical AI — MCP Audio Playground",
+        "description": "Spațiu de lucru interactiv Web Audio folosind AI și Model Context Protocol. Include un drum machine MPC cu 8 pad-uri, vizualizator audio responsiv, manipulare audio în timp real și redare dinamică la tastatură.",
         "tags": [
-          "Web Design",
-          "UI/UX",
-          "Figma",
-          "Template-uri"
+          "React",
+          "Web Audio API",
+          "Framer Motion",
+          "MCP"
         ],
-        "image": "/images/proiecte/templates/template.jpg",
-        "imageAlt": "Template Website Arhitectură"
+        "image": "/images/proiecte/mcp-playground.webp",
+        "imageAlt": "MCP Audio Playground",
+        "href": "/mcp"
       },
       {
         "title": "Vizualizări Vile — Randări 3D Arhitecturale",

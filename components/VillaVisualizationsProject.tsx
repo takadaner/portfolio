@@ -157,6 +157,46 @@ export default function VillaVisualizationsProject() {
   const { lang } = useLanguage();
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
+  // Auto-scroll refs and state
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const grid1Ref = useRef<HTMLDivElement>(null);
+  const [isHovered, setIsHovered] = useState(false);
+
+  useEffect(() => {
+    let animationFrameId: number;
+    let lastTime = performance.now();
+
+    const scroll = (time: number) => {
+      if (!scrollContainerRef.current || !grid1Ref.current || isHovered) {
+        lastTime = time;
+        animationFrameId = requestAnimationFrame(scroll);
+        return;
+      }
+
+      const deltaTime = time - lastTime;
+      lastTime = time;
+
+      // Scroll speed (pixels per millisecond)
+      const speed = 0.04; 
+      
+      scrollContainerRef.current.scrollTop += speed * deltaTime;
+
+      // The exact reset point is the height of the first grid + the gap (20px for gap-5)
+      // We use offsetHeight because the gap is added by the parent's flex-col
+      const resetPoint = grid1Ref.current.offsetHeight + 20;
+
+      if (scrollContainerRef.current.scrollTop >= resetPoint) {
+        scrollContainerRef.current.scrollTop -= resetPoint;
+      }
+
+      animationFrameId = requestAnimationFrame(scroll);
+    };
+
+    animationFrameId = requestAnimationFrame(scroll);
+
+    return () => cancelAnimationFrame(animationFrameId);
+  }, [isHovered]);
+
   const tags = [
     "3D Rendering",
     "Architectural Visualization",
@@ -327,7 +367,7 @@ export default function VillaVisualizationsProject() {
             <div className="lg:sticky lg:top-32 space-y-12">
               
               {/* Back Button */}
-              <div>
+              <div className="flex justify-center xl:justify-start">
                 <Link
                   href="/projects"
                   className="inline-flex items-center gap-2 text-sm text-muted-2 hover:text-foreground transition-colors group"
@@ -341,7 +381,7 @@ export default function VillaVisualizationsProject() {
               </div>
 
               {/* Title & Header */}
-              <div className="flex flex-col gap-4">
+              <div className="flex flex-col gap-4 text-center xl:text-left">
                 <h1 className="text-4xl xl:text-5xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-foreground via-foreground to-amber-400">
                   {lang === "ro"
                     ? "Vizualizări Vile — Randări 3D"
@@ -355,7 +395,7 @@ export default function VillaVisualizationsProject() {
               </div>
 
               {/* Tech Badges */}
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap justify-center xl:justify-start gap-2">
                 {tags.map((tag) => (
                   <span
                     key={tag}
@@ -370,17 +410,30 @@ export default function VillaVisualizationsProject() {
           </Reveal>
 
           {/* Center Column — Bento Grid Gallery (Auto-Scrolling Marquee) */}
-          <div className="relative w-full h-[85vh] overflow-hidden rounded-xl border border-line/30 bg-surface/10 shadow-2xl">
+          <div 
+            className="relative w-full h-[85vh] overflow-hidden rounded-xl border border-line/30 bg-surface/10 shadow-2xl"
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+            onTouchStart={() => setIsHovered(true)}
+            onTouchEnd={() => setIsHovered(false)}
+          >
             
             {/* Fade masks for top/bottom of the marquee */}
             <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-[#050505] via-[#050505]/80 to-transparent z-10 pointer-events-none" />
             <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#050505] via-[#050505]/80 to-transparent z-10 pointer-events-none" />
 
-            {/* Marquee Wrapper */}
-            <div className="flex flex-col gap-5 animate-marquee-y hover:[animation-play-state:paused] pt-5">
+            {/* Scrollable Wrapper */}
+            <div 
+              ref={scrollContainerRef}
+              className="absolute inset-0 overflow-y-auto flex flex-col gap-5 pt-5 pb-5 hide-scrollbar"
+              style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+            >
+              <style dangerouslySetInnerHTML={{__html: `
+                .hide-scrollbar::-webkit-scrollbar { display: none; }
+              `}} />
               
               {/* Original Grid */}
-              <div className="grid w-full gap-4 md:gap-5 grid-cols-1 md:grid-cols-2 px-2">
+              <div ref={grid1Ref} className="grid w-full gap-4 md:gap-5 grid-cols-1 md:grid-cols-2 px-2">
                 {mediaItems.map((item, idx) => {
                   if (item.kind === "video") {
                     return (
@@ -434,7 +487,7 @@ export default function VillaVisualizationsProject() {
 
           {/* Right Column — Details */}
           <Reveal>
-            <div className="lg:sticky lg:top-32 space-y-10 mt-8 lg:mt-0">
+            <div className="lg:sticky lg:top-32 space-y-10 mt-8 lg:mt-0 text-center xl:text-left">
               <div className="pt-4 border-t border-line/50">
                 <h3 className="text-xs font-medium uppercase tracking-[0.2em] text-amber-400/80 mb-3">
                   {lang === "ro" ? "Despre proiect" : "About"}

@@ -6,6 +6,7 @@ import Navbar from "@/components/Navbar";
 import BottomNav from "@/components/BottomNav";
 import CustomCursor from "@/components/CustomCursor";
 import ScrollBehavior from "@/components/ScrollBehavior";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 
 const inter = Inter({
@@ -34,6 +35,7 @@ export default function RootLayout({
             <BottomNav />
           </AnimationProvider>
         </LanguageProvider>
+        <SpeedInsights />
       </body>
     </html>
   );
