@@ -228,19 +228,22 @@ export default function Hero() {
     },
   ];
 
-  let currentProjects = dict.projects.items.slice(
+  const mcpProject = dict.projects.items.find((p: any) => p.title.includes("MCP"));
+  const heroProjects = dict.projects.items.filter((p: any) => !p.title.includes("MCP"));
+
+  let currentProjects = heroProjects.slice(
     bentoPage * 6,
     bentoPage * 6 + 6
   );
 
-  if (bentoPage === 0 && currentProjects.length >= 6) {
+  if (bentoPage === 0 && currentProjects.length >= 5) {
     const arranged = [...currentProjects];
-    arranged[0] = currentProjects[3]; // Villa 3D walkthrough video in the big square
-    arranged[1] = currentProjects[1];
-    arranged[2] = currentProjects[2];
-    arranged[3] = { title: "empty-3", isEmptySlot: true } as any;
-    arranged[4] = currentProjects[4]; // Place Darkroom project in slot 4 instead of empty-4
-    arranged[5] = currentProjects[0];
+    arranged[0] = heroProjects[3]; // Villa 3D walkthrough video in the big square
+    arranged[1] = heroProjects[1];
+    arranged[2] = heroProjects[2];
+    arranged[3] = mcpProject || ({ title: "empty-3", isEmptySlot: true } as any);
+    arranged[4] = heroProjects[4]; // Place Darkroom project in slot 4 instead of empty-4
+    arranged[5] = heroProjects[0];
     currentProjects = arranged;
   }
   const currentLayout = gridLayouts[bentoPage % gridLayouts.length];
@@ -522,6 +525,17 @@ export default function Hero() {
                               playing={!paused}
                             />
                           </div>
+
+                          {project.title && project.title.includes("MCP") && (
+                            <div className="absolute inset-0 z-10 flex flex-col items-center justify-center pointer-events-none p-4 text-center bg-background/40">
+                              <span className="mb-2 animate-pulse rounded-full border border-amber-500/50 bg-amber-500/90 px-3 py-1 text-xs font-bold uppercase tracking-wider text-white shadow-lg backdrop-blur">
+                                Try me
+                              </span>
+                              <span className="text-white text-xl md:text-2xl font-bold tracking-tight drop-shadow-xl">
+                                {project.title}
+                              </span>
+                            </div>
+                          )}
 
                           {/* corner arrow button */}
                           <div className="absolute bottom-3 left-3 flex h-7 w-7 items-center justify-center rounded-full border border-line bg-background/80 backdrop-blur-sm transition-colors duration-300 group-hover:bg-foreground">
