@@ -14,6 +14,7 @@ import {
 import { useLanguage } from "@/lib/LanguageContext";
 import { useAnimationToggle } from "@/lib/AnimationContext";
 import { LogoMark } from "@/components/Logo";
+import "./ServicesRing.css";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 /** Camera pull-back: fast start, long settle — reads as a physical dolly. */
@@ -84,7 +85,7 @@ function RingOrbit({ layer, paused }: { layer: "back" | "front"; paused: boolean
         strokeWidth="3.5"
         strokeLinecap="round"
         strokeDasharray="26 74"
-        className="animate-ring-orbit blur-[3px]"
+        className="animate-ring-orbit blur-[3px] motion-reduce:animate-none"
       />
       <path
         d={ellipse}
@@ -94,7 +95,7 @@ function RingOrbit({ layer, paused }: { layer: "back" | "front"; paused: boolean
         strokeWidth="2"
         strokeLinecap="round"
         strokeDasharray="14 86"
-        className="animate-ring-orbit blur-[1.5px]"
+        className="animate-ring-orbit blur-[1.5px] motion-reduce:animate-none"
       />
       <path
         d={ellipse}
@@ -103,7 +104,7 @@ function RingOrbit({ layer, paused }: { layer: "back" | "front"; paused: boolean
         strokeWidth="1.6"
         strokeLinecap="round"
         strokeDasharray="7 93"
-        className="animate-ring-orbit"
+        className="animate-ring-orbit motion-reduce:animate-none"
       />
       <path
         d={ellipse}
@@ -113,7 +114,7 @@ function RingOrbit({ layer, paused }: { layer: "back" | "front"; paused: boolean
         strokeWidth="5"
         strokeLinecap="round"
         strokeDasharray="2.5 97.5"
-        className="animate-ring-orbit blur-[4px]"
+        className="animate-ring-orbit blur-[4px] motion-reduce:animate-none"
       />
     </>
   );

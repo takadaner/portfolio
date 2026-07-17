@@ -170,24 +170,34 @@ function bass(freq = 82.41, dur = 0.8) {
 }
 
 // ── Pad map ──────────────────────────────────────────────────────────────────
-// E natural-minor scale on the 8 piano pads; a drum kit on the rest.
+// The 8 piano pads carry the exact pitches of the Runaway riff — E, E-flat and
+// D-flat with the octave shifts requested — so the pads can be played back as
+// that melody. Each pad is a single sustained note (like a piano key); the
+// player performs the sequence/rhythm. Pads 9-16 are a drum kit.
+// Pitches use base octave 4; "up/down an octave" shift a note ±12 semitones.
 const NOTE = {
-  E4: 329.63, Fs4: 369.99, G4: 392.0, A4: 440.0,
-  B4: 493.88, C5: 523.25, D5: 587.33, E5: 659.25,
+  E4: 329.63,   // E                 (base)
+  E3: 164.81,   // E   down an octave
+  Eb5: 622.25,  // E-flat  up an octave
+  Eb3: 155.56,  // E-flat  down an octave
+  Db5: 554.37,  // D-flat  up an octave
+  Db3: 138.59,  // D-flat  down an octave
+  Eb4: 311.13,  // E-flat            (base)  — extra
+  Db4: 277.18,  // D-flat            (base)  — extra
 };
 
 const pads = [
-  () => piano(NOTE.E4),  // 1  Piano 1
-  () => piano(NOTE.Fs4), // 2  Piano 2
-  () => piano(NOTE.G4),  // 3  Piano 3
-  () => piano(NOTE.A4),  // 4  Piano 4
-  () => piano(NOTE.B4),  // 5  Piano 5
-  () => piano(NOTE.C5),  // 6  Piano 6
-  () => piano(NOTE.D5),  // 7  Piano 7
-  () => piano(NOTE.E5),  // 8  Piano 8
+  () => piano(NOTE.E4),  // 1  A  Piano 1 — E
+  () => piano(NOTE.E3),  // 2  S  Piano 2 — E  (down an octave)
+  () => piano(NOTE.Eb5), // 3  D  Piano 3 — E-flat  (up an octave)
+  () => piano(NOTE.Eb3), // 4  F  Piano 4 — E-flat  (down an octave)
+  () => piano(NOTE.Db5), // 5  G  Piano 5 — D-flat  (up an octave)
+  () => piano(NOTE.Db3), // 6  H  Piano 6 — D-flat  (down an octave)
+  () => piano(NOTE.Eb4), // 7  J  Piano 7 — E-flat  (base, extra)
+  () => piano(NOTE.Db4), // 8  K  Piano 8 — D-flat  (base, extra)
   () => kick(),          // 9  Beat Loop
   () => snare(),         // 10 LOOKATCHA
-  () => hat(0.08, 60),   // 11 Beau. Stars  (closed hat)
+  () => hat(0.08, 60),   // 11 Beautiful Stars (closed hat)
   () => clap(),          // 12 Ladies & Gents
   () => hat(0.34, 12),   // 13 Hey!         (open hat)
   () => tom(),           // 14 Stop

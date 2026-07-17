@@ -1,0 +1,23 @@
+/* Saturn-ring comet sweep (services intro). All layered dash patterns share
+   one leading edge (the offset grows, so the pattern travels against the
+   path direction): the shortest bright dash is the comet head, the longer
+   faint ones form its fading tail. Paths use pathLength="100". */
+@keyframes ring-orbit {
+  from {
+    stroke-dashoffset: 0;
+  }
+  to {
+    stroke-dashoffset: 100;
+  }
+}
+
+.animate-ring-orbit {
+  animation: ring-orbit 4.6s linear infinite;
+}
+
+/* Freeze (not hide) the comet for reduced-motion users. */
+@media (prefers-reduced-motion: reduce) {
+  .animate-ring-orbit {
+    animation: none;
+  }
+}
