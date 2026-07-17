@@ -1,86 +1,40 @@
 "use client";
 
-import { useRef, type ReactNode } from "react";
-import Image from "next/image";
-import Link from "next/link";
-import {
-  motion,
-  MotionConfig,
-  useScroll,
-  useTransform,
-} from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { motion, MotionConfig } from "framer-motion";
 import {
   Globe,
   Bot,
   Hotel,
   Server,
   Palette,
-  Workflow,
-  Plug,
-  LayoutDashboard,
   Search,
-  Code2,
-  Database,
-  MessageCircle,
-  PanelTop,
-  Zap,
-  Radio,
-  Smartphone,
-  Cpu,
-  Check,
-  X,
-  ArrowUpRight,
-  Sparkle,
   type LucideIcon,
 } from "lucide-react";
 import { useLanguage } from "@/lib/LanguageContext";
 import { useAnimationToggle } from "@/lib/AnimationContext";
-import Reveal from "./Reveal";
+import { LogoMark } from "@/components/Logo";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
+const INTRO_KEY = "services-intro-played";
+const INTRO_MS = 1600;
 
-const serviceIcons: Record<string, LucideIcon> = {
+const pillIcons: Record<string, LucideIcon> = {
   globe: Globe,
   bot: Bot,
   hotel: Hotel,
   server: Server,
   palette: Palette,
-};
-
-const tagIcons: Record<string, LucideIcon> = {
-  workflow: Workflow,
-  plug: Plug,
-  layout: LayoutDashboard,
   search: Search,
-  code: Code2,
-  database: Database,
-  message: MessageCircle,
-  panel: PanelTop,
-  zap: Zap,
-  radio: Radio,
-  smartphone: Smartphone,
-  cpu: Cpu,
 };
 
-type ServiceItem = {
-  icon: string;
-  title: string;
-  description: string;
-  media: string;
-  image?: string;
-  imageAlt?: string;
-  url?: string;
-  features?: string[];
-};
+type ServicePill = { icon: string; label: string };
 
-type Tag = { icon: string; label: string };
+/** "boot" = pre-hydration (all hidden) → "intro" = big pill + ring →
+    "page" = pill shrinks into place, heading + satellites compose in. */
+type Phase = "boot" | "intro" | "page";
 
-type WhyRowData = {
-  pro: { title: string; description: string };
-  con: { title: string; description: string };
-};
-
-function Pill({ label }: { label: string }) {
+function LiveDotPill({ label }: { label: string }) {
   return (
     <span className="inline-flex items-center gap-2 rounded-full border border-line bg-surface px-4 py-1.5 text-xs text-muted">
       <span className="relative flex h-1.5 w-1.5">
@@ -92,636 +46,330 @@ function Pill({ label }: { label: string }) {
   );
 }
 
-function ContactButton({ label }: { label: string }) {
-  return (
-    <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
-      <Link
-        href="/contact"
-        className="inline-flex items-center gap-1.5 rounded-full border border-[#2c2c2c] bg-gradient-to-b from-[#242424] to-[#141414] px-5 py-2.5 text-sm font-medium text-foreground transition-colors duration-300 hover:from-[#2c2c2c] hover:to-[#1a1a1a]"
-      >
-        <Sparkle size={15} className="fill-foreground" />
-        {label}
-      </Link>
-    </motion.div>
-  );
-}
+/** One half of the tilted "Saturn" light trail. The back half passes above
+    the pill (behind it), the front half sweeps under it (in front), so the
+    ring reads as orbiting the pill in 3D. */
+function RingArc({ layer, paused }: { layer: "back" | "front"; paused: boolean }) {
+  const d =
+    layer === "back"
+      ? "M 4 35 A 96 26 0 0 1 196 35"
+      : "M 196 35 A 96 26 0 0 1 4 35";
+  const gradId = `ring-grad-${layer}`;
 
-function GhostButton({ label, href }: { label: string; href: string }) {
-  return (
-    <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
-      <Link
-        href={href}
-        className="inline-flex items-center gap-1.5 rounded-full border border-line bg-surface px-5 py-2.5 text-sm font-medium text-muted transition-colors duration-300 hover:text-foreground"
-      >
-        {label}
-      </Link>
-    </motion.div>
-  );
-}
-
-function SectionHead({
-  label,
-  title1,
-  title2,
-  subtitle,
-  center = false,
-  action,
-  headingArrow = false,
-  subtitleNoWrap = false,
-}: {
-  label: string;
-  title1: string;
-  title2: string;
-  subtitle: string;
-  center?: boolean;
-  action?: ReactNode;
-  headingArrow?: boolean;
-  subtitleNoWrap?: boolean;
-}) {
-  return (
-    <Reveal>
-      <div
-        className={
-          center
-            ? "flex flex-col items-center text-center"
-            : "flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between"
-        }
-      >
-        <div className={center ? "flex flex-col items-center" : ""}>
-          <Pill label={label} />
-          <h2 className="mt-5 flex items-center gap-3 text-4xl font-semibold leading-[1.05] tracking-tight sm:text-5xl">
-            <span>
-              <span className="text-foreground">{title1} </span>
-              <span className="text-muted-2">{title2}</span>
-            </span>
-            {headingArrow && (
-              <span className="flex h-9 w-9 items-center justify-center rounded-full border border-line text-muted">
-                <ArrowUpRight size={18} strokeWidth={1.6} />
-              </span>
-            )}
-          </h2>
-          <p
-            className={`mt-4 max-w-xl text-base text-muted ${
-              center ? "mx-auto" : ""
-            } ${subtitleNoWrap ? "lg:max-w-none lg:whitespace-nowrap" : ""}`}
-          >
-            {subtitle}
-          </p>
-        </div>
-        {action && (
-          <div className="flex flex-wrap gap-3 sm:pb-2">{action}</div>
-        )}
-      </div>
-    </Reveal>
-  );
-}
-
-function FeatureList({ features }: { features: string[] }) {
-  return (
-    <ul className="mt-5 flex flex-col gap-2.5">
-      {features.map((feature) => (
-        <li
-          key={feature}
-          className="flex items-start gap-2.5 text-sm leading-relaxed text-muted"
-        >
-          <span className="mt-1 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-surface-2 text-foreground ring-1 ring-line">
-            <Check size={10} strokeWidth={2.6} />
-          </span>
-          {feature}
-        </li>
-      ))}
-    </ul>
-  );
-}
-
-/** Minimal browser chrome around a real project screenshot. */
-function BrowserFrame({
-  url,
-  image,
-  alt,
-}: {
-  url?: string;
-  image: string;
-  alt: string;
-}) {
-  return (
-    <div className="overflow-hidden rounded-2xl border border-line bg-surface-2 shadow-2xl shadow-black/50">
-      <div className="flex items-center gap-1.5 border-b border-line px-4 py-2.5">
-        <span className="h-2.5 w-2.5 rounded-full bg-[#3a3a3a]" />
-        <span className="h-2.5 w-2.5 rounded-full bg-[#3a3a3a]" />
-        <span className="h-2.5 w-2.5 rounded-full bg-[#3a3a3a]" />
-        {url && (
-          <span className="ml-3 flex min-w-0 flex-1 items-center gap-1.5 rounded-md bg-background/60 px-3 py-1 text-[11px] text-muted-2">
-            <Globe size={11} className="shrink-0" />
-            <span className="truncate">{url}</span>
-          </span>
-        )}
-      </div>
-      <div className="relative aspect-[16/10]">
-        <Image
-          src={image}
-          alt={alt}
-          fill
-          sizes="(max-width: 1024px) 100vw, 50vw"
-          className="object-cover object-top"
-        />
-      </div>
-    </div>
-  );
-}
-
-function NumberBadge({ index }: { index: number }) {
-  return (
-    <span className="text-xs font-medium tracking-widest text-muted-2">
-      {String(index).padStart(2, "0")}
-    </span>
-  );
-}
-
-/** Full-width hero card: copy + feature list on the left, live-site
-    preview in a browser frame on the right. */
-function FeaturedServiceCard({ item }: { item: ServiceItem }) {
-  const Icon = serviceIcons[item.icon] ?? Globe;
+  // dust particles trailing the ring along its lower-left sweep
+  const particles: [number, number, number][] = [
+    [26, 44, 1.3],
+    [34, 50, 0.8],
+    [45, 56, 1.1],
+    [38, 60, 0.7],
+    [56, 62, 0.9],
+    [50, 66, 0.6],
+  ];
 
   return (
-    <motion.article
-      initial={{ opacity: 0, y: 28 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 0.6, ease: EASE }}
-      className="group relative overflow-hidden rounded-card border border-line bg-surface transition-colors duration-300 hover:border-[#333]"
+    <motion.svg
+      viewBox="0 0 200 70"
+      fill="none"
+      aria-hidden
+      initial={false}
+      animate={paused ? { opacity: 0.85 } : { opacity: [0.65, 1, 0.65] }}
+      transition={
+        paused
+          ? { duration: 0 }
+          : { duration: 4.5, repeat: Infinity, ease: "easeInOut" }
+      }
+      className={`pointer-events-none absolute left-1/2 top-1/2 w-[180%] -translate-x-1/2 -translate-y-1/2 -rotate-[14deg] ${
+        layer === "front" ? "z-20" : "z-0"
+      }`}
     >
-      <div className="grid gap-8 p-6 sm:p-8 lg:grid-cols-[1fr_1.15fr] lg:items-center lg:gap-12 lg:p-10">
-        <div>
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <span className="flex h-9 w-9 items-center justify-center rounded-lg border border-line bg-surface-2 text-muted transition-colors duration-300 group-hover:text-foreground">
-                <Icon size={17} strokeWidth={1.6} />
-              </span>
-              <h3 className="text-xl font-semibold text-foreground">
-                {item.title}
-              </h3>
-            </div>
-            <NumberBadge index={1} />
-          </div>
-
-          <p className="mt-4 text-sm leading-relaxed text-muted">
-            {item.description}
-          </p>
-
-          {item.features && <FeatureList features={item.features} />}
-        </div>
-
-        {item.image && (
-          <div className="relative">
-            <div
-              aria-hidden
-              className="pointer-events-none absolute -inset-6 rounded-[2.5rem] bg-gradient-to-tr from-foreground/[0.04] via-transparent to-foreground/[0.08] blur-xl"
-            />
-            <motion.div
-              whileHover={{ y: -5 }}
-              transition={{ duration: 0.5, ease: EASE }}
-              className="relative"
-            >
-              <BrowserFrame
-                url={item.url}
-                image={item.image}
-                alt={item.imageAlt ?? item.title}
-              />
-            </motion.div>
-          </div>
+      <defs>
+        {layer === "back" ? (
+          <linearGradient id={gradId} x1="0" y1="1" x2="1" y2="0">
+            <stop offset="0" stopColor="#ffffff" stopOpacity="0" />
+            <stop offset="0.55" stopColor="#ffffff" stopOpacity="0.22" />
+            <stop offset="1" stopColor="#ffffff" stopOpacity="0.95" />
+          </linearGradient>
+        ) : (
+          <linearGradient id={gradId} x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stopColor="#ffffff" stopOpacity="0" />
+            <stop offset="0.6" stopColor="#ffffff" stopOpacity="0.12" />
+            <stop offset="1" stopColor="#ffffff" stopOpacity="0.5" />
+          </linearGradient>
         )}
-      </div>
-    </motion.article>
-  );
-}
-
-function ServiceCard({
-  item,
-  delay,
-  index,
-}: {
-  item: ServiceItem;
-  delay: number;
-  index: number;
-}) {
-  const Icon = serviceIcons[item.icon] ?? Globe;
-
-  return (
-    <motion.article
-      initial={{ opacity: 0, y: 28 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 0.6, ease: EASE, delay }}
-      whileHover={{ y: -4 }}
-      className="group relative flex h-full flex-col overflow-hidden rounded-card border border-line bg-surface p-6 transition-colors duration-300 hover:border-[#333] sm:p-7"
-    >
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <span className="flex h-9 w-9 items-center justify-center rounded-lg border border-line bg-surface-2 text-muted transition-colors duration-300 group-hover:text-foreground">
-            <Icon size={17} strokeWidth={1.6} />
-          </span>
-          <h3 className="text-lg font-semibold text-foreground">{item.title}</h3>
-        </div>
-        <NumberBadge index={index} />
-      </div>
-
-      <p className="mt-4 text-sm leading-relaxed text-muted">
-        {item.description}
-      </p>
-
-      {item.features && <FeatureList features={item.features} />}
-
-      {item.image && (
-        <div className="relative mt-6 flex-1">
-          <div className="relative aspect-[16/10] min-h-full overflow-hidden rounded-2xl border border-line">
-            <Image
-              src={item.image}
-              alt={item.imageAlt ?? item.title}
-              fill
-              sizes="(max-width: 640px) 100vw, 50vw"
-              className="object-cover object-top transition-transform duration-700 ease-out-soft group-hover:scale-[1.03]"
-            />
-          </div>
-        </div>
-      )}
-    </motion.article>
-  );
-}
-
-function MarqueeRow({
-  tags,
-  reverse = false,
-  duration = 32,
-}: {
-  tags: Tag[];
-  reverse?: boolean;
-  duration?: number;
-}) {
-  const { paused } = useAnimationToggle();
-  const loop = [...tags, ...tags];
-
-  const animClass = reverse ? "animate-marquee-x-reverse" : "animate-marquee-x";
-
-  return (
-    <div className="select-none overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)] hover:[&>div]:[animation-play-state:paused]">
-      <div
-        className={`flex w-max gap-3 py-1 ${paused ? "" : animClass}`}
-        style={{ animationDuration: `${duration}s` }}
-      >
-        {loop.map((tag, i) => {
-          const Icon = tagIcons[tag.icon] ?? Code2;
-          return (
-            <span
-              key={`${tag.label}-${i}`}
-              className="inline-flex shrink-0 items-center gap-2 rounded-full border border-line bg-surface px-4 py-2 text-sm text-muted"
-            >
-              <Icon size={15} strokeWidth={1.6} className="text-muted-2" />
-              {tag.label}
-            </span>
-          );
-        })}
-      </div>
-    </div>
-  );
-}
-
-function RecentCard({
-  title,
-  alt,
-  image,
-  ratio,
-  cursor,
-  delay,
-  href,
-}: {
-  title: string;
-  alt: string;
-  image: string;
-  ratio: string;
-  cursor: string;
-  delay: number;
-  href?: string;
-}) {
-  const content = (
-    <Reveal delay={delay}>
-      <motion.div
-        whileHover="hover"
-        initial="rest"
-        animate="rest"
-        data-cursor={cursor}
-        className={`group relative w-full cursor-pointer overflow-hidden rounded-card border border-line bg-surface ${ratio}`}
-      >
-        <motion.div
-          variants={{ rest: { scale: 1 }, hover: { scale: 1.06 } }}
-          transition={{ duration: 0.7, ease: EASE }}
-          className="absolute inset-0"
-        >
-          <Image
-            src={image}
-            alt={alt}
-            fill
-            sizes="(max-width: 640px) 100vw, 50vw"
-            className="object-cover"
+      </defs>
+      <path
+        d={d}
+        stroke={`url(#${gradId})`}
+        strokeWidth="4.5"
+        strokeLinecap="round"
+        className="blur-[3px]"
+      />
+      <path d={d} stroke={`url(#${gradId})`} strokeWidth="1.6" strokeLinecap="round" />
+      {layer === "front" &&
+        particles.map(([cx, cy, r], i) => (
+          <motion.circle
+            key={`${cx}-${cy}`}
+            cx={cx}
+            cy={cy}
+            r={r}
+            fill="#ffffff"
+            initial={false}
+            animate={paused ? { opacity: 0.35 } : { opacity: [0.1, 0.8, 0.1] }}
+            transition={
+              paused
+                ? { duration: 0 }
+                : {
+                    duration: 2.4,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: i * 0.35,
+                  }
+            }
           />
-        </motion.div>
-
-        <motion.div
-          variants={{ rest: { opacity: 0.25 }, hover: { opacity: 0.7 } }}
-          transition={{ duration: 0.3 }}
-          className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background to-transparent"
-        />
-
-        <span className="absolute bottom-4 left-4 flex h-9 w-9 items-center justify-center rounded-full border border-line bg-background/70 text-foreground backdrop-blur-sm transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1">
-          <ArrowUpRight size={17} strokeWidth={1.7} />
-        </span>
-
-        <span className="pointer-events-none absolute bottom-5 right-5 text-sm font-medium text-foreground opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-          {title}
-        </span>
-      </motion.div>
-    </Reveal>
+        ))}
+    </motion.svg>
   );
-
-  if (href) {
-    if (href.startsWith("/")) {
-      return (
-        <Link href={href} className="block w-full">
-          {content}
-        </Link>
-      );
-    }
-    return (
-      <a href={href} target="_blank" rel="noopener noreferrer" className="block w-full">
-        {content}
-      </a>
-    );
-  }
-
-  return content;
 }
 
-function WhyRow({ row, index }: { row: WhyRowData; index: number }) {
-  const delay = index * 0.1;
+/** The central black brand pill with the orbiting ring. Starts blown up
+    during the intro, then shrinks into its slot in the composition. */
+function CenterPill({
+  phase,
+  fromIntro,
+  label,
+  paused,
+}: {
+  phase: Phase;
+  fromIntro: boolean;
+  label: string;
+  paused: boolean;
+}) {
+  return (
+    <motion.div
+      initial={false}
+      animate={
+        phase === "boot"
+          ? { opacity: 0, scale: 1.75, y: -48 }
+          : phase === "intro"
+          ? { opacity: 1, scale: 1.75, y: -48 }
+          : { opacity: 1, scale: 1, y: 0 }
+      }
+      transition={
+        phase === "page"
+          ? { duration: 0.95, ease: EASE, delay: fromIntro ? 0.1 : 0 }
+          : { duration: 0.55, ease: "easeOut" }
+      }
+      className="relative"
+    >
+      <div
+        aria-hidden
+        className="pointer-events-none absolute left-1/2 top-1/2 h-36 w-[140%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-foreground/[0.04] blur-3xl"
+      />
+      <RingArc layer="back" paused={paused} />
+      <div className="relative z-10 flex items-center gap-3 rounded-full border border-[#2c2c2c] bg-gradient-to-b from-[#242424] to-[#141414] px-6 py-3.5 shadow-[0_24px_70px_-12px_rgba(0,0,0,0.85)] sm:px-7 sm:py-4">
+        <LogoMark size={30} />
+        <span className="whitespace-nowrap text-lg font-semibold tracking-tight text-foreground sm:text-xl">
+          {label}
+        </span>
+      </div>
+      <RingArc layer="front" paused={paused} />
+    </motion.div>
+  );
+}
+
+function ServiceChip({ pill }: { pill: ServicePill }) {
+  const Icon = pillIcons[pill.icon] ?? Globe;
+  return (
+    <div className="flex min-w-0 items-center gap-2.5 rounded-2xl border border-line bg-gradient-to-b from-[#161616] to-[#0e0e0e] px-4 py-3 shadow-lg shadow-black/40 transition-colors duration-300 hover:border-[#333]">
+      <Icon size={16} strokeWidth={1.7} className="shrink-0 text-muted" />
+      <span className="truncate text-sm font-medium text-foreground">
+        {pill.label}
+      </span>
+    </div>
+  );
+}
+
+/** Desktop satellite: chip + hairline connector pointing at the center
+    pill. The middle row sits closer to the center, hinting at an orbit. */
+function Satellite({
+  pill,
+  side,
+  row,
+  index,
+  phase,
+  fromIntro,
+}: {
+  pill: ServicePill;
+  side: "left" | "right";
+  row: number;
+  index: number;
+  phase: Phase;
+  fromIntro: boolean;
+}) {
+  const delay = phase === "page" ? (fromIntro ? 0.6 : 0.15) + index * 0.08 : 0;
+  const arcOffset =
+    row === 1 ? (side === "left" ? "sm:translate-x-8" : "sm:-translate-x-8") : "";
+  const lineWidth = row === 1 ? "w-8 lg:w-12" : "w-12 lg:w-20";
+
+  const line = (
+    <motion.span
+      initial={false}
+      style={{ originX: side === "left" ? 0 : 1 }}
+      animate={
+        phase === "page" ? { opacity: 1, scaleX: 1 } : { opacity: 0, scaleX: 0.3 }
+      }
+      transition={{ duration: 0.6, ease: EASE, delay: delay + 0.1 }}
+      className={`h-px shrink-0 ${lineWidth} ${
+        side === "left"
+          ? "bg-gradient-to-r from-[#3a3a3a] to-transparent"
+          : "bg-gradient-to-l from-[#3a3a3a] to-transparent"
+      }`}
+    />
+  );
 
   return (
     <motion.div
-      initial="hidden"
-      whileInView="shown"
-      viewport={{ amount: 0.3, margin: "-10% 0px" }}
-      className="grid grid-cols-1 gap-px overflow-hidden rounded-card border border-line bg-line sm:grid-cols-2"
+      initial={false}
+      animate={
+        phase === "page"
+          ? { opacity: 1, y: 0, scale: 1 }
+          : { opacity: 0, y: 16, scale: 0.95 }
+      }
+      transition={{ duration: 0.55, ease: EASE, delay }}
+      className={`flex items-center ${arcOffset}`}
     >
-      {/* PRO */}
-      <motion.div
-        variants={{
-          hidden: { opacity: 0, x: -56 },
-          shown: { opacity: 1, x: 0 },
-        }}
-        transition={{ duration: 0.6, ease: EASE, delay }}
-        className="bg-surface p-6 sm:p-8"
-      >
-        <span className="flex h-7 w-7 items-center justify-center rounded-full bg-surface-2 text-foreground ring-1 ring-line">
-          <Check size={15} strokeWidth={2.4} />
-        </span>
-        <h3 className="mt-5 text-lg font-semibold text-foreground">
-          {row.pro.title}
-        </h3>
-        <p className="mt-2 text-sm leading-relaxed text-muted">
-          {row.pro.description}
-        </p>
-      </motion.div>
-
-      {/* CON */}
-      <motion.div
-        variants={{
-          hidden: { opacity: 0, x: 56 },
-          shown: { opacity: 1, x: 0 },
-        }}
-        transition={{ duration: 0.6, ease: EASE, delay }}
-        className="bg-surface p-6 sm:p-8"
-      >
-        <span className="flex h-7 w-7 items-center justify-center rounded-full bg-surface-2 text-muted-2 ring-1 ring-line">
-          <X size={15} strokeWidth={2.4} />
-        </span>
-        <h3 className="mt-5 text-lg font-semibold text-muted">
-          {row.con.title}
-        </h3>
-        <p className="mt-2 text-sm leading-relaxed text-muted-2">
-          {row.con.description}
-        </p>
-      </motion.div>
+      {side === "left" ? (
+        <>
+          <ServiceChip pill={pill} />
+          {line}
+        </>
+      ) : (
+        <>
+          {line}
+          <ServiceChip pill={pill} />
+        </>
+      )}
     </motion.div>
-  );
-}
-
-function WhyMe() {
-  const { dict } = useLanguage();
-  const why = dict.services.why;
-  const railRef = useRef<HTMLDivElement>(null);
-
-  const { scrollYProgress } = useScroll({
-    target: railRef,
-    offset: ["start 0.7", "end 0.7"],
-  });
-  const railScale = useTransform(scrollYProgress, [0, 1], [0, 1]);
-
-  return (
-    <section className="px-6 pb-28 pt-24 sm:pt-32">
-      <div className="mx-auto max-w-content">
-        <SectionHead
-          label={why.label}
-          title1={why.title1}
-          title2={why.title2}
-          subtitle={why.subtitle}
-          center
-        />
-
-        <div ref={railRef} className="relative mt-14">
-          <div className="pointer-events-none absolute left-1/2 top-0 hidden h-full w-px -translate-x-1/2 bg-line sm:block">
-            <motion.div
-              style={{ scaleY: railScale }}
-              className="h-full w-full origin-top bg-gradient-to-b from-foreground/70 via-foreground/30 to-transparent"
-            />
-          </div>
-
-          <div className="flex flex-col gap-5">
-            {why.rows.map((row, i) => (
-              <WhyRow key={row.pro.title} row={row} index={i} />
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function FinalCta() {
-  const { dict } = useLanguage();
-  const c = dict.services.finalCta;
-
-  return (
-    <section className="px-6 pb-32">
-      <div className="mx-auto max-w-content">
-        <Reveal>
-          <div className="relative overflow-hidden rounded-card border border-line bg-surface px-6 py-16 text-center sm:py-20">
-            <div
-              aria-hidden
-              className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(255,255,255,0.05),transparent_60%)]"
-            />
-            <div className="relative flex flex-col items-center">
-              <Pill label={c.label} />
-              <h2 className="mt-5 text-4xl font-semibold leading-[1.05] tracking-tight sm:text-5xl">
-                <span className="text-foreground">{c.title1} </span>
-                <span className="text-muted-2">{c.title2}</span>
-              </h2>
-              <p className="mt-4 max-w-xl text-base text-muted">{c.subtitle}</p>
-              <div className="mt-8 flex flex-wrap justify-center gap-3">
-                <ContactButton label={c.cta} />
-                <GhostButton label={c.secondary} href="/projects" />
-              </div>
-            </div>
-          </div>
-        </Reveal>
-      </div>
-    </section>
-  );
-}
-
-function SectionDivider() {
-  return (
-    <div className="px-6" aria-hidden>
-      <div className="h-12 overflow-hidden">
-        <div className="h-24 rounded-t-[3rem] border-x border-t border-line [mask-image:linear-gradient(to_bottom,black,transparent_75%)]" />
-      </div>
-    </div>
   );
 }
 
 export default function Services() {
   const { dict } = useLanguage();
+  const { paused } = useAnimationToggle();
   const s = dict.services;
-  const items = s.items as ServiceItem[];
+  const pills = s.pills as ServicePill[];
 
-  const half = Math.ceil(s.tags.length / 2);
-  const rowA = s.tags.slice(0, half);
-  const rowB = s.tags.slice(half);
+  const [phase, setPhase] = useState<Phase>("boot");
+  const [fromIntro, setFromIntro] = useState(false);
+  const decided = useRef(false);
 
-  const recent = dict.projects.items.slice(0, 4);
-  const ratios = ["aspect-[16/13]", "aspect-[16/11]", "aspect-[16/11]", "aspect-[16/13]"];
+  useEffect(() => {
+    if (decided.current) return;
+    decided.current = true;
+
+    if (paused || sessionStorage.getItem(INTRO_KEY)) {
+      setPhase("page");
+      return;
+    }
+
+    setFromIntro(true);
+    setPhase("intro");
+    const t = setTimeout(() => {
+      sessionStorage.setItem(INTRO_KEY, "1");
+      setPhase("page");
+    }, INTRO_MS);
+    return () => clearTimeout(t);
+  }, [paused]);
+
+  const left = pills.slice(0, 3);
+  const right = pills.slice(3, 6);
+
+  const headDelay = phase === "page" ? (fromIntro ? 0.45 : 0.05) : 0;
 
   return (
-    <>
-      <section className="px-6 pb-20 pt-32 sm:pt-40">
-        <div className="mx-auto max-w-content">
-          <SectionHead
-            label={s.label}
-            title1={s.title1}
-            title2={s.title2}
-            subtitle={s.subtitle}
-            subtitleNoWrap
-            action={<ContactButton label={s.cta} />}
-          />
+    <MotionConfig reducedMotion="user">
+      <section className="relative flex min-h-[100svh] flex-col items-center justify-center overflow-hidden px-6 pb-28 pt-24 sm:pb-14 sm:pt-28">
+        {/* heading */}
+        <motion.div
+          initial={false}
+          animate={
+            phase === "page" ? { opacity: 1, y: 0 } : { opacity: 0, y: 22 }
+          }
+          transition={{ duration: 0.7, ease: EASE, delay: headDelay }}
+          className="flex flex-col items-center text-center"
+        >
+          <LiveDotPill label={s.label} />
+          <h1 className="mt-5 text-4xl font-semibold leading-[1.05] tracking-tight sm:text-5xl">
+            <span className="text-foreground">{s.title1} </span>
+            <span className="text-muted-2">{s.title2}</span>
+          </h1>
+          <p className="mt-4 max-w-xl text-base text-muted">{s.subtitle}</p>
+        </motion.div>
 
-          <div className="mt-14 flex flex-col gap-6">
-            {/* featured card: copy + live-site preview; the rest form a symmetric grid */}
-            <FeaturedServiceCard item={items[0]} />
-            <div className="grid gap-6 [grid-auto-rows:1fr] sm:grid-cols-2">
-              {items.slice(1).map((item, i) => (
-                <ServiceCard
-                  key={item.title}
-                  item={item}
-                  index={i + 2}
-                  delay={0.05 + i * 0.05}
+        {/* orbit composition */}
+        <div className="mt-12 w-full max-w-5xl sm:mt-16">
+          <div className="grid grid-cols-1 items-center sm:grid-cols-[1fr_auto_1fr]">
+            <div className="hidden flex-col items-end gap-7 sm:flex">
+              {left.map((pill, row) => (
+                <Satellite
+                  key={pill.label}
+                  pill={pill}
+                  side="left"
+                  row={row}
+                  index={row * 2}
+                  phase={phase}
+                  fromIntro={fromIntro}
+                />
+              ))}
+            </div>
+
+            <div className="flex justify-center sm:px-6">
+              <CenterPill
+                phase={phase}
+                fromIntro={fromIntro}
+                label={dict.nav.logo}
+                paused={paused}
+              />
+            </div>
+
+            <div className="hidden flex-col items-start gap-7 sm:flex">
+              {right.map((pill, row) => (
+                <Satellite
+                  key={pill.label}
+                  pill={pill}
+                  side="right"
+                  row={row}
+                  index={row * 2 + 1}
+                  phase={phase}
+                  fromIntro={fromIntro}
                 />
               ))}
             </div>
           </div>
 
-          <div className="mt-8 flex flex-col gap-3">
-            <MarqueeRow tags={rowA} duration={30} />
-            <MarqueeRow tags={rowB} reverse duration={36} />
+          {/* mobile: chips stack under the pill */}
+          <div className="mt-10 grid grid-cols-2 gap-3 sm:hidden">
+            {pills.map((pill, i) => (
+              <motion.div
+                initial={false}
+                animate={
+                  phase === "page"
+                    ? { opacity: 1, y: 0 }
+                    : { opacity: 0, y: 14 }
+                }
+                transition={{
+                  duration: 0.55,
+                  ease: EASE,
+                  delay: phase === "page" ? (fromIntro ? 0.55 : 0.1) + i * 0.06 : 0,
+                }}
+                key={pill.label}
+              >
+                <ServiceChip pill={pill} />
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
-
-      <SectionDivider />
-
-      <section className="px-6 py-20">
-        <div className="mx-auto max-w-content">
-          <SectionHead
-            label={s.recent.label}
-            title1={s.recent.title1}
-            title2={s.recent.title2}
-            subtitle={s.recent.subtitle}
-            headingArrow
-            action={
-              <>
-                <GhostButton label={s.recent.seeAll} href="/projects" />
-                <ContactButton label={s.recent.cta} />
-              </>
-            }
-          />
-
-          <div className="mt-14 grid items-start gap-6 sm:grid-cols-2">
-            <div className="flex flex-col gap-6">
-              {recent[2] && (
-                <RecentCard
-                  title={recent[2].title}
-                  alt={recent[2].imageAlt}
-                  image={recent[2].image}
-                  ratio={ratios[0]}
-                  cursor={dict.projects.view}
-                  delay={0}
-                  href={(recent[2] as any).href}
-                />
-              )}
-              {recent[3] && (
-                <RecentCard
-                  title={recent[3].title}
-                  alt={recent[3].imageAlt}
-                  image={recent[3].image}
-                  ratio={ratios[3]}
-                  cursor={dict.projects.view}
-                  delay={0.15}
-                  href={(recent[3] as any).href}
-                />
-              )}
-            </div>
-            <div className="flex flex-col gap-6">
-              {recent[1] && (
-                <RecentCard
-                  title={recent[1].title}
-                  alt={recent[1].imageAlt}
-                  image={recent[1].image}
-                  ratio={ratios[1]}
-                  cursor={dict.projects.view}
-                  delay={0.1}
-                  href={(recent[1] as any).href}
-                />
-              )}
-              {recent[0] && (
-                <RecentCard
-                  title={recent[0].title}
-                  alt={recent[0].imageAlt}
-                  image={recent[0].image}
-                  ratio={ratios[2]}
-                  cursor={dict.projects.view}
-                  delay={0.2}
-                  href={(recent[0] as any).href}
-                />
-              )}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <SectionDivider />
-
-      <MotionConfig reducedMotion="user">
-        <WhyMe />
-      </MotionConfig>
-
-      <FinalCta />
-    </>
+    </MotionConfig>
   );
 }

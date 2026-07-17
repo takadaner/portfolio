@@ -268,17 +268,16 @@
         "href": "https://www.lebab.ro"
       },
       {
-        "title": "Studio Muzical AI — MCP Audio Playground",
-        "description": "Spațiu de lucru interactiv Web Audio folosind AI și Model Context Protocol. Include un drum machine MPC cu 8 pad-uri, vizualizator audio responsiv, manipulare audio în timp real și redare dinamică la tastatură.",
+        "title": "Template-uri Website — Arhitectură & Imobiliare",
+        "description": "Template-uri web premium pentru studiouri de arhitectură și agenții imobiliare. Estetică dark/gold, galerii de proiecte, secțiuni statistice și layout-uri responsive, create pentru a prezenta portofolii cu impact vizual maxim.",
         "tags": [
-          "React",
-          "Web Audio API",
-          "Framer Motion",
-          "MCP"
+          "Web Design",
+          "UI/UX",
+          "Figma",
+          "Template-uri"
         ],
-        "image": "/images/proiecte/mcp-playground.webp",
-        "imageAlt": "MCP Audio Playground",
-        "href": "/mcp"
+        "image": "/images/proiecte/templates/template.jpg",
+        "imageAlt": "Template Website Arhitectură"
       },
       {
         "title": "Vizualizări Vile — Randări 3D Arhitecturale",
@@ -334,15 +333,17 @@
         "href": "/projects/hotel-saas-suite"
       },
       {
-        "title": "Freelance websites & web apps",
-        "description": "Soluții web custom pentru diverși clienți.",
+        "title": "Studio Muzical AI — MCP Audio Playground",
+        "description": "Spațiu de lucru interactiv Web Audio folosind AI și Model Context Protocol. Include un drum machine MPC cu 8 pad-uri, vizualizator audio responsiv, manipulare audio în timp real și redare dinamică la tastatură.",
         "tags": [
           "React",
-          "Next.js",
-          "Tailwind CSS"
+          "Web Audio API",
+          "Framer Motion",
+          "MCP"
         ],
-        "image": "/images/proiecte/proiect3.avif",
-        "imageAlt": "Freelance projects"
+        "image": "/images/proiecte/mcp-playground.webp",
+        "imageAlt": "MCP Audio Playground",
+        "href": "/mcp"
       },
       {
         "title": "Darkroom — Projection Mapping",
@@ -660,120 +661,32 @@
         ]
       }
     ],
-    "tags": [
+    "pills": [
       {
-        "icon": "workflow",
-        "label": "Automatizare"
+        "icon": "globe",
+        "label": "Dezvoltare Web"
       },
       {
-        "icon": "plug",
-        "label": "Integrare API"
+        "icon": "bot",
+        "label": "Automatizări AI"
       },
       {
-        "icon": "layout",
-        "label": "Dashboard-uri"
+        "icon": "hotel",
+        "label": "Software Hoteluri"
+      },
+      {
+        "icon": "server",
+        "label": "Backend & API-uri"
+      },
+      {
+        "icon": "palette",
+        "label": "Design UI/UX"
       },
       {
         "icon": "search",
-        "label": "SEO"
-      },
-      {
-        "icon": "code",
-        "label": "Cod Custom"
-      },
-      {
-        "icon": "database",
-        "label": "Baze de date"
-      },
-      {
-        "icon": "message",
-        "label": "Boți WhatsApp"
-      },
-      {
-        "icon": "panel",
-        "label": "Landing Pages"
-      },
-      {
-        "icon": "zap",
-        "label": "Optimizare"
-      },
-      {
-        "icon": "radio",
-        "label": "Real-time"
-      },
-      {
-        "icon": "smartphone",
-        "label": "PWA"
-      },
-      {
-        "icon": "cpu",
-        "label": "Integrare AI"
+        "label": "SEO & Optimizare"
       }
-    ],
-    "recent": {
-      "label": "Proiecte recente",
-      "title1": "Proiecte",
-      "title2": "Recente",
-      "subtitle": "O selecție din produsele elegante la care am lucrat recent.",
-      "seeAll": "Vezi toate proiectele",
-      "cta": "Contactează-mă"
-    },
-    "why": {
-      "label": "De ce eu",
-      "title1": "De ce eu ca",
-      "title2": "Partener Tehnic",
-      "subtitle": "De ce să colaborezi cu mine pentru excelență în dezvoltare.",
-      "rows": [
-        {
-          "pro": {
-            "title": "Profesionist cu experiență",
-            "description": "Ai acces la un developer cu experiență reală în producție, care asigură o execuție impecabilă."
-          },
-          "con": {
-            "title": "Developer amator",
-            "description": "Lipsa experienței poate duce la cod cu erori și cazuri-limită trecute cu vederea."
-          }
-        },
-        {
-          "pro": {
-            "title": "Soluții pregătite pentru viitor",
-            "description": "Arhitectură modernă și scalabilă, care crește odată cu afacerea ta și rămâne în pas cu trendurile."
-          },
-          "con": {
-            "title": "Tehnologii învechite",
-            "description": "Tehnologii depășite care nu scalează și nu reflectă nevoile tale în continuă schimbare."
-          }
-        },
-        {
-          "pro": {
-            "title": "Colaborare centrată pe client",
-            "description": "Viziunea ta conduce — lucrez îndeaproape cu tine ca să dau viață ideilor cu precizie."
-          },
-          "con": {
-            "title": "Comunicare deficitară",
-            "description": "Colaborarea slabă și feedback-ul rar pot duce la rezultate nealiniate."
-          }
-        },
-        {
-          "pro": {
-            "title": "Urmărire la timp a proiectului",
-            "description": "Ești la curent cu actualizări periodice și livrări la termen."
-          },
-          "con": {
-            "title": "Muncă haotică și nesigură",
-            "description": "Termenele inconsistente și schimbările de ultim moment pot compromite calitatea."
-          }
-        }
-      ]
-    },
-    "finalCta": {
-      "label": "Începe un proiect",
-      "title1": "Hai să construim",
-      "title2": "ceva împreună",
-      "subtitle": "Spune-mi ideea ta și îți răspund în maximum 48 de ore cu o propunere concretă.",
-      "cta": "Contactează-mă",
-      "secondary": "Vezi proiectele"
-    }
+    ]
   },
   "contact": {
     "label": "Hai să vorbim",

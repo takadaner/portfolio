@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Services from "@/components/Services";
+import LockScroll from "@/components/LockScroll";
 
 export const metadata: Metadata = {
   title: "Servicii — Abdula Daner",
@@ -8,5 +9,10 @@ export const metadata: Metadata = {
 };
 
 export default function ServicesPage() {
-  return <Services />;
+  return (
+    <>
+      <LockScroll />
+      <Services />
+    </>
+  );
 }
