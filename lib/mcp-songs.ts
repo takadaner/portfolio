@@ -67,7 +67,7 @@ export const MPC_SONGS: MPCSong[] = [
       [
         "Piano 1",        "Piano 2",        "Piano 3",        "Piano 4",
         "Piano 5",        "Piano 6",        "Piano 7",        "Piano 8",
-        "Beat Loop",      "LOOKATCHA",      "Beau. Stars",    "Ladies & Gents",
+        "Beat Loop",      "LOOKATCHA",      "Beautiful Stars", "Ladies & Gents",
         "Hey!",           "Stop",           "Camera",         "Info",
       ],
       "runaway"

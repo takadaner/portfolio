@@ -261,13 +261,14 @@ export default function Services() {
 
   const [phase, setPhase] = useState<Phase>("boot");
   const [fromIntro, setFromIntro] = useState(false);
-  const decided = useRef(false);
+
+  // Latest pause state, readable from the mount-only effect below without
+  // re-running it (re-running would cancel the intro timer mid-flight).
+  const pausedRef = useRef(paused);
+  pausedRef.current = paused;
 
   useEffect(() => {
-    if (decided.current) return;
-    decided.current = true;
-
-    if (paused || sessionStorage.getItem(INTRO_KEY)) {
+    if (pausedRef.current || sessionStorage.getItem(INTRO_KEY)) {
       setPhase("page");
       return;
     }
@@ -279,7 +280,8 @@ export default function Services() {
       setPhase("page");
     }, INTRO_MS);
     return () => clearTimeout(t);
-  }, [paused]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const left = pills.slice(0, 3);
   const right = pills.slice(3, 6);

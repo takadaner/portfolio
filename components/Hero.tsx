@@ -526,24 +526,21 @@ export default function Hero() {
                             />
                           </div>
 
-                          {project.title && project.title.includes("MCP") && (
-                            <div className="absolute inset-0 z-10 flex flex-col items-center justify-center pointer-events-none p-4 text-center bg-background/40">
-                              <span className="mb-2 animate-pulse rounded-full border border-amber-500/50 bg-amber-500/90 px-3 py-1 text-xs font-bold uppercase tracking-wider text-white shadow-lg backdrop-blur">
+                          {/* corner arrow button / Try me badge */}
+                          {project.title && project.title.includes("MCP") ? (
+                            <div className="absolute bottom-3 left-3 z-10 flex items-center justify-center">
+                              <span className="animate-pulse inline-flex items-center justify-center rounded-full border border-line bg-foreground px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-background shadow-lg backdrop-blur transition-colors duration-300">
                                 Try me
                               </span>
-                              <span className="text-white text-xl md:text-2xl font-bold tracking-tight drop-shadow-xl">
-                                {project.title}
-                              </span>
+                            </div>
+                          ) : (
+                            <div className="absolute bottom-3 left-3 flex h-7 w-7 items-center justify-center rounded-full border border-line bg-background/80 backdrop-blur-sm transition-colors duration-300 group-hover:bg-foreground">
+                              <ArrowUpRight
+                                size={15}
+                                className="text-foreground transition-colors duration-300 group-hover:text-background"
+                              />
                             </div>
                           )}
-
-                          {/* corner arrow button */}
-                          <div className="absolute bottom-3 left-3 flex h-7 w-7 items-center justify-center rounded-full border border-line bg-background/80 backdrop-blur-sm transition-colors duration-300 group-hover:bg-foreground">
-                            <ArrowUpRight
-                              size={15}
-                              className="text-foreground transition-colors duration-300 group-hover:text-background"
-                            />
-                          </div>
                         </div>
                       </BorderGlow>
                     </Link>
