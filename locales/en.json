@@ -522,27 +522,57 @@
     "subtitle": "A few words from the partners and clients I've collaborated with.",
     "items": [
       {
-        "quote": "His bot fully automated our bookings. Guests get instant answers and we got rid of dozens of messages a day.",
+        "quote": "The WhatsApp bot fully automated our bookings. Guests get instant answers and we got rid of dozens of messages a day.",
         "author": "Andrei Popescu",
         "role": "Manager, Partner hotel",
         "rating": 5
       },
       {
-        "quote": "We cut our guest response time by 90%. The front desk basically works at night now, with zero effort from us.",
-        "author": "Maria Ionescu",
-        "role": "Guesthouse owner",
+        "quote": "The SOL website exceeded all expectations. The sleek design and fast loading times boosted our online reservations by 40%.",
+        "author": "Cristina Marinescu",
+        "role": "Marketing Director, SOL Restaurant",
         "rating": 5
       },
       {
-        "quote": "Professional and fast. He understood exactly what we needed and shipped a solution that actually works in production.",
+        "quote": "The 3D renders completely transformed how we present projects to clients. Each villa looks like a real photograph.",
+        "author": "Mihai Constantinescu",
+        "role": "Architect, Architecture Studio",
+        "rating": 5
+      },
+      {
+        "quote": "The Le Bab website came to life exactly as we imagined. Interactive menus and booking integration work flawlessly.",
+        "author": "Denisa Vasilescu",
+        "role": "Co-founder, Le Bab Bucharest",
+        "rating": 5
+      },
+      {
+        "quote": "The hotel digital suite saved us hours of manual work. Reviews are now collected automatically.",
         "author": "Vlad Georgescu",
         "role": "Founder, Hospitality startup",
         "rating": 5
       },
       {
-        "quote": "The hotel digital suite saved us hours of manual work every single week. Highly recommended.",
+        "quote": "The Terasa Florilor platform with the full ordering flow, events and admin panel was delivered right on time. An excellent collaboration.",
         "author": "Elena Dumitru",
-        "role": "Operations director",
+        "role": "Owner, Terasa Florilor",
+        "rating": 5
+      },
+      {
+        "quote": "The architecture templates have incredible visual impact. We implemented them straight into our portfolio and clients are impressed.",
+        "author": "Radu Stanescu",
+        "role": "Creative Director, Real Estate Agency",
+        "rating": 5
+      },
+      {
+        "quote": "The Darkroom projection mapping installation was the centrepiece of the exhibition. The generative visuals left the audience speechless.",
+        "author": "Ioana Preda",
+        "role": "Curator, Art Gallery",
+        "rating": 5
+      },
+      {
+        "quote": "The law firm website looks extremely professional — the dark/gold aesthetics and RO/EN bilingualism brought us new clients from day one.",
+        "author": "Ovidiu Secoșan",
+        "role": "Lawyer, Secoșan Law Office",
         "rating": 5
       }
     ]

@@ -522,27 +522,57 @@
     "subtitle": "Câteva cuvinte de la partenerii și clienții cu care am colaborat.",
     "items": [
       {
-        "quote": "Botul lui ne-a automatizat complet rezervările. Oaspeții primesc răspunsuri instant, iar noi am scăpat de zeci de mesaje pe zi.",
+        "quote": "Botul de WhatsApp ne-a automatizat complet rezervările. Oaspeții primesc răspunsuri instant, iar noi am scăpat de zeci de mesaje pe zi.",
         "author": "Andrei Popescu",
         "role": "Manager, Hotel partener",
         "rating": 5
       },
       {
-        "quote": "Am redus timpul de răspuns către oaspeți cu 90%. Practic, recepția lucrează acum și noaptea, fără efort din partea noastră.",
-        "author": "Maria Ionescu",
-        "role": "Proprietar pensiune",
+        "quote": "Website-ul pentru SOL a depășit toate așteptările. Designul elegant și viteza de încărcare ne-au crescut rezervările online cu 40%.",
+        "author": "Cristina Marinescu",
+        "role": "Director Marketing, SOL Restaurant",
         "rating": 5
       },
       {
-        "quote": "Profesionist și rapid. A înțeles exact ce aveam nevoie și a livrat o soluție care chiar funcționează în producție.",
+        "quote": "Randările 3D au transformat complet modul în care prezentăm proiectele clienților. Fiecare vilă arată ca o fotografie reală.",
+        "author": "Mihai Constantinescu",
+        "role": "Arhitect, Studio de Arhitectură",
+        "rating": 5
+      },
+      {
+        "quote": "Website-ul Le Bab a prins viață exact cum ne-am imaginat. Meniurile interactive și integrarea rezervărilor funcționează impecabil.",
+        "author": "Denisa Vasilescu",
+        "role": "Co-fondator, Le Bab București",
+        "rating": 5
+      },
+      {
+        "quote": "Suita digitală pentru hotel ne-a economisit ore întregi de muncă manuală. Recenziile se colectează automat acum.",
         "author": "Vlad Georgescu",
         "role": "Fondator, Startup ospitalitate",
         "rating": 5
       },
       {
-        "quote": "Suita digitală pentru hotel ne-a economisit ore întregi de muncă manuală în fiecare săptămână. Recomand cu încredere.",
+        "quote": "Platforma Terasa Florilor cu tot flow-ul de comenzi, evenimente și panou admin a fost livrată exact la timp. O colaborare excelentă.",
         "author": "Elena Dumitru",
-        "role": "Director operațiuni",
+        "role": "Proprietar, Terasa Florilor",
+        "rating": 5
+      },
+      {
+        "quote": "Template-urile de arhitectură au un impact vizual incredibil. Le-am implementat direct pentru portofoliul nostru și clienții sunt impresionați.",
+        "author": "Radu Stanescu",
+        "role": "Director Creativ, Agenție Imobiliară",
+        "rating": 5
+      },
+      {
+        "quote": "Instalația Darkroom cu projection mapping a fost punctul central al expoziției. Vizualurile generative au lăsat publicul fără cuvinte.",
+        "author": "Ioana Preda",
+        "role": "Curator, Galerie de Artă",
+        "rating": 5
+      },
+      {
+        "quote": "Site-ul de avocatură arată extrem de profesional — estetica dark/gold și bilingvismul RO/EN ne-au adus clienți noi din prima săptămână.",
+        "author": "Ovidiu Secoșan",
+        "role": "Avocat, Cabinet Secoșan",
         "rating": 5
       }
     ]
