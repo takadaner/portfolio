@@ -251,7 +251,7 @@
           "Web Design",
           "Development"
         ],
-        "image": "/images/proiecte/sol/main.png",
+        "image": "/images/proiecte/sol/main.webp",
         "imageAlt": "SOL Restaurant",
         "href": "https://solrestaurant.ro"
       },
@@ -263,12 +263,12 @@
           "Web Design",
           "UI/UX"
         ],
-        "image": "/images/proiecte/lebab/main.png",
+        "image": "/images/proiecte/lebab/main.webp",
         "imageAlt": "Le Bab",
         "href": "https://www.lebab.ro"
       },
       {
-        "title": "Website Templates — Architecture & Real Estate",
+        "title": "Website Templates",
         "description": "Premium website templates designed for architecture studios and real estate agencies. Dark/gold aesthetics, featured project galleries, statistics sections, and responsive layouts crafted to showcase portfolios with maximum visual impact.",
         "tags": [
           "Web Design",
@@ -280,7 +280,7 @@
         "imageAlt": "Architecture Website Template"
       },
       {
-        "title": "Villa Visualizations — 3D Architectural Renders",
+        "title": "3D Architectural Renders",
         "description": "Photorealistic 3D architectural visualizations of luxury villas and residences. From minimalist waterfront retreats to contemporary woodland homes — concept renders with blueprint overlays, floor plans, and walkthrough videos.",
         "tags": [
           "3D Rendering",
@@ -333,7 +333,7 @@
         "href": "/projects/hotel-saas-suite"
       },
       {
-        "title": "AI Music Studio — MCP Audio Playground",
+        "title": "MCP Audio Playground",
         "description": "Interactive Web Audio workspace using AI & Model Context Protocol. Features an 8-pad MPC drum machine, responsive audio visualizer, real-time audio manipulation, and dynamic keyboard playback. Build beats directly in the browser.",
         "tags": [
           "React",
@@ -370,18 +370,7 @@
         "image": "/images/placeholder-hotel-suite.svg",
         "imageAlt": "Online Store"
       },
-      {
-        "title": "MPC Playground",
-        "description": "Interactive browser instrument — a pixel-faithful AKAI MPC2000XL with 16 pads you play with your keyboard.",
-        "tags": [
-          "Web Audio",
-          "React",
-          "Interactive"
-        ],
-        "image": "/images/proiecte/mcp-playground.webp",
-        "imageAlt": "MPC Playground — interactive AKAI MPC2000XL in the browser",
-        "href": "/mcp"
-      },
+
       {
         "title": "Analytics Dashboard",
         "description": "Analytics panel with real-time charts and exportable reports.",
@@ -600,7 +589,7 @@
         "title": "Web Development",
         "description": "Building breathtaking, user-centric web apps that boost engagement, conversions and growth, perfectly aligned with your business.",
         "media": "image",
-        "image": "/images/proiecte/sol/main.png",
+        "image": "/images/proiecte/sol/main.webp",
         "imageAlt": "SOL Restaurant & Terrace website",
         "url": "solrestaurant.ro",
         "features": [

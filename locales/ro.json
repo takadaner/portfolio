@@ -251,7 +251,7 @@
           "Web Design",
           "Dezvoltare"
         ],
-        "image": "/images/proiecte/sol/main.png",
+        "image": "/images/proiecte/sol/main.webp",
         "imageAlt": "SOL Restaurant",
         "href": "https://solrestaurant.ro"
       },
@@ -263,12 +263,12 @@
           "Web Design",
           "UI/UX"
         ],
-        "image": "/images/proiecte/lebab/main.png",
+        "image": "/images/proiecte/lebab/main.webp",
         "imageAlt": "Le Bab",
         "href": "https://www.lebab.ro"
       },
       {
-        "title": "Template-uri Website — Arhitectură & Imobiliare",
+        "title": "Template-uri Website",
         "description": "Template-uri web premium pentru studiouri de arhitectură și agenții imobiliare. Estetică dark/gold, galerii de proiecte, secțiuni statistice și layout-uri responsive, create pentru a prezenta portofolii cu impact vizual maxim.",
         "tags": [
           "Web Design",
@@ -280,7 +280,7 @@
         "imageAlt": "Template Website Arhitectură"
       },
       {
-        "title": "Vizualizări Vile — Randări 3D Arhitecturale",
+        "title": "Randări 3D Arhitecturale",
         "description": "Vizualizări 3D fotorealiste ale vilelor și rezidențelor de lux. De la refugii minimaliste pe malul apei la case contemporane în pădure — randări concept cu suprapuneri de planuri, planimetrii și videouri walkthrough.",
         "tags": [
           "Randare 3D",
@@ -333,7 +333,7 @@
         "href": "/projects/hotel-saas-suite"
       },
       {
-        "title": "Studio Muzical AI — MCP Audio Playground",
+        "title": "MCP Audio Playground",
         "description": "Spațiu de lucru interactiv Web Audio folosind AI și Model Context Protocol. Include un drum machine MPC cu 8 pad-uri, vizualizator audio responsiv, manipulare audio în timp real și redare dinamică la tastatură.",
         "tags": [
           "React",
@@ -370,18 +370,7 @@
         "image": "/images/placeholder-hotel-suite.svg",
         "imageAlt": "Magazin online"
       },
-      {
-        "title": "MPC Playground",
-        "description": "Instrument muzical interactiv în browser — un AKAI MPC2000XL recreat pixel cu pixel, cu 16 pad-uri pe care le cânți cu tastatura.",
-        "tags": [
-          "Web Audio",
-          "React",
-          "Interactiv"
-        ],
-        "image": "/images/proiecte/mcp-playground.webp",
-        "imageAlt": "MPC Playground — AKAI MPC2000XL interactiv în browser",
-        "href": "/mcp"
-      },
+
       {
         "title": "Dashboard analytics",
         "description": "Panou de analiză cu grafice în timp real și rapoarte exportabile.",
@@ -600,7 +589,7 @@
         "title": "Dezvoltare Web",
         "description": "Construiesc aplicații web spectaculoase, centrate pe utilizator, care cresc engagement-ul, conversiile și creșterea, perfect aliniate cu afacerea ta.",
         "media": "image",
-        "image": "/images/proiecte/sol/main.png",
+        "image": "/images/proiecte/sol/main.webp",
         "imageAlt": "Website SOL Restaurant & Terrace",
         "url": "solrestaurant.ro",
         "features": [

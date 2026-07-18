@@ -11,13 +11,9 @@
   }
 }
 
+/* No prefers-reduced-motion override here — matching the page's
+   MotionConfig reducedMotion="never", the owner wants the intro identical
+   for every visitor. The navbar pause button remains the manual off-switch. */
 .animate-ring-orbit {
   animation: ring-orbit 4.6s linear infinite;
-}
-
-/* Freeze (not hide) the comet for reduced-motion users. */
-@media (prefers-reduced-motion: reduce) {
-  .animate-ring-orbit {
-    animation: none;
-  }
 }

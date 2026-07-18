@@ -19,7 +19,6 @@ import "./ServicesRing.css";
 const EASE = [0.16, 1, 0.3, 1] as const;
 /** Camera pull-back: fast start, long settle — reads as a physical dolly. */
 const CAMERA_EASE = [0.7, 0, 0.22, 1] as const;
-const INTRO_KEY = "services-intro-played";
 const HOLD_MS = 1050; // close-up hold on the pill before the pull-back
 const CAMERA_S = 1.2; // camera pull-back duration (s)
 
@@ -85,7 +84,7 @@ function RingOrbit({ layer, paused }: { layer: "back" | "front"; paused: boolean
         strokeWidth="3.5"
         strokeLinecap="round"
         strokeDasharray="26 74"
-        className="animate-ring-orbit blur-[3px] motion-reduce:animate-none"
+        className="animate-ring-orbit blur-[3px]"
       />
       <path
         d={ellipse}
@@ -95,7 +94,7 @@ function RingOrbit({ layer, paused }: { layer: "back" | "front"; paused: boolean
         strokeWidth="2"
         strokeLinecap="round"
         strokeDasharray="14 86"
-        className="animate-ring-orbit blur-[1.5px] motion-reduce:animate-none"
+        className="animate-ring-orbit blur-[1.5px]"
       />
       <path
         d={ellipse}
@@ -104,7 +103,7 @@ function RingOrbit({ layer, paused }: { layer: "back" | "front"; paused: boolean
         strokeWidth="1.6"
         strokeLinecap="round"
         strokeDasharray="7 93"
-        className="animate-ring-orbit motion-reduce:animate-none"
+        className="animate-ring-orbit"
       />
       <path
         d={ellipse}
@@ -114,7 +113,7 @@ function RingOrbit({ layer, paused }: { layer: "back" | "front"; paused: boolean
         strokeWidth="5"
         strokeLinecap="round"
         strokeDasharray="2.5 97.5"
-        className="animate-ring-orbit blur-[4px] motion-reduce:animate-none"
+        className="animate-ring-orbit blur-[4px]"
       />
     </>
   );
@@ -317,7 +316,10 @@ export default function Services() {
     // camera origin = the pill's center inside the camera element
     setOriginY(wrap.offsetTop + wrap.offsetHeight / 2);
 
-    if (pausedRef.current || sessionStorage.getItem(INTRO_KEY)) {
+    // DEV: the intro plays on every visit while we iterate on it. Before
+    // launch, restore the once-per-session guard here (sessionStorage key
+    // "services-intro-played", checked alongside pausedRef).
+    if (pausedRef.current) {
       setPhase("page");
       return;
     }
@@ -334,7 +336,6 @@ export default function Services() {
     setPhase("intro");
 
     const t = setTimeout(() => {
-      sessionStorage.setItem(INTRO_KEY, "1");
       setPhase("page");
     }, HOLD_MS);
     return () => clearTimeout(t);
@@ -349,7 +350,10 @@ export default function Services() {
   const satBase = fromIntro ? 0.95 : 0.15;
 
   return (
-    <MotionConfig reducedMotion="user">
+    // reducedMotion="never" is a deliberate product decision: the owner
+    // wants the intro identical for every visitor, including reduced-motion
+    // users — do not switch this back to "user".
+    <MotionConfig reducedMotion="never">
       <section className="relative flex min-h-[100svh] flex-col items-center justify-center overflow-hidden px-6 pb-28 pt-24 sm:pb-14 sm:pt-28">
         {/* the "camera": the whole composition scales about the pill's
             center — close-up during the intro, then a smooth pull-back */}
