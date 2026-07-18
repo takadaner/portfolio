@@ -10,10 +10,6 @@
         "href": "/services"
       },
       {
-        "label": "Experience",
-        "href": "/experience"
-      },
-      {
         "label": "Projects",
         "href": "/projects"
       },
@@ -22,7 +18,7 @@
         "href": "/testimonials"
       },
       {
-        "label": "About",
+        "label": "About Me",
         "href": "/about"
       }
     ],
@@ -603,6 +599,14 @@
       {
         "label": "LinkedIn",
         "href": "https://www.linkedin.com/in/daner-abdula-816425188/"
+      },
+      {
+        "label": "GitHub",
+        "href": "https://github.com/abduladaner"
+      },
+      {
+        "label": "Email",
+        "href": "mailto:abduladaner70@gmail.com"
       }
     ]
   },

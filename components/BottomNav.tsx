@@ -20,7 +20,7 @@ export default function BottomNav() {
   const tabs: { href: string; label: string; icon: LucideIcon }[] = [
     { href: "/", label: dict.nav.home, icon: Home },
     { href: "/services", label: dict.nav.links[0].label, icon: LayoutGrid },
-    { href: "/projects", label: dict.nav.links[2].label, icon: FolderKanban },
+    { href: "/projects", label: dict.nav.links[1].label, icon: FolderKanban },
     { href: dict.nav.ctaHref, label: dict.nav.cta, icon: Mail },
   ];
 

@@ -5,7 +5,7 @@ export const TestimonialsColumn = (props: {
   className?: string;
   testimonials: any[];
   duration?: number;
-  onSpotlight?: (item: any) => void;
+  onSpotlight?: (item: any | null) => void;
 }) => {
   return (
     <div className={props.className}>
@@ -45,7 +45,7 @@ function TestimonialCard({
   image: string;
   author: string;
   role: string;
-  onSpotlight?: (item: any) => void;
+  onSpotlight?: (item: any | null) => void;
 }) {
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -53,7 +53,7 @@ function TestimonialCard({
     if (!onSpotlight) return;
     timerRef.current = setTimeout(() => {
       onSpotlight({ quote, image, author, role });
-    }, 1000);
+    }, 350);
   }, [onSpotlight, quote, image, author, role]);
 
   const handleMouseLeave = useCallback(() => {
@@ -61,7 +61,8 @@ function TestimonialCard({
       clearTimeout(timerRef.current);
       timerRef.current = null;
     }
-  }, []);
+    onSpotlight?.(null);
+  }, [onSpotlight]);
 
   return (
     <div

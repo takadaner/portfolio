@@ -40,7 +40,6 @@ const serviceIcons: Record<string, LucideIcon> = {
 export const PREVIEW_ROUTES = [
   "/services",
   "/skills",
-  "/experience",
   "/projects",
   "/testimonials",
   "/about",
@@ -111,27 +110,6 @@ export default function NavPreview({
         </Shell>
       );
 
-    case "/experience":
-      return (
-        <Shell title={label}>
-          <div className="flex flex-col gap-2">
-            {dict.experience.work.map((j: any) => (
-              <div
-                key={j.role}
-                className="flex items-center justify-between gap-3 rounded-lg border border-line bg-surface-2 px-3 py-2"
-              >
-                <div className="min-w-0">
-                  <p className="truncate text-xs font-medium">{j.role}</p>
-                  <p className="truncate text-[11px] text-muted">{j.company}</p>
-                </div>
-                <span className="shrink-0 text-[11px] text-muted-2">
-                  {j.period}
-                </span>
-              </div>
-            ))}
-          </div>
-        </Shell>
-      );
 
     case "/projects":
       return (

@@ -48,7 +48,13 @@ export default function Navbar() {
 
           <ul className="hidden items-center gap-7 md:flex">
             {dict.nav.links.map((link, i) => (
-              <li key={link.href} className="group relative">
+              <motion.li
+                key={link.href}
+                className="group relative"
+                initial={{ opacity: 0, y: -8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: 0.15 + i * 0.07, ease: "easeOut" }}
+              >
                 <motion.span
                   className="inline-block"
                   animate={paused ? { y: 0 } : { y: [0, -6, 0] }}
@@ -76,13 +82,18 @@ export default function Navbar() {
                     </div>
                   </div>
                 )}
-              </li>
+              </motion.li>
             ))}
           </ul>
         </div>
 
         {/* far-right extremity — language + Contact */}
-        <div className="flex items-center gap-3">
+        <motion.div
+          className="flex items-center gap-3"
+          initial={{ opacity: 0, y: -8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.5, ease: "easeOut" }}
+        >
           <div className="flex items-center rounded-full border border-line bg-surface p-0.5 text-xs">
             {(["ro", "en"] as Lang[]).map((l) => (
               <button
@@ -121,7 +132,7 @@ export default function Navbar() {
               {dict.nav.cta}
             </Link>
           </motion.div>
-        </div>
+        </motion.div>
       </nav>
     </motion.header>
   );

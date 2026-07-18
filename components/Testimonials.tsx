@@ -43,12 +43,8 @@ export default function Testimonials() {
   const secondColumn = allItems.slice(3, 6);
   const thirdColumn = allItems.slice(6, 9);
 
-  const onSpotlight = useCallback((item: any) => {
+  const onSpotlight = useCallback((item: any | null) => {
     setSpotlightItem(item);
-  }, []);
-
-  const closeSpotlight = useCallback(() => {
-    setSpotlightItem(null);
   }, []);
 
   return (
@@ -78,17 +74,15 @@ export default function Testimonials() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-background/80 backdrop-blur-md cursor-pointer"
-            onClick={closeSpotlight}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-background/80 backdrop-blur-md pointer-events-none"
           >
             <motion.div
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-              className="p-10 sm:p-14 rounded-3xl border border-line shadow-2xl shadow-black/20 bg-surface max-w-lg w-full mx-4"
-              onClick={(e) => e.stopPropagation()}
+              initial={{ scale: 0.85, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.9, opacity: 0, y: 10 }}
+              transition={{ type: "spring", stiffness: 400, damping: 25 }}
+              className="p-10 sm:p-14 rounded-3xl border border-line shadow-2xl shadow-black/20 bg-surface max-w-lg w-full mx-4 pointer-events-none"
             >
               <div className="text-foreground/90 text-lg sm:text-xl leading-relaxed">
                 &ldquo;{spotlightItem.quote}&rdquo;
