@@ -41,7 +41,6 @@ export const PREVIEW_ROUTES = [
   "/services",
   "/skills",
   "/projects",
-  "/testimonials",
   "/about",
 ];
 
@@ -133,34 +132,6 @@ export default function NavPreview({
         </Shell>
       );
 
-    case "/testimonials":
-      return (
-        <Shell title={label}>
-          <div className="flex flex-col gap-2">
-            {dict.testimonials.items.slice(0, 2).map((t) => (
-              <div
-                key={t.author}
-                className="rounded-lg border border-line bg-surface-2 px-3 py-2.5"
-              >
-                <div className="mb-1 flex gap-0.5">
-                  {Array.from({ length: t.rating }).map((_, s) => (
-                    <Star
-                      key={s}
-                      size={11}
-                      className="text-accent"
-                      fill="currentColor"
-                    />
-                  ))}
-                </div>
-                <p className="line-clamp-2 text-xs leading-snug text-foreground/90">
-                  &ldquo;{t.quote}&rdquo;
-                </p>
-                <p className="mt-1.5 text-[11px] text-muted">{t.author}</p>
-              </div>
-            ))}
-          </div>
-        </Shell>
-      );
 
     case "/about":
       return (
