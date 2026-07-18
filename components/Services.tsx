@@ -73,7 +73,7 @@ function RingOrbit({ layer, paused }: { layer: "back" | "front"; paused: boolean
         d={ellipse}
         pathLength={100}
         stroke="#ffffff"
-        strokeOpacity="0.07"
+        strokeOpacity="0.1"
         strokeWidth="1"
       />
       <path
@@ -123,7 +123,7 @@ function RingOrbit({ layer, paused }: { layer: "back" | "front"; paused: boolean
       viewBox="0 0 200 70"
       fill="none"
       aria-hidden
-      className={`pointer-events-none absolute left-1/2 top-1/2 w-[185%] -translate-x-1/2 -translate-y-1/2 -rotate-[14deg] ${
+      className={`pointer-events-none absolute left-1/2 top-1/2 w-[132%] -translate-x-1/2 -translate-y-1/2 -rotate-[20deg] ${
         layer === "front" ? "z-20" : "z-0"
       } ${paused ? "[&_.animate-ring-orbit]:[animation-play-state:paused]" : ""}`}
     >

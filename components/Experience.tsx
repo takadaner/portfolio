@@ -1,9 +1,10 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useScroll, useSpring, type Variants } from "framer-motion";
 import { Briefcase, GraduationCap, type LucideIcon } from "lucide-react";
 import { useLanguage } from "@/lib/LanguageContext";
-import Reveal from "./Reveal";
+import ExperienceBackground from "./ExperienceBackground";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -15,7 +16,60 @@ type Item = {
   tags?: string[];
 };
 
-/** A single timeline entry. All cards share the same left-aligned layout. */
+/* ------------------------------------------------------------------ */
+/* Entrance orchestration (first paint of the page)                    */
+/* ------------------------------------------------------------------ */
+
+const headerStagger: Variants = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.09, delayChildren: 0.15 } },
+};
+
+const riseIn: Variants = {
+  hidden: { opacity: 0, y: 26, filter: "blur(8px)" },
+  show: {
+    opacity: 1,
+    y: 0,
+    filter: "blur(0px)",
+    transition: { duration: 0.8, ease: EASE },
+  },
+};
+
+/** One word of the headline, revealed through an overflow mask. */
+function MaskedWord({ word, className }: { word: string; className?: string }) {
+  return (
+    <span className="inline-block overflow-hidden pb-[0.12em] align-bottom">
+      <motion.span
+        variants={{
+          hidden: { opacity: 0, y: "100%" },
+          show: {
+            opacity: 1,
+            y: 0,
+            transition: { duration: 0.9, ease: EASE },
+          },
+        }}
+        className={`inline-block ${className ?? ""}`}
+      >
+        {word}
+      </motion.span>
+    </span>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* Timeline                                                            */
+/* ------------------------------------------------------------------ */
+
+const cardStagger: Variants = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.07, delayChildren: 0.1 } },
+};
+
+const cardChild: Variants = {
+  hidden: { opacity: 0, y: 14 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: EASE } },
+};
+
 function TimelineCard({
   item,
   index,
@@ -25,7 +79,7 @@ function TimelineCard({
   index: number;
   highlight: boolean;
 }) {
-  const delay = index * 0.12;
+  const delay = index * 0.1;
 
   return (
     <li className="relative pl-12">
@@ -34,8 +88,8 @@ function TimelineCard({
         initial={{ scale: 0 }}
         whileInView={{ scale: 1 }}
         viewport={{ once: true, margin: "-80px" }}
-        transition={{ delay: delay + 0.15, type: "spring", stiffness: 300, damping: 18 }}
-        className="absolute left-[7px] top-7 flex h-4 w-4 items-center justify-center rounded-full border border-muted-2 bg-background"
+        transition={{ delay: delay + 0.2, type: "spring", stiffness: 320, damping: 17 }}
+        className="absolute left-[7px] top-8 flex h-4 w-4 items-center justify-center rounded-full border border-muted-2 bg-background"
       >
         {highlight && (
           <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent/50" />
@@ -44,44 +98,78 @@ function TimelineCard({
       </motion.span>
 
       <motion.article
-        initial={{ opacity: 0, x: -28 }}
-        whileInView={{ opacity: 1, x: 0 }}
+        initial={{ opacity: 0, x: -28, filter: "blur(6px)" }}
+        whileInView={{ opacity: 1, x: 0, filter: "blur(0px)" }}
         viewport={{ once: true, margin: "-80px" }}
-        transition={{ duration: 0.6, ease: EASE, delay }}
-        whileHover={{ y: -4 }}
-        className="rounded-card border border-line bg-surface p-6 transition-colors duration-300 hover:border-muted-2/40 sm:p-7"
+        transition={{ duration: 0.7, ease: EASE, delay }}
+        whileHover={{ y: -5 }}
+        className="group relative overflow-hidden rounded-card border border-line bg-surface/70 p-6 backdrop-blur-md transition-[border-color,box-shadow] duration-300 hover:border-muted-2/50 hover:shadow-[0_24px_60px_-24px_rgba(0,0,0,0.7)] sm:p-7"
       >
-        <div className="flex flex-wrap items-center justify-between gap-3">
-          <h3 className="text-lg font-semibold text-foreground">{item.role}</h3>
-          <span className="inline-block rounded-full border border-line bg-surface-2 px-3 py-1 font-mono text-xs text-muted-2">
-            {item.period}
-          </span>
-        </div>
-        <p className="mt-1 text-sm text-muted-2">{item.company}</p>
-        <p className="mt-3 text-sm leading-relaxed text-muted">{item.description}</p>
+        {/* top-edge highlight that brightens on hover */}
+        <span
+          aria-hidden
+          className="pointer-events-none absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-foreground/15 to-transparent opacity-60 transition-opacity duration-300 group-hover:opacity-100"
+        />
+        {/* soft corner glow on hover */}
+        <span
+          aria-hidden
+          className="pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full bg-accent/[0.07] opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-100"
+        />
 
-        {item.tags && item.tags.length > 0 && (
-          <ul className="mt-4 flex flex-wrap gap-2">
-            {item.tags.map((tag, i) => (
-              <motion.li
-                key={tag}
-                initial={{ opacity: 0, y: 8 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-80px" }}
-                transition={{ duration: 0.4, ease: EASE, delay: delay + 0.3 + i * 0.05 }}
-                className="rounded-full border border-line bg-surface-2 px-3 py-1 text-xs text-muted transition-colors hover:bg-line/50 hover:text-foreground"
-              >
-                {tag}
-              </motion.li>
-            ))}
-          </ul>
-        )}
+        <motion.div
+          variants={cardStagger}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-80px" }}
+        >
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <motion.h3
+              variants={cardChild}
+              className="text-lg font-semibold text-foreground"
+            >
+              {item.role}
+            </motion.h3>
+            <motion.span
+              variants={{
+                hidden: { opacity: 0, x: 12 },
+                show: { opacity: 1, x: 0, transition: { duration: 0.5, ease: EASE } },
+              }}
+              className="inline-block rounded-full border border-line bg-surface-2 px-3 py-1 font-mono text-xs text-muted-2"
+            >
+              {item.period}
+            </motion.span>
+          </div>
+
+          <motion.p variants={cardChild} className="mt-1 text-sm text-muted-2">
+            {item.company}
+          </motion.p>
+          <motion.p
+            variants={cardChild}
+            className="mt-3 text-sm leading-relaxed text-muted"
+          >
+            {item.description}
+          </motion.p>
+
+          {item.tags && item.tags.length > 0 && (
+            <ul className="mt-4 flex flex-wrap gap-2">
+              {item.tags.map((tag) => (
+                <motion.li
+                  key={tag}
+                  variants={cardChild}
+                  className="rounded-full border border-line bg-surface-2 px-3 py-1 text-xs text-muted transition-colors duration-300 hover:bg-line/50 hover:text-foreground"
+                >
+                  {tag}
+                </motion.li>
+              ))}
+            </ul>
+          )}
+        </motion.div>
       </motion.article>
     </li>
   );
 }
 
-/** One labelled section (Work / Education) with its own animated timeline. */
+/** One labelled section (Work / Education) with a scroll-drawn timeline. */
 function TimelineSection({
   icon: Icon,
   label,
@@ -93,25 +181,78 @@ function TimelineSection({
   items: Item[];
   highlightFirst?: boolean;
 }) {
+  const listRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: listRef,
+    offset: ["start 0.8", "end 0.45"],
+  });
+  const scaleY = useSpring(scrollYProgress, {
+    stiffness: 90,
+    damping: 24,
+    mass: 0.4,
+  });
+
   return (
     <div>
-      <Reveal className="mb-8 flex items-center gap-4">
-        <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-line bg-surface text-foreground">
+      <motion.div
+        variants={headerStagger}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, margin: "-80px" }}
+        className="mb-8 flex items-center gap-4"
+      >
+        <motion.span
+          variants={{
+            hidden: { opacity: 0, scale: 0, rotate: -70 },
+            show: {
+              opacity: 1,
+              scale: 1,
+              rotate: 0,
+              transition: { type: "spring", stiffness: 220, damping: 16 },
+            },
+          }}
+          className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-line bg-surface text-foreground"
+        >
           <Icon size={18} />
-        </span>
-        <h2 className="text-2xl font-semibold text-foreground">{label}</h2>
-        <span className="ml-2 h-px flex-1 bg-line" />
-      </Reveal>
+        </motion.span>
+        <motion.h2
+          variants={riseIn}
+          className="text-2xl font-semibold text-foreground"
+        >
+          {label}
+        </motion.h2>
+        <motion.span
+          variants={{
+            hidden: { opacity: 0 },
+            show: { opacity: 1, transition: { duration: 0.4 } },
+          }}
+          className="font-mono text-xs text-muted-2"
+        >
+          {String(items.length).padStart(2, "0")}
+        </motion.span>
+        <motion.span
+          variants={{
+            hidden: { opacity: 0, scaleX: 0 },
+            show: {
+              opacity: 1,
+              scaleX: 1,
+              transition: { duration: 0.8, ease: EASE },
+            },
+          }}
+          className="ml-2 h-px flex-1 origin-left bg-line"
+        />
+      </motion.div>
 
-      <div className="relative">
-        {/* animated vertical line that draws downward */}
+      <div ref={listRef} className="relative">
+        {/* static track + scroll-driven progress line */}
+        <span
+          aria-hidden
+          className="absolute bottom-4 left-[15px] top-2 w-px bg-line/60"
+        />
         <motion.span
           aria-hidden
-          initial={{ scaleY: 0 }}
-          whileInView={{ scaleY: 1 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.9, ease: EASE }}
-          className="absolute left-[15px] top-2 bottom-4 w-px origin-top bg-gradient-to-b from-line via-line to-transparent"
+          style={{ scaleY }}
+          className="absolute bottom-4 left-[15px] top-2 w-px origin-top bg-gradient-to-b from-accent/80 via-accent/40 to-transparent"
         />
         <ol className="flex flex-col gap-6">
           {items.map((item, i) => (
@@ -128,23 +269,76 @@ function TimelineSection({
   );
 }
 
+/* ------------------------------------------------------------------ */
+/* Page                                                                */
+/* ------------------------------------------------------------------ */
+
 export default function Experience() {
   const { dict } = useLanguage();
   const e = dict.experience;
 
   return (
-    <section className="px-6 pb-28 pt-32 sm:pt-40">
-      <div className="mx-auto max-w-content">
-        {/* Header — centered */}
-        <Reveal className="text-center">
-          <h1 className="text-5xl font-semibold leading-[0.95] tracking-tight sm:text-6xl">
-            <span className="text-foreground">{e.title1}</span>{" "}
-            <span className="text-muted-2">{e.title2}</span>
-          </h1>
-          <p className="mx-auto mt-4 max-w-xl text-base text-muted">{e.subtitle}</p>
-        </Reveal>
+    <section className="relative isolate overflow-hidden px-6 pb-28 pt-32 sm:pt-40">
+      <ExperienceBackground />
 
-        <div className="mx-auto mt-20 max-w-3xl">
+      <div className="relative z-10 mx-auto max-w-content">
+        {/* Header — orchestrated entrance on first paint */}
+        <motion.div
+          variants={headerStagger}
+          initial="hidden"
+          animate="show"
+          className="text-center"
+        >
+          <motion.span
+            variants={riseIn}
+            className="inline-flex items-center gap-2 rounded-full border border-line bg-surface/80 px-4 py-1.5 text-xs text-muted backdrop-blur-sm"
+          >
+            <span className="relative flex h-1.5 w-1.5">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent/60" />
+              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-accent" />
+            </span>
+            {e.label}
+          </motion.span>
+
+          <h1 className="mt-6 text-5xl font-semibold leading-[0.95] tracking-tight sm:text-6xl">
+            {e.title1.split(" ").map((word, i) => (
+              <MaskedWord
+                key={`t1-${i}`}
+                word={word}
+                className="mr-[0.25em] text-foreground"
+              />
+            ))}
+            {e.title2.split(" ").map((word, i) => (
+              <MaskedWord
+                key={`t2-${i}`}
+                word={word}
+                className="mr-[0.25em] text-muted-2"
+              />
+            ))}
+          </h1>
+
+          <motion.p
+            variants={riseIn}
+            className="mx-auto mt-5 max-w-xl text-base text-muted"
+          >
+            {e.subtitle}
+          </motion.p>
+
+          {/* short connector line pointing down to the timeline */}
+          <motion.span
+            variants={{
+              hidden: { opacity: 0, scaleY: 0 },
+              show: {
+                opacity: 1,
+                scaleY: 1,
+                transition: { duration: 0.9, ease: EASE, delay: 0.2 },
+              },
+            }}
+            className="mx-auto mt-10 block h-16 w-px origin-top bg-gradient-to-b from-muted-2/60 to-transparent"
+          />
+        </motion.div>
+
+        <div className="mx-auto mt-16 max-w-3xl">
           <TimelineSection
             icon={Briefcase}
             label={e.workLabel}

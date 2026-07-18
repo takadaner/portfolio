@@ -25,11 +25,40 @@ function slugify(text: string) {
     .replace(/(^-|-$)/g, "");
 }
 
-// Bento card media — renders a silent looping video when the project has one,
-// otherwise the still image. The video autoplays by default (its poster keeps
-// the frame visible instantly) and only pauses via the global animation
-// toggle; reduced motion doesn't stop it, since the user asked for the clip
-// here and the pause button remains the manual control.
+/** Direction of the last bento navigation gesture — the page transition
+    slides along the same axis the user swiped/scrolled. */
+type NavDir = "up" | "down" | "left" | "right";
+
+// Bento cards render at roughly a quarter of the viewport on desktop — tell
+// next/image so it serves small variants instead of DPR-scaled 1200px+ ones.
+const BENTO_SIZES = "(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw";
+
+// True once the page has fully loaded plus a small settle delay — used to
+// postpone heavy media (the villa clip, carousel preloads) so nothing
+// competes with the first paint / LCP.
+function useAfterPageLoad(delayMs = 300) {
+  const [ready, setReady] = useState(false);
+  useEffect(() => {
+    let timer: number | undefined;
+    const arm = () => {
+      timer = window.setTimeout(() => setReady(true), delayMs);
+    };
+    if (document.readyState === "complete") arm();
+    else window.addEventListener("load", arm, { once: true });
+    return () => {
+      window.removeEventListener("load", arm);
+      window.clearTimeout(timer);
+    };
+  }, [delayMs]);
+  return ready;
+}
+
+// Bento card media — the optimized still always renders as the instant base
+// layer; when the project has a clip, the video is attached only after the
+// page has fully loaded (never under data-saver) and fades in over the still
+// once frames are actually playing. The video only pauses via the global
+// animation toggle; reduced motion doesn't stop it, since the user asked for
+// the clip here and the pause button remains the manual control.
 function BentoCardMedia({
   project,
   priority,
@@ -40,6 +69,13 @@ function BentoCardMedia({
   playing: boolean;
 }) {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const pageLoaded = useAfterPageLoad();
+  const [videoVisible, setVideoVisible] = useState(false);
+  const attachVideo =
+    Boolean(project.video) &&
+    pageLoaded &&
+    !(navigator as Navigator & { connection?: { saveData?: boolean } })
+      .connection?.saveData;
 
   useEffect(() => {
     const v = videoRef.current;
@@ -50,34 +86,35 @@ function BentoCardMedia({
     } else {
       v.pause();
     }
-  }, [playing]);
+  }, [playing, attachVideo]);
 
-  if (!project.video) {
-    return (
+  return (
+    <div className="relative h-full w-full transition-transform duration-500 ease-out group-hover:scale-105">
       <Image
         src={project.image}
         alt={project.imageAlt}
-        width={1200}
-        height={900}
+        fill
+        sizes={BENTO_SIZES}
         priority={priority}
-        className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+        className="object-cover"
       />
-    );
-  }
-
-  return (
-    <video
-      ref={videoRef}
-      src={project.video}
-      poster={project.image}
-      autoPlay={playing}
-      muted
-      loop
-      playsInline
-      preload="metadata"
-      aria-label={project.imageAlt}
-      className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
-    />
+      {attachVideo && (
+        <video
+          ref={videoRef}
+          src={project.video}
+          autoPlay={playing}
+          muted
+          loop
+          playsInline
+          preload="auto"
+          aria-label={project.imageAlt}
+          onPlaying={() => setVideoVisible(true)}
+          className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-500 ${
+            videoVisible ? "opacity-100" : "opacity-0"
+          }`}
+        />
+      )}
+    </div>
   );
 }
 
@@ -97,10 +134,13 @@ export default function Hero() {
   const words = dict.hero.name.split(" ");
 
   const [bentoPage, setBentoPage] = useState(0);
+  const [navDir, setNavDir] = useState<NavDir>("up");
   const [photoIndex, setPhotoIndex] = useState(0);
   const [mounted, setMounted] = useState(false);
+  const pageLoaded = useAfterPageLoad();
   const scrollCooldown = useRef(false);
   const sectionRef = useRef<HTMLElement>(null);
+  const bentoRef = useRef<HTMLDivElement>(null);
 
   // Client-only enhancements (motion that depends on reduced-motion, etc.)
   // run after mount so SSR markup and the first client render stay identical.
@@ -127,27 +167,32 @@ export default function Hero() {
   // Native wheel listener on the entire hero section so preventDefault works
   useEffect(() => {
     const section = sectionRef.current;
-    if (!section) return;
+    const bento = bentoRef.current;
+    if (!section || !bento) return;
+
+    // Infinite loop — wrap from the last page back to the first (and vice versa).
+    const totalP = Math.ceil(dict.projects.items.length / 6);
+    if (totalP <= 1) return;
+
+    const flip = (forward: boolean, dir: NavDir) => {
+      scrollCooldown.current = true;
+      setTimeout(() => (scrollCooldown.current = false), 550);
+      setNavDir(dir);
+      setBentoPage((prev) =>
+        forward ? (prev + 1) % totalP : (prev - 1 + totalP) % totalP
+      );
+    };
 
     const onWheel = (e: WheelEvent) => {
       if (scrollCooldown.current) return;
       if (Math.abs(e.deltaY) < 15) return;
-
-      // Infinite loop — wrap from the last page back to the first (and vice versa).
-      const totalP = Math.ceil(dict.projects.items.length / 6);
-      if (totalP <= 1) return;
-
       e.preventDefault();
-      scrollCooldown.current = true;
-      setTimeout(() => (scrollCooldown.current = false), 550);
-
-      setBentoPage((prev) =>
-        e.deltaY > 0 ? (prev + 1) % totalP : (prev - 1 + totalP) % totalP
-      );
+      flip(e.deltaY > 0, e.deltaY > 0 ? "up" : "down");
     };
 
-    // Touch swipe (mobile) — swipe up advances to the next page, swipe down
-    // goes back, mirroring the upward slide of the page transition.
+    // Touch swipe on the bento boxes — both axes work: swipe up or left goes
+    // forward, swipe down or right goes back. The dominant axis of the
+    // gesture wins, and the page slides out along that same axis.
     let touchStartY = 0;
     let touchStartX = 0;
 
@@ -159,30 +204,25 @@ export default function Hero() {
     const onTouchEnd = (e: TouchEvent) => {
       if (scrollCooldown.current) return;
 
-      const totalP = Math.ceil(dict.projects.items.length / 6);
-      if (totalP <= 1) return;
+      const dy = touchStartY - e.changedTouches[0].clientY; // >0 = swiped up
+      const dx = touchStartX - e.changedTouches[0].clientX; // >0 = swiped left
 
-      const dy = touchStartY - e.changedTouches[0].clientY;
-      const dx = Math.abs(touchStartX - e.changedTouches[0].clientX);
-
-      // Require a deliberate, mostly-vertical swipe.
-      if (Math.abs(dy) < 40 || dx > Math.abs(dy)) return;
-
-      scrollCooldown.current = true;
-      setTimeout(() => (scrollCooldown.current = false), 550);
-
-      setBentoPage((prev) =>
-        dy > 0 ? (prev + 1) % totalP : (prev - 1 + totalP) % totalP
-      );
+      if (Math.abs(dy) >= Math.abs(dx)) {
+        if (Math.abs(dy) < 40) return; // require a deliberate swipe
+        flip(dy > 0, dy > 0 ? "up" : "down");
+      } else {
+        if (Math.abs(dx) < 40) return;
+        flip(dx > 0, dx > 0 ? "left" : "right");
+      }
     };
 
     section.addEventListener("wheel", onWheel, { passive: false });
-    section.addEventListener("touchstart", onTouchStart, { passive: true });
-    section.addEventListener("touchend", onTouchEnd, { passive: true });
+    bento.addEventListener("touchstart", onTouchStart, { passive: true });
+    bento.addEventListener("touchend", onTouchEnd, { passive: true });
     return () => {
       section.removeEventListener("wheel", onWheel);
-      section.removeEventListener("touchstart", onTouchStart);
-      section.removeEventListener("touchend", onTouchEnd);
+      bento.removeEventListener("touchstart", onTouchStart);
+      bento.removeEventListener("touchend", onTouchEnd);
     };
   }, [dict.projects.items.length]);
 
@@ -238,12 +278,12 @@ export default function Hero() {
 
   if (bentoPage === 0 && currentProjects.length >= 5) {
     const arranged = [...currentProjects];
-    arranged[0] = heroProjects[3]; // Villa 3D walkthrough video in the big square
-    arranged[1] = heroProjects[1];
-    arranged[2] = heroProjects[2];
+    arranged[0] = heroProjects[0]; // Villa 3D walkthrough video in the big square
+    arranged[1] = heroProjects[1]; // Hotel SaaS Suite
+    arranged[2] = heroProjects[2]; // SOL Restaurant
     arranged[3] = mcpProject || ({ title: "empty-3", isEmptySlot: true } as any);
-    arranged[4] = heroProjects[4]; // Place Darkroom project in slot 4 instead of empty-4
-    arranged[5] = heroProjects[0];
+    arranged[4] = heroProjects[3]; // Le Bab
+    arranged[5] = heroProjects[4]; // Templates
     currentProjects = arranged;
   }
   const currentLayout = gridLayouts[bentoPage % gridLayouts.length];
@@ -305,6 +345,23 @@ export default function Hero() {
     { label: "LinkedIn", href: "https://www.linkedin.com/in/daner-abdula-816425188/", Icon: Linkedin },
   ];
 
+  // Direction-aware page transition: the outgoing grid exits along the axis
+  // of the gesture, the incoming one enters from the opposite side.
+  const OFF = 28;
+  const pageVariants = {
+    enter: (dir: NavDir) => ({
+      opacity: 0,
+      x: dir === "left" ? OFF : dir === "right" ? -OFF : 0,
+      y: dir === "up" ? OFF : dir === "down" ? -OFF : 0,
+    }),
+    center: { opacity: 1, x: 0, y: 0 },
+    exit: (dir: NavDir) => ({
+      opacity: 0,
+      x: dir === "left" ? -OFF : dir === "right" ? OFF : 0,
+      y: dir === "up" ? -OFF : dir === "down" ? OFF : 0,
+    }),
+  };
+
   return (
     <section
       ref={sectionRef}
@@ -316,7 +373,7 @@ export default function Hero() {
         {/* LEFT — text block */}
         <div className="max-w-3xl lg:-mt-8 lg:self-start [text-shadow:0_2px_16px_rgba(0,0,0,0.75)]">
           {/* Badge row — role + availability */}
-          <div className="flex w-full flex-wrap items-center gap-1.5 sm:w-[32rem] sm:flex-nowrap sm:gap-2">
+          <div className="hidden w-full items-center gap-1.5 sm:flex sm:w-[32rem] sm:flex-nowrap sm:gap-2">
             {/* Role badge — fade in */}
             <motion.span
               {...enter(
@@ -351,9 +408,28 @@ export default function Hero() {
               { opacity: 1, y: 0 },
               { duration: 0.6, delay: 0.25, ease: "easeOut" }
             )}
-            className="mt-3 sm:mt-6"
+            className="mt-0 sm:mt-6"
           >
-            <div className="relative h-[24vh] w-full overflow-hidden rounded-2xl border border-line bg-surface/50 shadow-2xl sm:h-[42rem] sm:w-[32rem]">
+            <div className="relative h-[32vh] w-full overflow-hidden rounded-2xl border border-line bg-surface/50 shadow-2xl sm:h-[42rem] sm:w-[32rem]">
+              {/* Invisible eager copies of the other carousel photos, mounted
+                  once the page is fully loaded. Same sizes attribute → same
+                  optimizer URLs, so every 5s swap is already in cache and the
+                  glitch transition never reveals a half-loaded image. */}
+              {pageLoaded && (
+                <div aria-hidden className="pointer-events-none absolute inset-0 opacity-0">
+                  {profileImages.slice(1).map((src) => (
+                    <Image
+                      key={src}
+                      src={src}
+                      alt=""
+                      fill
+                      sizes="(min-width: 640px) 512px, 100vw"
+                      loading="eager"
+                      className="object-cover"
+                    />
+                  ))}
+                </div>
+              )}
               {/* Static first image until mount — keeps SSR/CSR markup identical. */}
               {!mounted ? (
                 <Image
@@ -465,14 +541,16 @@ export default function Hero() {
         </div>
 
         {/* RIGHT — Project bento carousel */}
-        <div className="relative mt-6 flex w-full flex-1 flex-col sm:mt-12 sm:flex-none lg:-mt-8 lg:h-[calc(100svh-8.5rem)] lg:max-h-none lg:min-h-[640px]">
+        <div ref={bentoRef} className="relative mt-6 flex w-full flex-1 flex-col sm:mt-12 sm:flex-none lg:-mt-8 lg:h-[calc(100svh-8.5rem)] lg:max-h-none lg:min-h-[640px]">
           <div className="relative w-full flex-1 overflow-hidden sm:h-[55vh] sm:min-h-[420px] sm:flex-none lg:min-h-0 lg:flex-1">
-            <AnimatePresence mode="wait">
+            <AnimatePresence mode="wait" custom={navDir}>
             <motion.div
               key={bentoPage}
-              initial={firstLoad.current ? false : { opacity: 0, y: 28 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -28 }}
+              custom={navDir}
+              variants={pageVariants}
+              initial={firstLoad.current ? false : "enter"}
+              animate="center"
+              exit="exit"
               transition={{ duration: 0.28, ease: "easeOut" }}
               className={`absolute inset-0 grid h-full gap-3 sm:gap-4 ${currentLayout.grid}`}
             >
@@ -524,9 +602,10 @@ export default function Hero() {
                               priority={bentoPage === 0 && i < 2}
                               playing={!paused}
                             />
-                            {/* Hover title overlay */}
+                            {/* Hover title overlay — desktop only; on touch
+                                devices a tap would flash it over the card */}
                             {project.title && !project.title.includes("empty") && (
-                              <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-background/70 p-4 text-center opacity-0 transition-all duration-300 group-hover:opacity-100">
+                              <div className="pointer-events-none absolute inset-0 hidden items-center justify-center bg-background/70 p-4 text-center opacity-0 transition-all duration-300 group-hover:opacity-100 sm:flex">
                                 <span className="translate-y-4 text-lg font-bold tracking-tight text-white drop-shadow-xl transition-transform duration-500 group-hover:translate-y-0 sm:text-xl md:text-2xl">
                                   {project.title}
                                 </span>
@@ -564,7 +643,10 @@ export default function Hero() {
             {Array.from({ length: totalPages }).map((_, i) => (
               <button
                 key={i}
-                onClick={() => setBentoPage(i)}
+                onClick={() => {
+                  setNavDir(i > bentoPage ? "up" : "down");
+                  setBentoPage(i);
+                }}
                 className={`h-1.5 rounded-full transition-all duration-400 ${i === bentoPage
                   ? "w-6 bg-foreground"
                   : "w-1.5 bg-foreground/25 hover:bg-foreground/40"

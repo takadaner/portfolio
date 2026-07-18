@@ -286,12 +286,19 @@ function DitheredWaves({
         />
       </mesh>
 
-      <EffectComposer>
+      <EffectComposer multisampling={0}>
         <RetroEffect colorNum={colorNum} pixelSize={pixelSize} />
       </EffectComposer>
     </>
   );
 }
+
+// Render the scene at half resolution and let CSS upscale the canvas. The
+// effect already quantizes everything into 2px dither cells, so with
+// image-rendering: pixelated the output is visually identical — at a quarter
+// of the fragment-shader work (the wave pass runs ~8 noise evaluations per
+// pixel, so this is the single biggest smoothness win).
+const RENDER_SCALE = 0.5;
 
 export default function Dither({
   waveSpeed = 0.05,
@@ -308,8 +315,19 @@ export default function Dither({
     <Canvas
       className="h-full w-full"
       camera={{ position: [0, 0, 6] }}
-      dpr={1}
-      gl={{ antialias: true }}
+      dpr={RENDER_SCALE}
+      // Antialiasing (and MSAA below) is pointless for a deliberately
+      // pixelated effect; depth/stencil are unused by the fullscreen quad.
+      gl={{
+        antialias: false,
+        alpha: false,
+        depth: false,
+        stencil: false,
+        powerPreference: "high-performance",
+      }}
+      onCreated={({ gl }) => {
+        gl.domElement.style.imageRendering = "pixelated";
+      }}
       frameloop={disableAnimation ? "never" : "always"}
     >
       <DitheredWaves
@@ -318,7 +336,7 @@ export default function Dither({
         waveAmplitude={waveAmplitude}
         waveColor={waveColor}
         colorNum={colorNum}
-        pixelSize={pixelSize}
+        pixelSize={pixelSize * RENDER_SCALE}
         disableAnimation={disableAnimation}
         enableMouseInteraction={enableMouseInteraction}
         mouseRadius={mouseRadius}

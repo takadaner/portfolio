@@ -33,10 +33,22 @@ export default function HeroBackground() {
   const zoom = !paused;
 
   // Stays false during SSR and the first client render (so markup matches),
-  // then flips on once we've confirmed WebGL works.
+  // then flips on once we've confirmed WebGL works. Deferred to an idle
+  // moment so the three.js chunk (~500KB) never competes with hydration and
+  // the hero photo — the background has a 1.1s fade-in anyway.
   const [webglReady, setWebglReady] = useState(false);
   useEffect(() => {
-    setWebglReady(isWebGLAvailable());
+    const probe = () => setWebglReady(isWebGLAvailable());
+    const w = window as Window & {
+      requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number;
+      cancelIdleCallback?: (id: number) => void;
+    };
+    if (w.requestIdleCallback) {
+      const id = w.requestIdleCallback(probe, { timeout: 2000 });
+      return () => w.cancelIdleCallback?.(id);
+    }
+    const id = window.setTimeout(probe, 350);
+    return () => window.clearTimeout(id);
   }, []);
 
   return (

@@ -32,7 +32,7 @@ export default function HotelSaaSProject() {
 
   const mediaItems: MediaItem[] = [
     {
-      src: "/images/proiecte/wapp concierge.webp",
+      src: "/images/proiecte/Hotel Saas Suite/wapp concierge.webp",
       title: lang === "ro" ? "WhatsApp Concierge AI" : "WhatsApp Concierge AI",
       desc: lang === "ro" ? "Asistent virtual inteligent care gestionează rezervările și răspunde oaspeților non-stop." : "Intelligent virtual assistant that handles bookings and answers guests 24/7.",
       showcase: true

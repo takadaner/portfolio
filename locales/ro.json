@@ -244,6 +244,34 @@
     "viewWebsite": "Vezi website",
     "items": [
       {
+        "title": "Randări 3D Arhitecturale",
+        "description": "Vizualizări 3D fotorealiste ale vilelor și rezidențelor de lux. De la refugii minimaliste pe malul apei la case contemporane în pădure — randări concept cu suprapuneri de planuri, planimetrii și videouri walkthrough.",
+        "tags": [
+          "Randare 3D",
+          "Arhitectură",
+          "Vizualizare",
+          "Video"
+        ],
+        "image": "/images/proiecte/villas/Villa.jpg",
+        "imageAlt": "Vizualizare 3D Vilă",
+        "href": "/projects/villa-visualizations",
+        "video": "/images/proiecte/villas/villa.mp4"
+      },
+      {
+        "title": "Hotel SaaS Suite",
+        "description": "WhatsApp Concierge AI, Digital Compendium, Review Automator",
+        "tags": [
+          "Python",
+          "FastAPI",
+          "Supabase",
+          "Claude API",
+          "Meta Cloud API"
+        ],
+        "image": "/images/proiecte/Hotel Saas Suite/wapp concierge.webp",
+        "imageAlt": "Hotel SaaS Suite",
+        "href": "/projects/hotel-saas-suite"
+      },
+      {
         "title": "SOL Restaurant",
         "description": "Website modern creat pentru SOL Restaurant & Terrace din București. Dispune de un design elegant, meniuri interactive și integrare facilă a rezervărilor.",
         "tags": [
@@ -280,20 +308,6 @@
         "imageAlt": "Template Website Arhitectură"
       },
       {
-        "title": "Randări 3D Arhitecturale",
-        "description": "Vizualizări 3D fotorealiste ale vilelor și rezidențelor de lux. De la refugii minimaliste pe malul apei la case contemporane în pădure — randări concept cu suprapuneri de planuri, planimetrii și videouri walkthrough.",
-        "tags": [
-          "Randare 3D",
-          "Arhitectură",
-          "Vizualizare",
-          "Video"
-        ],
-        "image": "/images/proiecte/villas/Villa.jpg",
-        "imageAlt": "Vizualizare 3D Vilă",
-        "href": "/projects/villa-visualizations",
-        "video": "/images/proiecte/villas/villa.mp4"
-      },
-      {
         "title": "Terasa Florilor",
         "description": "Restaurant brand website with admin panel (Sep 2025). Custom-built website for a Bucharest restaurant brand. Includes a bold visual identity, full ordering flow with cart and checkout, multi-step pickup/delivery + cash/online payment options, event management with ticketing, and a custom admin panel for products, orders, events, comments, newsletter, and fiscal receipts. Built end-to-end as a freelance project: brand-aligned design, frontend development, custom backend, content management, hosting.",
         "tags": [
@@ -317,20 +331,6 @@
         "image": "/images/download.webp",
         "imageAlt": "Site avocatură",
         "href": "https://secosan.netlify.app"
-      },
-      {
-        "title": "Hotel SaaS Suite",
-        "description": "WhatsApp Concierge AI, Digital Compendium, Review Automator",
-        "tags": [
-          "Python",
-          "FastAPI",
-          "Supabase",
-          "Claude API",
-          "Meta Cloud API"
-        ],
-        "image": "/images/proiecte/Hotel Saas Suite/wapp concierge.webp",
-        "imageAlt": "Hotel SaaS Suite",
-        "href": "/projects/hotel-saas-suite"
       },
       {
         "title": "MCP Audio Playground",
@@ -370,7 +370,6 @@
         "image": "/images/placeholder-hotel-suite.svg",
         "imageAlt": "Magazin online"
       },
-
       {
         "title": "Dashboard analytics",
         "description": "Panou de analiză cu grafice în timp real și rapoarte exportabile.",
