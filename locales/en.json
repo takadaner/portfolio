@@ -612,15 +612,11 @@
     "title2": "Services",
     "subtitle": "Explore a full suite of development services to elevate your business.",
     "cta": "Contact Now",
-    "items": [
+    "pills": [
       {
         "icon": "globe",
-        "title": "Web Development",
+        "label": "Web Development",
         "description": "Building breathtaking, user-centric web apps that boost engagement, conversions and growth, perfectly aligned with your business.",
-        "media": "image",
-        "image": "/images/proiecte/sol/main.webp",
-        "imageAlt": "SOL Restaurant & Terrace website",
-        "url": "solrestaurant.ro",
         "features": [
           "Presentation sites & complete web apps",
           "Responsive, mobile-first design",
@@ -630,11 +626,8 @@
       },
       {
         "icon": "bot",
-        "title": "AI Automation",
+        "label": "AI Automation",
         "description": "Smart bots and automated workflows that run around the clock — answering customers and handling repetitive tasks for you.",
-        "media": "image",
-        "image": "/images/proiecte/mcp-playground.webp",
-        "imageAlt": "Interactive AI playground",
         "features": [
           "WhatsApp bots & AI assistants",
           "Automated workflows for repetitive tasks",
@@ -643,11 +636,8 @@
       },
       {
         "icon": "hotel",
-        "title": "Hotel Software",
+        "label": "Hotel Software",
         "description": "Bringing ideas to life with interactive, hotel-focused tools that simplify operations and elevate the guest experience.",
-        "media": "image",
-        "image": "/images/proiecte/Hotel Saas Suite/wapp concierge.webp",
-        "imageAlt": "WhatsApp AI concierge",
         "features": [
           "24/7 WhatsApp AI concierge",
           "Digital guest compendium",
@@ -656,9 +646,8 @@
       },
       {
         "icon": "server",
-        "title": "Backend & APIs",
+        "label": "Backend & APIs",
         "description": "Fast, reliable APIs, databases and business logic that power your products end to end.",
-        "media": "none",
         "features": [
           "Fast, well-documented APIs",
           "Scalable, secure databases",
@@ -668,43 +657,28 @@
       },
       {
         "icon": "palette",
-        "title": "UI/UX Design",
+        "label": "UI/UX Design",
         "description": "Modern, intuitive interfaces built around the user — from wireframe to finished product, with care for every detail.",
-        "media": "none",
         "features": [
           "Wireframes & Figma prototypes",
           "Consistent design systems",
           "Refined micro-interactions & animations",
           "Accessibility & readability on any screen"
         ]
-      }
-    ],
-    "pills": [
-      {
-        "icon": "globe",
-        "label": "Web Development"
-      },
-      {
-        "icon": "bot",
-        "label": "AI Automation"
-      },
-      {
-        "icon": "hotel",
-        "label": "Hotel Software"
-      },
-      {
-        "icon": "server",
-        "label": "Backend & APIs"
-      },
-      {
-        "icon": "palette",
-        "label": "UI/UX Design"
       },
       {
         "icon": "search",
-        "label": "SEO & Optimization"
+        "label": "SEO & Optimization",
+        "description": "I optimize sites for speed and search engines — from Core Web Vitals to semantic structure, so you get found easily and convert more.",
+        "features": [
+          "Technical SEO & performance audit",
+          "Core Web Vitals & speed optimization",
+          "Semantic structure & correct metadata",
+          "Monitoring & monthly reports"
+        ]
       }
-    ]
+    ],
+    "close": "Close"
   },
   "contact": {
     "label": "Let's Connect",

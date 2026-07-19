@@ -72,16 +72,16 @@ export default function NavPreview({
     case "/services":
       return (
         <Shell title={label}>
-          <div className="flex flex-col gap-2">
-            {dict.services.items.map((s: any) => {
-              const Icon = serviceIcons[s.icon] ?? Globe;
+          <div className="grid grid-cols-2 gap-2">
+            {dict.services.pills.map((p: any) => {
+              const Icon = serviceIcons[p.icon] ?? Globe;
               return (
                 <div
-                  key={s.title}
-                  className="flex items-center gap-2.5 rounded-lg border border-line bg-surface-2 px-3 py-2"
+                  key={p.label}
+                  className="flex items-center gap-2 rounded-lg border border-line bg-surface-2 px-2.5 py-2"
                 >
                   <Icon size={15} className="shrink-0 text-muted" />
-                  <span className="truncate text-xs font-medium">{s.title}</span>
+                  <span className="truncate text-xs font-medium">{p.label}</span>
                 </div>
               );
             })}

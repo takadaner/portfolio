@@ -612,15 +612,11 @@
     "title2": "Dezvoltare",
     "subtitle": "Explorează o suită completă de servicii de dezvoltare care îți cresc afacerea.",
     "cta": "Contactează-mă",
-    "items": [
+    "pills": [
       {
         "icon": "globe",
-        "title": "Dezvoltare Web",
+        "label": "Dezvoltare Web",
         "description": "Construiesc aplicații web spectaculoase, centrate pe utilizator, care cresc engagement-ul, conversiile și creșterea, perfect aliniate cu afacerea ta.",
-        "media": "image",
-        "image": "/images/proiecte/sol/main.webp",
-        "imageAlt": "Website SOL Restaurant & Terrace",
-        "url": "solrestaurant.ro",
         "features": [
           "Site-uri de prezentare și aplicații web complete",
           "Design responsive, gândit mobile-first",
@@ -630,11 +626,8 @@
       },
       {
         "icon": "bot",
-        "title": "Automatizări AI",
+        "label": "Automatizări AI",
         "description": "Boți inteligenți și fluxuri automate care funcționează non-stop — răspund clienților și preiau sarcinile repetitive pentru tine.",
-        "media": "image",
-        "image": "/images/proiecte/mcp-playground.webp",
-        "imageAlt": "Playground AI interactiv",
         "features": [
           "Boți WhatsApp și asistenți AI",
           "Fluxuri automate pentru sarcini repetitive",
@@ -643,11 +636,8 @@
       },
       {
         "icon": "hotel",
-        "title": "Software pentru Hoteluri",
+        "label": "Software Hoteluri",
         "description": "Dau viață ideilor prin unelte interactive, dedicate hotelurilor, care simplifică operațiunile și îmbunătățesc experiența oaspeților.",
-        "media": "image",
-        "image": "/images/proiecte/Hotel Saas Suite/wapp concierge.webp",
-        "imageAlt": "Concierge AI pe WhatsApp",
         "features": [
           "Concierge AI pe WhatsApp, non-stop",
           "Compendiu digital pentru oaspeți",
@@ -656,9 +646,8 @@
       },
       {
         "icon": "server",
-        "title": "Backend & API-uri",
+        "label": "Backend & API-uri",
         "description": "API-uri rapide și fiabile, baze de date și logică de business care îți susțin produsele de la cap la coadă.",
-        "media": "none",
         "features": [
           "API-uri rapide și bine documentate",
           "Baze de date scalabile și sigure",
@@ -668,43 +657,28 @@
       },
       {
         "icon": "palette",
-        "title": "Design UI/UX",
+        "label": "Design UI/UX",
         "description": "Interfețe moderne și intuitive, gândite în jurul utilizatorului — de la wireframe la produs finit, cu atenție la fiecare detaliu.",
-        "media": "none",
         "features": [
           "Wireframe și prototipuri în Figma",
           "Design system consistent",
           "Micro-interacțiuni și animații rafinate",
           "Accesibilitate și lizibilitate pe orice ecran"
         ]
-      }
-    ],
-    "pills": [
-      {
-        "icon": "globe",
-        "label": "Dezvoltare Web"
-      },
-      {
-        "icon": "bot",
-        "label": "Automatizări AI"
-      },
-      {
-        "icon": "hotel",
-        "label": "Software Hoteluri"
-      },
-      {
-        "icon": "server",
-        "label": "Backend & API-uri"
-      },
-      {
-        "icon": "palette",
-        "label": "Design UI/UX"
       },
       {
         "icon": "search",
-        "label": "SEO & Optimizare"
+        "label": "SEO & Optimizare",
+        "description": "Optimizez site-uri pentru viteză și motoare de căutare — de la Core Web Vitals la structură semantică, ca să fii găsit ușor și să convertești mai mult.",
+        "features": [
+          "Audit tehnic SEO și de performanță",
+          "Core Web Vitals și optimizare de viteză",
+          "Structură semantică și metadate corecte",
+          "Monitorizare și rapoarte lunare"
+        ]
       }
-    ]
+    ],
+    "close": "Închide"
   },
   "contact": {
     "label": "Hai să vorbim",

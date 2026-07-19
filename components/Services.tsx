@@ -1,7 +1,8 @@
 "use client";
 
-import { useLayoutEffect, useRef, useState } from "react";
-import { motion, MotionConfig } from "framer-motion";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import Link from "next/link";
+import { AnimatePresence, motion, MotionConfig } from "framer-motion";
 import {
   Globe,
   Bot,
@@ -9,6 +10,9 @@ import {
   Server,
   Palette,
   Search,
+  Check,
+  X,
+  Sparkle,
   type LucideIcon,
 } from "lucide-react";
 import { useLanguage } from "@/lib/LanguageContext";
@@ -18,9 +22,10 @@ import "./ServicesRing.css";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 /** Camera pull-back: fast start, long settle — reads as a physical dolly. */
-const CAMERA_EASE = [0.7, 0, 0.22, 1] as const;
+const CAMERA_EASE = [0.65, 0, 0.18, 1] as const;
+const INTRO_KEY = "services-intro-played";
 const HOLD_MS = 1050; // close-up hold on the pill before the pull-back
-const CAMERA_S = 1.2; // camera pull-back duration (s)
+const CAMERA_S = 1.3; // camera pull-back duration (s)
 
 const pillIcons: Record<string, LucideIcon> = {
   globe: Globe,
@@ -31,7 +36,12 @@ const pillIcons: Record<string, LucideIcon> = {
   search: Search,
 };
 
-type ServicePill = { icon: string; label: string };
+type ServicePill = {
+  icon: string;
+  label: string;
+  description: string;
+  features: string[];
+};
 
 /** "boot" = pre-hydration (hidden) → "intro" = camera parked on the pill
     close-up → "page" = camera pulls back and the page assembles. */
@@ -207,39 +217,187 @@ function BrandPill({
   );
 }
 
-function ServiceChip({ pill }: { pill: ServicePill }) {
+/** Clickable service pill: floats idly, lifts on hover, and — via the shared
+    layoutId — morphs into the detail card when opened. */
+function ServiceChip({
+  pill,
+  paused,
+  floatDelay = 0,
+  open,
+  onOpen,
+}: {
+  pill: ServicePill;
+  paused: boolean;
+  floatDelay?: number;
+  open: boolean;
+  onOpen: () => void;
+}) {
   const Icon = pillIcons[pill.icon] ?? Globe;
   return (
-    <div className="flex min-w-0 items-center gap-2.5 rounded-2xl border border-line bg-gradient-to-b from-[#161616] to-[#0e0e0e] px-4 py-3 shadow-lg shadow-black/40 transition-colors duration-300 hover:border-[#333]">
-      <Icon size={16} strokeWidth={1.7} className="shrink-0 text-muted" />
-      <span className="truncate text-sm font-medium text-foreground">
-        {pill.label}
-      </span>
-    </div>
+    <motion.div
+      initial={false}
+      animate={paused || open ? { y: 0 } : { y: [0, -4, 0] }}
+      transition={
+        paused || open
+          ? { duration: 0.3 }
+          : {
+              duration: 5,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: floatDelay,
+            }
+      }
+      className="min-w-0 shrink-0"
+    >
+      <motion.button
+        type="button"
+        layoutId={`svc-${pill.icon}`}
+        onClick={onOpen}
+        aria-haspopup="dialog"
+        aria-expanded={open}
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        transition={{ type: "spring", stiffness: 320, damping: 28 }}
+        className="flex w-full min-w-0 cursor-pointer items-center gap-2.5 rounded-2xl border border-line bg-gradient-to-b from-[#161616] to-[#0e0e0e] px-4 py-3 text-left shadow-lg shadow-black/40 transition-colors duration-300 hover:border-[#333]"
+      >
+        <Icon size={16} strokeWidth={1.7} className="shrink-0 text-muted" />
+        <span className="truncate text-sm font-medium text-foreground">
+          {pill.label}
+        </span>
+      </motion.button>
+    </motion.div>
   );
 }
 
-/** Desktop satellite: chip springs in, then its hairline connector draws
-    toward the center pill. The middle row sits closer in, hinting orbit. */
+/** Expanded detail card — the chip morphs into this dialog via layoutId. */
+function ServiceDetail({
+  pill,
+  ctaLabel,
+  closeLabel,
+  onClose,
+}: {
+  pill: ServicePill;
+  ctaLabel: string;
+  closeLabel: string;
+  onClose: () => void;
+}) {
+  const Icon = pillIcons[pill.icon] ?? Globe;
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [onClose]);
+
+  return (
+    <>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.25 }}
+        onClick={onClose}
+        className="fixed inset-0 z-40 bg-background/80 backdrop-blur-sm"
+      />
+      <div className="pointer-events-none fixed inset-0 z-50 flex items-center justify-center px-6">
+        <motion.div
+          layoutId={`svc-${pill.icon}`}
+          transition={{ type: "spring", stiffness: 300, damping: 30 }}
+          role="dialog"
+          aria-modal="true"
+          aria-label={pill.label}
+          className="pointer-events-auto w-full max-w-md overflow-hidden rounded-3xl border border-line bg-gradient-to-b from-[#181818] to-[#0d0d0d] p-6 shadow-[0_40px_120px_-20px_rgba(0,0,0,0.9)] sm:p-8"
+        >
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, transition: { duration: 0.15 } }}
+            transition={{ duration: 0.4, delay: 0.12, ease: EASE }}
+          >
+            <div className="flex items-start justify-between gap-4">
+              <div className="flex items-center gap-3">
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-line bg-surface-2 text-foreground">
+                  <Icon size={18} strokeWidth={1.7} />
+                </span>
+                <h2 className="text-lg font-semibold text-foreground">
+                  {pill.label}
+                </h2>
+              </div>
+              <button
+                onClick={onClose}
+                aria-label={closeLabel}
+                className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-line bg-surface text-muted transition-colors duration-300 hover:text-foreground"
+              >
+                <X size={15} />
+              </button>
+            </div>
+
+            <p className="mt-4 text-sm leading-relaxed text-muted">
+              {pill.description}
+            </p>
+
+            <ul className="mt-5 flex flex-col gap-2.5">
+              {pill.features.map((feature, i) => (
+                <motion.li
+                  key={feature}
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.3, delay: 0.2 + i * 0.06, ease: EASE }}
+                  className="flex items-start gap-2.5 text-sm leading-relaxed text-muted"
+                >
+                  <span className="mt-1 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-surface-2 text-foreground ring-1 ring-line">
+                    <Check size={10} strokeWidth={2.6} />
+                  </span>
+                  {feature}
+                </motion.li>
+              ))}
+            </ul>
+
+            <motion.div
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+              className="mt-6 inline-block"
+            >
+              <Link
+                href="/contact"
+                className="inline-flex items-center gap-1.5 rounded-full border border-[#2c2c2c] bg-gradient-to-b from-[#242424] to-[#141414] px-5 py-2.5 text-sm font-medium text-foreground transition-colors duration-300 hover:from-[#2c2c2c] hover:to-[#1a1a1a]"
+              >
+                <Sparkle size={15} className="fill-foreground" />
+                {ctaLabel}
+              </Link>
+            </motion.div>
+          </motion.div>
+        </motion.div>
+      </div>
+    </>
+  );
+}
+
+/** Desktop satellite: the chip springs in from its side of the screen, the
+    connector line then draws from the chip all the way to the center pill,
+    and a light pulse periodically travels outward along it. */
 function Satellite({
   pill,
   side,
-  row,
   index,
   phase,
   baseDelay,
+  paused,
+  open,
+  onOpen,
 }: {
   pill: ServicePill;
   side: "left" | "right";
-  row: number;
   index: number;
   phase: Phase;
   baseDelay: number;
+  paused: boolean;
+  open: boolean;
+  onOpen: () => void;
 }) {
   const delay = baseDelay + index * 0.09;
-  const arcOffset =
-    row === 1 ? (side === "left" ? "sm:translate-x-8" : "sm:-translate-x-8") : "";
-  const lineWidth = row === 1 ? "w-8 lg:w-12" : "w-12 lg:w-20";
 
   const line = (
     <motion.span
@@ -248,13 +406,38 @@ function Satellite({
       animate={
         phase === "page" ? { opacity: 1, scaleX: 1 } : { opacity: 0, scaleX: 0 }
       }
-      transition={{ duration: 0.55, ease: EASE, delay: delay + 0.28 }}
-      className={`h-px shrink-0 ${lineWidth} ${
+      transition={{ duration: 0.7, ease: EASE, delay: delay + 0.24 }}
+      className={`relative h-px min-w-4 flex-1 overflow-hidden ${
         side === "left"
-          ? "bg-gradient-to-r from-[#3a3a3a] to-transparent"
-          : "bg-gradient-to-l from-[#3a3a3a] to-transparent"
+          ? "bg-gradient-to-r from-transparent via-[#333333] to-[#464646]"
+          : "bg-gradient-to-l from-transparent via-[#333333] to-[#464646]"
       }`}
-    />
+    >
+      {/* light pulse travelling from the pill out to the chip */}
+      <motion.span
+        initial={false}
+        animate={
+          paused
+            ? { opacity: 0 }
+            : {
+                left: side === "left" ? ["100%", "-18%"] : ["-18%", "100%"],
+                opacity: [0, 0.9, 0],
+              }
+        }
+        transition={
+          paused
+            ? { duration: 0.3 }
+            : {
+                duration: 1.9,
+                repeat: Infinity,
+                repeatDelay: 2.8,
+                delay: 2 + index * 0.5,
+                ease: "easeInOut",
+              }
+        }
+        className="absolute top-0 h-px w-10 bg-gradient-to-r from-transparent via-white/60 to-transparent"
+      />
+    </motion.span>
   );
 
   return (
@@ -262,25 +445,42 @@ function Satellite({
       initial={false}
       animate={
         phase === "page"
-          ? { opacity: 1, y: 0, scale: 1 }
-          : { opacity: 0, y: 24, scale: 0.82 }
+          ? { opacity: 1, x: 0, y: 0, scale: 1 }
+          : {
+              opacity: 0,
+              x: side === "left" ? -36 : 36,
+              y: 10,
+              scale: 0.9,
+            }
       }
       transition={
         phase === "page"
-          ? { type: "spring", stiffness: 300, damping: 24, delay }
+          ? { type: "spring", stiffness: 260, damping: 26, delay }
           : { duration: 0.2 }
       }
-      className={`flex items-center ${arcOffset}`}
+      className="flex w-full items-center"
     >
       {side === "left" ? (
         <>
-          <ServiceChip pill={pill} />
+          <ServiceChip
+            pill={pill}
+            paused={paused}
+            floatDelay={index * 0.4}
+            open={open}
+            onOpen={onOpen}
+          />
           {line}
         </>
       ) : (
         <>
           {line}
-          <ServiceChip pill={pill} />
+          <ServiceChip
+            pill={pill}
+            paused={paused}
+            floatDelay={index * 0.4}
+            open={open}
+            onOpen={onOpen}
+          />
         </>
       )}
     </motion.div>
@@ -295,6 +495,7 @@ export default function Services() {
 
   const [phase, setPhase] = useState<Phase>("boot");
   const [fromIntro, setFromIntro] = useState(false);
+  const [openPill, setOpenPill] = useState<ServicePill | null>(null);
   // camera framing, measured from the real layout before the intro starts
   const [introScale, setIntroScale] = useState(1);
   const [introY, setIntroY] = useState(0);
@@ -316,10 +517,8 @@ export default function Services() {
     // camera origin = the pill's center inside the camera element
     setOriginY(wrap.offsetTop + wrap.offsetHeight / 2);
 
-    // DEV: the intro plays on every visit while we iterate on it. Before
-    // launch, restore the once-per-session guard here (sessionStorage key
-    // "services-intro-played", checked alongside pausedRef).
-    if (pausedRef.current) {
+    // The intro plays once per session — repeat visits get a fast fade-in.
+    if (pausedRef.current || sessionStorage.getItem(INTRO_KEY)) {
       setPhase("page");
       return;
     }
@@ -336,6 +535,7 @@ export default function Services() {
     setPhase("intro");
 
     const t = setTimeout(() => {
+      sessionStorage.setItem(INTRO_KEY, "1");
       setPhase("page");
     }, HOLD_MS);
     return () => clearTimeout(t);
@@ -346,8 +546,8 @@ export default function Services() {
   const right = pills.slice(3, 6);
 
   // choreography offsets, relative to the camera pull-back starting
-  const headDelay = fromIntro ? 0.75 : 0.05;
-  const satBase = fromIntro ? 0.95 : 0.15;
+  const headDelay = fromIntro ? 0.85 : 0.05;
+  const satBase = fromIntro ? 1.05 : 0.15;
 
   return (
     // reducedMotion="never" is a deliberate product decision: the owner
@@ -379,7 +579,9 @@ export default function Services() {
             <motion.span
               initial={false}
               animate={
-                phase === "page" ? { opacity: 1, y: 0 } : { opacity: 0, y: 14 }
+                phase === "page"
+                  ? { opacity: 1, y: 0, scale: 1 }
+                  : { opacity: 0, y: 14, scale: 0.92 }
               }
               transition={{ duration: 0.6, ease: EASE, delay: headDelay }}
             >
@@ -390,8 +592,8 @@ export default function Services() {
                 initial={false}
                 animate={
                   phase === "page"
-                    ? { opacity: 1, y: "0%" }
-                    : { opacity: 0, y: "112%" }
+                    ? { opacity: 1, y: "0%", filter: "blur(0px)" }
+                    : { opacity: 0, y: "112%", filter: "blur(8px)" }
                 }
                 transition={{
                   duration: 0.85,
@@ -407,7 +609,9 @@ export default function Services() {
             <motion.p
               initial={false}
               animate={
-                phase === "page" ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }
+                phase === "page"
+                  ? { opacity: 1, y: 0, filter: "blur(0px)" }
+                  : { opacity: 0, y: 16, filter: "blur(6px)" }
               }
               transition={{ duration: 0.65, ease: EASE, delay: headDelay + 0.28 }}
               className="mt-4 max-w-xl text-base text-muted"
@@ -419,21 +623,23 @@ export default function Services() {
           {/* orbit composition */}
           <div className="mt-12 w-full max-w-5xl sm:mt-16">
             <div className="grid grid-cols-1 items-center sm:grid-cols-[1fr_auto_1fr]">
-              <div className="hidden flex-col items-end gap-7 sm:flex">
-                {left.map((pill, row) => (
+              <div className="hidden flex-col gap-7 sm:flex">
+                {left.map((pill, i) => (
                   <Satellite
                     key={pill.label}
                     pill={pill}
                     side="left"
-                    row={row}
-                    index={row * 2}
+                    index={i * 2}
                     phase={phase}
                     baseDelay={satBase}
+                    paused={paused}
+                    open={openPill?.icon === pill.icon}
+                    onOpen={() => setOpenPill(pill)}
                   />
                 ))}
               </div>
 
-              <div ref={pillWrapRef} className="flex justify-center sm:px-6">
+              <div ref={pillWrapRef} className="flex justify-center sm:px-4">
                 {/* the pill + ring fade in as a unit at the very start */}
                 <motion.div
                   initial={false}
@@ -443,26 +649,40 @@ export default function Services() {
                   transition={{ duration: 0.45, ease: "easeOut" }}
                   className="relative"
                 >
-                  <div
-                    aria-hidden
-                    className="pointer-events-none absolute left-1/2 top-1/2 h-36 w-[140%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-foreground/[0.04] blur-3xl"
-                  />
-                  <RingOrbit layer="back" paused={paused} />
-                  <BrandPill label={dict.nav.logo} pillRef={pillRef} />
-                  <RingOrbit layer="front" paused={paused} />
+                  {/* gentle idle float so the hero object never sits dead still */}
+                  <motion.div
+                    initial={false}
+                    animate={paused ? { y: 0 } : { y: [0, -6, 0] }}
+                    transition={
+                      paused
+                        ? { duration: 0.3 }
+                        : { duration: 6.5, repeat: Infinity, ease: "easeInOut" }
+                    }
+                    className="relative"
+                  >
+                    <div
+                      aria-hidden
+                      className="pointer-events-none absolute left-1/2 top-1/2 h-36 w-[140%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-foreground/[0.04] blur-3xl"
+                    />
+                    <RingOrbit layer="back" paused={paused} />
+                    <BrandPill label={dict.nav.logo} pillRef={pillRef} />
+                    <RingOrbit layer="front" paused={paused} />
+                  </motion.div>
                 </motion.div>
               </div>
 
-              <div className="hidden flex-col items-start gap-7 sm:flex">
-                {right.map((pill, row) => (
+              <div className="hidden flex-col gap-7 sm:flex">
+                {right.map((pill, i) => (
                   <Satellite
                     key={pill.label}
                     pill={pill}
                     side="right"
-                    row={row}
-                    index={row * 2 + 1}
+                    index={i * 2 + 1}
                     phase={phase}
                     baseDelay={satBase}
+                    paused={paused}
+                    open={openPill?.icon === pill.icon}
+                    onOpen={() => setOpenPill(pill)}
                   />
                 ))}
               </div>
@@ -490,12 +710,30 @@ export default function Services() {
                       : { duration: 0.2 }
                   }
                 >
-                  <ServiceChip pill={pill} />
+                  <ServiceChip
+                    pill={pill}
+                    paused={paused}
+                    floatDelay={i * 0.3}
+                    open={openPill?.icon === pill.icon}
+                    onOpen={() => setOpenPill(pill)}
+                  />
                 </motion.div>
               ))}
             </div>
           </div>
         </motion.div>
+
+        {/* pill detail dialog — the clicked chip morphs into this card */}
+        <AnimatePresence>
+          {openPill && (
+            <ServiceDetail
+              pill={openPill}
+              ctaLabel={s.cta}
+              closeLabel={s.close}
+              onClose={() => setOpenPill(null)}
+            />
+          )}
+        </AnimatePresence>
       </section>
     </MotionConfig>
   );
