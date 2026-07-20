@@ -7,6 +7,7 @@ import Link from "next/link";
 import { ArrowUpRight, ExternalLink } from "lucide-react";
 import { useLanguage } from "@/lib/LanguageContext";
 import Reveal from "./Reveal";
+import ProjectsNav from "./ProjectsNav";
 
 function slugify(text: string) {
   return text
@@ -17,6 +18,11 @@ function slugify(text: string) {
 
 export default function Projects() {
   const { dict, lang } = useLanguage();
+
+  const navItems = dict.projects.items.map((project) => ({
+    title: project.title,
+    slug: slugify(project.title),
+  }));
 
   // Scroll to the correct project when arriving via hash (e.g. /projects#terasa-florilor)
   useEffect(() => {
@@ -36,6 +42,8 @@ export default function Projects() {
 
   return (
     <section className="px-6 pb-28 pt-32 sm:pt-40">
+      <ProjectsNav items={navItems} />
+
       <div className="mx-auto max-w-content">
         {/* Header */}
         <Reveal>
@@ -63,7 +71,7 @@ export default function Projects() {
             const href = (project as any).href as string | undefined;
 
             return (
-              <Reveal key={project.title}>
+              <div key={project.title}>
                 <article
                   id={slug}
                   className="scroll-mt-32 grid items-center gap-8 lg:grid-cols-2 lg:gap-14"
@@ -184,7 +192,7 @@ export default function Projects() {
                     )}
                   </div>
                 </article>
-              </Reveal>
+              </div>
             );
           })}
         </div>

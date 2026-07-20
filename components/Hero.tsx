@@ -371,7 +371,7 @@ export default function Hero() {
       <HeroBackground />
       <div className="relative z-10 mx-auto flex h-full w-full max-w-none flex-1 flex-col sm:flex-none lg:grid lg:grid-cols-[1.4fr_1fr] lg:items-start lg:gap-8">
         {/* LEFT — text block */}
-        <div className="max-w-3xl lg:-mt-8 lg:self-start [text-shadow:0_2px_16px_rgba(0,0,0,0.75)]">
+        <div className="max-w-3xl lg:-mt-2 lg:self-start [text-shadow:0_2px_16px_rgba(0,0,0,0.75)]">
           {/* Badge row — role + availability */}
           <div className="hidden w-full items-center gap-1.5 sm:flex sm:w-[32rem] sm:flex-nowrap sm:gap-2">
             {/* Role badge — fade in */}
@@ -410,7 +410,7 @@ export default function Hero() {
             )}
             className="mt-0 sm:mt-6"
           >
-            <div className="relative h-[32vh] w-full overflow-hidden rounded-2xl border border-line bg-surface/50 shadow-2xl sm:h-[42rem] sm:w-[32rem]">
+            <div className="relative h-[32vh] w-full overflow-hidden rounded-2xl border border-line bg-surface/50 shadow-2xl sm:h-[42rem] sm:w-[28rem]">
               {/* Invisible eager copies of the other carousel photos, mounted
                   once the page is fully loaded. Same sizes attribute → same
                   optimizer URLs, so every 5s swap is already in cache and the
@@ -496,7 +496,7 @@ export default function Hero() {
           </motion.div>
 
           {/* Name — fades in word by word */}
-          <h1 className="mt-4 hidden flex-wrap items-start gap-x-2 text-[2.5rem] font-semibold leading-[0.95] tracking-tight sm:mt-6 sm:flex sm:gap-x-3 sm:text-7xl lg:text-[5.25rem]">
+          <h1 className="mt-4 hidden flex-wrap items-start gap-x-2 text-[2.5rem] font-semibold leading-[0.95] tracking-tight sm:mt-6 sm:flex sm:gap-x-3 sm:text-7xl xl:text-[5.25rem]">
             {words.map((word, i) => (
               <motion.span
                 key={`${word}-${i}`}
@@ -541,7 +541,7 @@ export default function Hero() {
         </div>
 
         {/* RIGHT — Project bento carousel */}
-        <div ref={bentoRef} className="relative mt-6 flex w-full flex-1 flex-col sm:mt-12 sm:flex-none lg:-mt-8 lg:h-[calc(100svh-8.5rem)] lg:max-h-none lg:min-h-[640px]">
+        <div ref={bentoRef} className="relative mt-6 flex w-full flex-1 flex-col sm:mt-12 sm:flex-none lg:-mt-2 lg:h-[calc(100svh-8.5rem)] lg:max-h-none lg:min-h-[640px]">
           <div className="relative w-full flex-1 overflow-hidden sm:h-[55vh] sm:min-h-[420px] sm:flex-none lg:min-h-0 lg:flex-1">
             <AnimatePresence mode="wait" custom={navDir}>
             <motion.div

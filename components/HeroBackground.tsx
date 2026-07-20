@@ -90,11 +90,14 @@ export default function HeroBackground() {
         )}
       </motion.div>
 
-      {/* Left scrim — keeps the hero copy readable over the bright dither. */}
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-background via-background/70 to-transparent" />
+      {/* Left scrim — removed to keep background equally strong */}
+      {/* <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-background via-background/70 to-transparent" /> */}
 
-      {/* Fade the bottom into the page background so the content + bento stay legible. */}
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-background/10 to-background" />
+      {/* Dark overlay to reduce the intensity of the white dither effect */}
+      <div className="pointer-events-none absolute inset-0 bg-background/40" />
+
+      {/* Fade the bottom into the page background — reduced to keep background strong */}
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background/50" />
     </motion.div>
   );
 }
