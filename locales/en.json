@@ -733,7 +733,8 @@
           "title": "Launch & support",
           "description": "We launch together, and I stay available for tweaks and post-launch support."
         }
-      ]
+      ],
+      "stackLabel": "Tech stack used"
     }
   },
   "contact": {

@@ -222,6 +222,8 @@ function BrandPill({
 
 type RelatedProject = {
   title: string;
+  description?: string;
+  tags?: string[];
   image: string;
   imageAlt: string;
   href?: string;
@@ -235,6 +237,7 @@ type DialogCopy = {
   back: string;
   start: string;
   noProjects: string;
+  stackLabel: string;
   processTitle: string;
   process: { title: string; description: string }[];
 };
@@ -307,6 +310,58 @@ function RelatedCard({ p }: { p: RelatedProject }) {
       <p className="truncate px-2.5 py-2 text-xs font-medium text-foreground">
         {p.title}
       </p>
+    </div>
+  );
+
+  if (p.href?.startsWith("/")) {
+    return <Link href={p.href}>{inner}</Link>;
+  }
+  if (p.href) {
+    return (
+      <a href={p.href} target="_blank" rel="noopener noreferrer">
+        {inner}
+      </a>
+    );
+  }
+  return <Link href="/projects">{inner}</Link>;
+}
+
+/** Richer "case study" row used on the dialog's Projects step — bigger
+    thumbnail plus description and tags, not just a title. */
+function RelatedCardLarge({ p }: { p: RelatedProject }) {
+  const inner = (
+    <div className="group/rel flex gap-4 overflow-hidden rounded-2xl border border-line bg-surface p-3 transition-colors duration-300 hover:border-[#333]">
+      <div className="relative h-20 w-28 shrink-0 overflow-hidden rounded-xl sm:h-24 sm:w-36">
+        <Image
+          src={p.image}
+          alt={p.imageAlt}
+          fill
+          sizes="200px"
+          className="object-cover transition-transform duration-500 ease-out group-hover/rel:scale-105"
+        />
+      </div>
+      <div className="min-w-0 py-0.5">
+        <p className="truncate text-sm font-semibold text-foreground">
+          {p.title}
+        </p>
+        {p.description && (
+          <p className="mt-1 line-clamp-2 text-xs leading-relaxed text-muted">
+            {p.description}
+          </p>
+        )}
+        {p.tags && p.tags.length > 0 && (
+          <div className="mt-2 flex flex-wrap gap-1">
+            {p.tags.slice(0, 3).map((t) => (
+              <span
+                key={t}
+                className="rounded-full border border-line bg-surface-2 px-2 py-0.5 text-[10px] text-muted-2"
+              >
+                {t}
+              </span>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 
@@ -397,11 +452,19 @@ function ServiceDetail({
     return () => window.removeEventListener("keydown", onKey);
   }, [onClose]);
 
+  // tech stack chips on the Details step, derived from the actual related
+  // projects rather than invented — real proof, not marketing copy.
+  const stack = Array.from(
+    new Set(related.flatMap((p) => p.tags ?? []))
+  ).slice(0, 8);
+
   const stepBody =
     step === 0 ? (
       <>
-        <p className="text-sm leading-relaxed text-muted">{pill.description}</p>
-        <ul className="mt-4 flex flex-col gap-2.5">
+        <p className="text-base leading-relaxed text-muted">
+          {pill.description}
+        </p>
+        <ul className="mt-5 grid grid-cols-1 gap-x-6 gap-y-3 sm:grid-cols-2">
           {pill.features.map((feature, i) => (
             <motion.li
               key={feature}
@@ -417,10 +480,33 @@ function ServiceDetail({
             </motion.li>
           ))}
         </ul>
+
+        {stack.length > 0 && (
+          <motion.div
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.35, delay: 0.4, ease: EASE }}
+            className="mt-6 border-t border-line pt-5"
+          >
+            <p className="text-[10px] font-medium uppercase tracking-wider text-muted-2">
+              {copy.stackLabel}
+            </p>
+            <div className="mt-2.5 flex flex-wrap gap-1.5">
+              {stack.map((t) => (
+                <span
+                  key={t}
+                  className="rounded-full border border-line bg-surface-2 px-2.5 py-1 text-xs text-muted"
+                >
+                  {t}
+                </span>
+              ))}
+            </div>
+          </motion.div>
+        )}
       </>
     ) : step === 1 ? (
       related.length > 0 ? (
-        <div className="grid grid-cols-2 gap-3">
+        <div className="flex flex-col gap-3">
           {related.map((p, i) => (
             <motion.div
               key={p.title}
@@ -428,7 +514,7 @@ function ServiceDetail({
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.35, delay: 0.1 + i * 0.08, ease: EASE }}
             >
-              <RelatedCard p={p} />
+              <RelatedCardLarge p={p} />
             </motion.div>
           ))}
         </div>
@@ -437,25 +523,27 @@ function ServiceDetail({
       )
     ) : (
       <>
-        <p className="text-sm font-medium text-foreground">{copy.processTitle}</p>
-        <ol className="mt-4 flex flex-col">
+        <p className="text-base font-medium text-foreground">
+          {copy.processTitle}
+        </p>
+        <ol className="mt-5 flex flex-col">
           {copy.process.map((st, i) => (
             <motion.li
               key={st.title}
               initial={{ opacity: 0, x: -12 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.35, delay: 0.08 + i * 0.09, ease: EASE }}
-              className="relative flex gap-3 pb-4 last:pb-0"
+              className="relative flex gap-4 pb-5 last:pb-0"
             >
               {i < copy.process.length - 1 && (
-                <span className="absolute left-[13px] top-8 h-[calc(100%-1.75rem)] w-px bg-line" />
+                <span className="absolute left-4 top-9 h-[calc(100%-2rem)] w-px bg-line" />
               )}
-              <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-line bg-surface-2 text-[11px] font-semibold text-foreground">
+              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-line bg-surface-2 text-xs font-semibold text-foreground">
                 {i + 1}
               </span>
-              <div className="min-w-0">
+              <div className="min-w-0 pt-0.5">
                 <p className="text-sm font-medium text-foreground">{st.title}</p>
-                <p className="mt-0.5 text-xs leading-relaxed text-muted">
+                <p className="mt-1 text-sm leading-relaxed text-muted">
                   {st.description}
                 </p>
               </div>
@@ -484,29 +572,29 @@ function ServiceDetail({
           role="dialog"
           aria-modal="true"
           aria-label={pill.label}
-          className="pointer-events-auto flex max-h-[82svh] w-full max-w-md flex-col overflow-hidden rounded-3xl border border-line bg-gradient-to-b from-[#181818] to-[#0d0d0d] p-6 shadow-[0_40px_120px_-20px_rgba(0,0,0,0.9)] sm:p-7"
+          className="pointer-events-auto flex max-h-[88svh] w-full max-w-xl flex-col overflow-hidden rounded-3xl border border-line bg-gradient-to-b from-[#181818] to-[#0d0d0d] p-7 shadow-[0_40px_120px_-20px_rgba(0,0,0,0.9)] sm:max-w-2xl sm:p-10"
         >
           {/* header */}
           <div className="flex items-start justify-between gap-4">
-            <div className="flex min-w-0 items-center gap-3">
-              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-line bg-surface-2 text-foreground">
-                <Icon size={18} strokeWidth={1.7} />
+            <div className="flex min-w-0 items-center gap-4">
+              <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-line bg-surface-2 text-foreground sm:h-14 sm:w-14">
+                <Icon size={22} strokeWidth={1.6} />
               </span>
-              <h2 className="truncate text-lg font-semibold text-foreground">
+              <h2 className="truncate text-xl font-semibold text-foreground sm:text-2xl">
                 {pill.label}
               </h2>
             </div>
             <button
               onClick={onClose}
               aria-label={closeLabel}
-              className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-line bg-surface text-muted transition-colors duration-300 hover:text-foreground"
+              className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-line bg-surface text-muted transition-colors duration-300 hover:text-foreground"
             >
-              <X size={15} />
+              <X size={16} />
             </button>
           </div>
 
           {/* step progress — clickable segments */}
-          <div className="mt-5 flex items-center gap-2">
+          <div className="mt-6 flex items-center gap-2">
             {copy.tabs.map((tab, i) => (
               <button
                 key={tab}
@@ -530,7 +618,7 @@ function ServiceDetail({
           </div>
 
           {/* step body — slides along the travel direction */}
-          <div className="mt-5 min-h-0 flex-1 overflow-y-auto">
+          <div className="mt-6 min-h-0 flex-1 overflow-y-auto">
             <AnimatePresence mode="wait" initial={false}>
               <motion.div
                 key={step}
@@ -695,7 +783,12 @@ function Satellite({
           ? { type: "spring", stiffness: 260, damping: 26, delay }
           : { duration: 0.2 }
       }
-      className="flex w-full items-center"
+      // Each row gets its own stacking context from framer's transform, so
+      // without an explicit z-index the row that's LATER in the DOM always
+      // paints over earlier ones — the hover panel would get clipped by
+      // whichever satellite comes after it. Bumping z-index only while
+      // hovered/focused lets the open panel win regardless of DOM order.
+      className="relative z-0 flex w-full items-center hover:z-40 focus-within:z-40"
     >
       {side === "left" ? (
         <>
