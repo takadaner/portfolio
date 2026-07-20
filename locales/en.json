@@ -622,6 +622,11 @@
           "Responsive, mobile-first design",
           "Technical SEO & top performance",
           "Admin panel & CMS when needed"
+        ],
+        "relatedTitles": [
+          "SOL Restaurant",
+          "Le Bab Bucharest",
+          "Terasa Florilor"
         ]
       },
       {
@@ -632,6 +637,10 @@
           "WhatsApp bots & AI assistants",
           "Automated workflows for repetitive tasks",
           "Integration with your existing systems"
+        ],
+        "relatedTitles": [
+          "Hotel SaaS Suite",
+          "MCP Audio Playground"
         ]
       },
       {
@@ -642,6 +651,9 @@
           "24/7 WhatsApp AI concierge",
           "Digital guest compendium",
           "Review & booking automation"
+        ],
+        "relatedTitles": [
+          "Hotel SaaS Suite"
         ]
       },
       {
@@ -653,6 +665,10 @@
           "Scalable, secure databases",
           "Auth, payments & third-party integrations",
           "Monitoring & automated deploys"
+        ],
+        "relatedTitles": [
+          "Hotel SaaS Suite",
+          "MCP Audio Playground"
         ]
       },
       {
@@ -664,6 +680,10 @@
           "Consistent design systems",
           "Refined micro-interactions & animations",
           "Accessibility & readability on any screen"
+        ],
+        "relatedTitles": [
+          "Website Templates",
+          "Le Bab Bucharest"
         ]
       },
       {
@@ -675,10 +695,46 @@
           "Core Web Vitals & speed optimization",
           "Semantic structure & correct metadata",
           "Monitoring & monthly reports"
+        ],
+        "relatedTitles": [
+          "SOL Restaurant",
+          "Law Firm Website — Secoșan N. Ovidiu"
         ]
       }
     ],
-    "close": "Close"
+    "close": "Close",
+    "dialog": {
+      "hoverHint": "Click for details",
+      "tabs": [
+        "Details",
+        "Projects",
+        "Process"
+      ],
+      "seeProjects": "See projects",
+      "howWeWork": "How we work",
+      "back": "Back",
+      "start": "Let's get started",
+      "noProjects": "I'll be adding projects from this category here soon.",
+      "processTitle": "How working together looks, step by step",
+      "process": [
+        {
+          "title": "Initial chat",
+          "description": "Tell me what you need — we align on goals and budget in a quick call or chat."
+        },
+        {
+          "title": "Proposal & plan",
+          "description": "You get a clear proposal: scope, milestones, timeline and cost, no surprises."
+        },
+        {
+          "title": "Build & check-ins",
+          "description": "I build in stages, with demos and feedback along the way, not just at the end."
+        },
+        {
+          "title": "Launch & support",
+          "description": "We launch together, and I stay available for tweaks and post-launch support."
+        }
+      ]
+    }
   },
   "contact": {
     "label": "Let's Connect",
@@ -693,10 +749,24 @@
       "namePlaceholder": "Your Name",
       "email": "Email",
       "emailPlaceholder": "Your Email",
+      "phone": "Phone",
+      "phonePlaceholder": "Your phone number",
       "message": "Message",
-      "messagePlaceholder": "Your Message",
+      "messagePlaceholder": "Tell me more about your project...",
       "submit": "Send Message",
-      "note": "(I will reach out to you within 48hrs)"
+      "note": "(I will reach out to you within 48hrs)",
+      "next": "Next",
+      "back": "Back",
+      "step1Title": "1. What are you interested in?",
+      "step2Title": "2. How can I reach you?",
+      "step3Title": "3. Project details",
+      "interests": {
+        "web": "Web Development",
+        "uiux": "UI/UX Design",
+        "seo": "SEO & Optimization",
+        "consulting": "Consulting",
+        "other": "Other"
+      }
     }
   },
   "footer": {

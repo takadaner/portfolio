@@ -622,6 +622,11 @@
           "Design responsive, gândit mobile-first",
           "SEO tehnic și performanță excelentă",
           "Panou de administrare și CMS la nevoie"
+        ],
+        "relatedTitles": [
+          "SOL Restaurant",
+          "Le Bab București",
+          "Terasa Florilor"
         ]
       },
       {
@@ -632,6 +637,10 @@
           "Boți WhatsApp și asistenți AI",
           "Fluxuri automate pentru sarcini repetitive",
           "Integrare cu sistemele tale existente"
+        ],
+        "relatedTitles": [
+          "Hotel SaaS Suite",
+          "MCP Audio Playground"
         ]
       },
       {
@@ -642,6 +651,9 @@
           "Concierge AI pe WhatsApp, non-stop",
           "Compendiu digital pentru oaspeți",
           "Automatizare recenzii și rezervări"
+        ],
+        "relatedTitles": [
+          "Hotel SaaS Suite"
         ]
       },
       {
@@ -653,6 +665,10 @@
           "Baze de date scalabile și sigure",
           "Autentificare, plăți și integrări cu servicii externe",
           "Monitorizare și deploy automatizat"
+        ],
+        "relatedTitles": [
+          "Hotel SaaS Suite",
+          "MCP Audio Playground"
         ]
       },
       {
@@ -664,6 +680,10 @@
           "Design system consistent",
           "Micro-interacțiuni și animații rafinate",
           "Accesibilitate și lizibilitate pe orice ecran"
+        ],
+        "relatedTitles": [
+          "Template-uri Website",
+          "Le Bab București"
         ]
       },
       {
@@ -675,10 +695,46 @@
           "Core Web Vitals și optimizare de viteză",
           "Structură semantică și metadate corecte",
           "Monitorizare și rapoarte lunare"
+        ],
+        "relatedTitles": [
+          "SOL Restaurant",
+          "Site avocatură — Secoșan N. Ovidiu"
         ]
       }
     ],
-    "close": "Închide"
+    "close": "Închide",
+    "dialog": {
+      "hoverHint": "Click pentru detalii",
+      "tabs": [
+        "Detalii",
+        "Proiecte",
+        "Proces"
+      ],
+      "seeProjects": "Vezi proiecte",
+      "howWeWork": "Cum lucrăm",
+      "back": "Înapoi",
+      "start": "Hai să începem",
+      "noProjects": "În curând voi adăuga proiecte din această categorie aici.",
+      "processTitle": "Cum arată colaborarea, pas cu pas",
+      "process": [
+        {
+          "title": "Discuție inițială",
+          "description": "Îmi spui ce ai nevoie, discutăm obiective și buget — un apel scurt sau pe chat."
+        },
+        {
+          "title": "Propunere & plan",
+          "description": "Primești o propunere clară: scop, etape, termene și cost, fără surprize."
+        },
+        {
+          "title": "Dezvoltare & update-uri",
+          "description": "Construiesc în etape, cu demo-uri și feedback pe parcurs, nu doar la final."
+        },
+        {
+          "title": "Lansare & suport",
+          "description": "Lansăm împreună, iar eu rămân disponibil pentru ajustări și suport ulterior."
+        }
+      ]
+    }
   },
   "contact": {
     "label": "Hai să vorbim",
@@ -693,10 +749,24 @@
       "namePlaceholder": "Numele tău",
       "email": "Email",
       "emailPlaceholder": "Emailul tău",
+      "phone": "Telefon",
+      "phonePlaceholder": "Numărul tău de telefon",
       "message": "Mesaj",
-      "messagePlaceholder": "Mesajul tău",
+      "messagePlaceholder": "Spune-mi mai multe despre proiectul tău...",
       "submit": "Trimite mesajul",
-      "note": "(Îți răspund în maximum 48 de ore)"
+      "note": "(Îți răspund în maximum 48 de ore)",
+      "next": "Continuă",
+      "back": "Înapoi",
+      "step1Title": "1. Ce te interesează?",
+      "step2Title": "2. Cum te pot contacta?",
+      "step3Title": "3. Detalii proiect",
+      "interests": {
+        "web": "Dezvoltare Web",
+        "uiux": "Design UI/UX",
+        "seo": "SEO & Optimizare",
+        "consulting": "Consultanță",
+        "other": "Altele"
+      }
     }
   },
   "footer": {

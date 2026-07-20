@@ -2,6 +2,7 @@
 
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { AnimatePresence, motion, MotionConfig } from "framer-motion";
 import {
   Globe,
@@ -13,6 +14,7 @@ import {
   Check,
   X,
   Sparkle,
+  ArrowRight,
   type LucideIcon,
 } from "lucide-react";
 import { useLanguage } from "@/lib/LanguageContext";
@@ -41,6 +43,7 @@ type ServicePill = {
   label: string;
   description: string;
   features: string[];
+  relatedTitles?: string[];
 };
 
 /** "boot" = pre-hydration (hidden) → "intro" = camera parked on the pill
@@ -217,8 +220,28 @@ function BrandPill({
   );
 }
 
-/** Clickable service pill: floats idly, lifts on hover, and — via the shared
-    layoutId — morphs into the detail card when opened. */
+type RelatedProject = {
+  title: string;
+  image: string;
+  imageAlt: string;
+  href?: string;
+};
+
+type DialogCopy = {
+  hoverHint: string;
+  tabs: string[];
+  seeProjects: string;
+  howWeWork: string;
+  back: string;
+  start: string;
+  noProjects: string;
+  processTitle: string;
+  process: { title: string; description: string }[];
+};
+
+/** Clickable service pill: floats idly, lifts on hover, opens the detail
+    dialog on click. (No shared layoutId — duplicate ids across the desktop
+    and mobile chip sets made chips flicker in and out.) */
 function ServiceChip({
   pill,
   paused,
@@ -251,13 +274,12 @@ function ServiceChip({
     >
       <motion.button
         type="button"
-        layoutId={`svc-${pill.icon}`}
         onClick={onOpen}
         aria-haspopup="dialog"
         aria-expanded={open}
-        whileHover={{ scale: 1.05 }}
+        whileHover={{ scale: 1.06 }}
         whileTap={{ scale: 0.95 }}
-        transition={{ type: "spring", stiffness: 320, damping: 28 }}
+        transition={{ type: "spring", stiffness: 320, damping: 26 }}
         className="flex w-full min-w-0 cursor-pointer items-center gap-2.5 rounded-2xl border border-line bg-gradient-to-b from-[#161616] to-[#0e0e0e] px-4 py-3 text-left shadow-lg shadow-black/40 transition-colors duration-300 hover:border-[#333]"
       >
         <Icon size={16} strokeWidth={1.7} className="shrink-0 text-muted" />
@@ -269,19 +291,103 @@ function ServiceChip({
   );
 }
 
-/** Expanded detail card — the chip morphs into this dialog via layoutId. */
+/** Small project card used in the hover panel and the dialog. */
+function RelatedCard({ p }: { p: RelatedProject }) {
+  const inner = (
+    <div className="group/rel overflow-hidden rounded-xl border border-line bg-surface transition-colors duration-300 hover:border-[#333]">
+      <div className="relative h-16 w-full overflow-hidden sm:h-20">
+        <Image
+          src={p.image}
+          alt={p.imageAlt}
+          fill
+          sizes="200px"
+          className="object-cover transition-transform duration-500 ease-out group-hover/rel:scale-105"
+        />
+      </div>
+      <p className="truncate px-2.5 py-2 text-xs font-medium text-foreground">
+        {p.title}
+      </p>
+    </div>
+  );
+
+  if (p.href?.startsWith("/")) {
+    return <Link href={p.href}>{inner}</Link>;
+  }
+  if (p.href) {
+    return (
+      <a href={p.href} target="_blank" rel="noopener noreferrer">
+        {inner}
+      </a>
+    );
+  }
+  return <Link href="/projects">{inner}</Link>;
+}
+
+/** Desktop-only hover preview: enlarges the pill into a panel with the
+    service description + related projects, inviting the click. */
+function HoverPanel({
+  pill,
+  related,
+  hint,
+  side,
+  below,
+}: {
+  pill: ServicePill;
+  related: RelatedProject[];
+  hint: string;
+  side: "left" | "right";
+  below: boolean;
+}) {
+  return (
+    <div
+      className={`pointer-events-none absolute z-30 hidden w-72 opacity-0 transition-all duration-200 group-hover/sat:pointer-events-auto group-hover/sat:opacity-100 sm:block ${
+        below ? "top-full pt-2" : "bottom-full pb-2"
+      } ${side === "left" ? "left-0" : "right-0"}`}
+    >
+      <div
+        className={`rounded-2xl border border-line bg-background/95 p-4 shadow-2xl backdrop-blur-md transition-transform duration-200 group-hover/sat:translate-y-0 ${
+          below ? "translate-y-1" : "-translate-y-1"
+        }`}
+      >
+        <p className="text-xs leading-relaxed text-muted">{pill.description}</p>
+        {related.length > 0 && (
+          <div className="mt-3 grid grid-cols-2 gap-2">
+            {related.map((p) => (
+              <RelatedCard key={p.title} p={p} />
+            ))}
+          </div>
+        )}
+        <p className="mt-3 text-[10px] font-medium uppercase tracking-wider text-muted-2">
+          {hint}
+        </p>
+      </div>
+    </div>
+  );
+}
+
+/** Three-step onboarding dialog: service details → related projects → how
+    working together goes, ending on the contact CTA. */
 function ServiceDetail({
   pill,
-  ctaLabel,
+  related,
+  copy,
   closeLabel,
   onClose,
 }: {
   pill: ServicePill;
-  ctaLabel: string;
+  related: RelatedProject[];
+  copy: DialogCopy;
   closeLabel: string;
   onClose: () => void;
 }) {
   const Icon = pillIcons[pill.icon] ?? Globe;
+  const [step, setStep] = useState(0);
+  // remembers travel direction so steps slide the right way
+  const dirRef = useRef(1);
+  const go = (next: number) => {
+    dirRef.current = next > step ? 1 : -1;
+    setStep(next);
+  };
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -290,6 +396,74 @@ function ServiceDetail({
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [onClose]);
+
+  const stepBody =
+    step === 0 ? (
+      <>
+        <p className="text-sm leading-relaxed text-muted">{pill.description}</p>
+        <ul className="mt-4 flex flex-col gap-2.5">
+          {pill.features.map((feature, i) => (
+            <motion.li
+              key={feature}
+              initial={{ opacity: 0, x: -10 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.3, delay: 0.1 + i * 0.06, ease: EASE }}
+              className="flex items-start gap-2.5 text-sm leading-relaxed text-muted"
+            >
+              <span className="mt-1 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-surface-2 text-foreground ring-1 ring-line">
+                <Check size={10} strokeWidth={2.6} />
+              </span>
+              {feature}
+            </motion.li>
+          ))}
+        </ul>
+      </>
+    ) : step === 1 ? (
+      related.length > 0 ? (
+        <div className="grid grid-cols-2 gap-3">
+          {related.map((p, i) => (
+            <motion.div
+              key={p.title}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.35, delay: 0.1 + i * 0.08, ease: EASE }}
+            >
+              <RelatedCard p={p} />
+            </motion.div>
+          ))}
+        </div>
+      ) : (
+        <p className="text-sm leading-relaxed text-muted">{copy.noProjects}</p>
+      )
+    ) : (
+      <>
+        <p className="text-sm font-medium text-foreground">{copy.processTitle}</p>
+        <ol className="mt-4 flex flex-col">
+          {copy.process.map((st, i) => (
+            <motion.li
+              key={st.title}
+              initial={{ opacity: 0, x: -12 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.35, delay: 0.08 + i * 0.09, ease: EASE }}
+              className="relative flex gap-3 pb-4 last:pb-0"
+            >
+              {i < copy.process.length - 1 && (
+                <span className="absolute left-[13px] top-8 h-[calc(100%-1.75rem)] w-px bg-line" />
+              )}
+              <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-line bg-surface-2 text-[11px] font-semibold text-foreground">
+                {i + 1}
+              </span>
+              <div className="min-w-0">
+                <p className="text-sm font-medium text-foreground">{st.title}</p>
+                <p className="mt-0.5 text-xs leading-relaxed text-muted">
+                  {st.description}
+                </p>
+              </div>
+            </motion.li>
+          ))}
+        </ol>
+      </>
+    );
 
   return (
     <>
@@ -303,72 +477,108 @@ function ServiceDetail({
       />
       <div className="pointer-events-none fixed inset-0 z-50 flex items-center justify-center px-6">
         <motion.div
-          layoutId={`svc-${pill.icon}`}
-          transition={{ type: "spring", stiffness: 300, damping: 30 }}
+          initial={{ opacity: 0, scale: 0.92, y: 18 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          exit={{ opacity: 0, scale: 0.95, y: 10, transition: { duration: 0.18 } }}
+          transition={{ type: "spring", stiffness: 300, damping: 26 }}
           role="dialog"
           aria-modal="true"
           aria-label={pill.label}
-          className="pointer-events-auto w-full max-w-md overflow-hidden rounded-3xl border border-line bg-gradient-to-b from-[#181818] to-[#0d0d0d] p-6 shadow-[0_40px_120px_-20px_rgba(0,0,0,0.9)] sm:p-8"
+          className="pointer-events-auto flex max-h-[82svh] w-full max-w-md flex-col overflow-hidden rounded-3xl border border-line bg-gradient-to-b from-[#181818] to-[#0d0d0d] p-6 shadow-[0_40px_120px_-20px_rgba(0,0,0,0.9)] sm:p-7"
         >
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, transition: { duration: 0.15 } }}
-            transition={{ duration: 0.4, delay: 0.12, ease: EASE }}
-          >
-            <div className="flex items-start justify-between gap-4">
-              <div className="flex items-center gap-3">
-                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-line bg-surface-2 text-foreground">
-                  <Icon size={18} strokeWidth={1.7} />
-                </span>
-                <h2 className="text-lg font-semibold text-foreground">
-                  {pill.label}
-                </h2>
-              </div>
-              <button
-                onClick={onClose}
-                aria-label={closeLabel}
-                className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-line bg-surface text-muted transition-colors duration-300 hover:text-foreground"
-              >
-                <X size={15} />
-              </button>
+          {/* header */}
+          <div className="flex items-start justify-between gap-4">
+            <div className="flex min-w-0 items-center gap-3">
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-line bg-surface-2 text-foreground">
+                <Icon size={18} strokeWidth={1.7} />
+              </span>
+              <h2 className="truncate text-lg font-semibold text-foreground">
+                {pill.label}
+              </h2>
             </div>
-
-            <p className="mt-4 text-sm leading-relaxed text-muted">
-              {pill.description}
-            </p>
-
-            <ul className="mt-5 flex flex-col gap-2.5">
-              {pill.features.map((feature, i) => (
-                <motion.li
-                  key={feature}
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.3, delay: 0.2 + i * 0.06, ease: EASE }}
-                  className="flex items-start gap-2.5 text-sm leading-relaxed text-muted"
-                >
-                  <span className="mt-1 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-surface-2 text-foreground ring-1 ring-line">
-                    <Check size={10} strokeWidth={2.6} />
-                  </span>
-                  {feature}
-                </motion.li>
-              ))}
-            </ul>
-
-            <motion.div
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.97 }}
-              className="mt-6 inline-block"
+            <button
+              onClick={onClose}
+              aria-label={closeLabel}
+              className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-line bg-surface text-muted transition-colors duration-300 hover:text-foreground"
             >
-              <Link
-                href="/contact"
+              <X size={15} />
+            </button>
+          </div>
+
+          {/* step progress — clickable segments */}
+          <div className="mt-5 flex items-center gap-2">
+            {copy.tabs.map((tab, i) => (
+              <button
+                key={tab}
+                onClick={() => go(i)}
+                className="group/tab flex flex-1 flex-col gap-1.5"
+              >
+                <span
+                  className={`h-1 w-full rounded-full transition-colors duration-300 ${
+                    i <= step ? "bg-foreground" : "bg-line group-hover/tab:bg-muted-2"
+                  }`}
+                />
+                <span
+                  className={`text-[10px] font-medium uppercase tracking-wider transition-colors duration-300 ${
+                    i === step ? "text-foreground" : "text-muted-2"
+                  }`}
+                >
+                  {tab}
+                </span>
+              </button>
+            ))}
+          </div>
+
+          {/* step body — slides along the travel direction */}
+          <div className="mt-5 min-h-0 flex-1 overflow-y-auto">
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.div
+                key={step}
+                initial={{ opacity: 0, x: 24 * dirRef.current }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -24 * dirRef.current }}
+                transition={{ duration: 0.25, ease: "easeOut" }}
+              >
+                {stepBody}
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
+          {/* footer navigation */}
+          <div className="mt-6 flex items-center justify-between gap-3">
+            {step > 0 ? (
+              <button
+                onClick={() => go(step - 1)}
+                className="inline-flex items-center gap-1.5 rounded-full border border-line bg-surface px-4 py-2 text-sm font-medium text-muted transition-colors duration-300 hover:text-foreground"
+              >
+                {copy.back}
+              </button>
+            ) : (
+              <span />
+            )}
+
+            {step < 2 ? (
+              <motion.button
+                onClick={() => go(step + 1)}
+                whileHover={{ scale: 1.04 }}
+                whileTap={{ scale: 0.96 }}
                 className="inline-flex items-center gap-1.5 rounded-full border border-[#2c2c2c] bg-gradient-to-b from-[#242424] to-[#141414] px-5 py-2.5 text-sm font-medium text-foreground transition-colors duration-300 hover:from-[#2c2c2c] hover:to-[#1a1a1a]"
               >
-                <Sparkle size={15} className="fill-foreground" />
-                {ctaLabel}
-              </Link>
-            </motion.div>
-          </motion.div>
+                {step === 0 ? copy.seeProjects : copy.howWeWork}
+                <ArrowRight size={15} />
+              </motion.button>
+            ) : (
+              <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }}>
+                <Link
+                  href="/contact"
+                  className="inline-flex items-center gap-1.5 rounded-full border border-[#2c2c2c] bg-gradient-to-b from-[#242424] to-[#141414] px-5 py-2.5 text-sm font-medium text-foreground transition-colors duration-300 hover:from-[#2c2c2c] hover:to-[#1a1a1a]"
+                >
+                  <Sparkle size={15} className="fill-foreground" />
+                  {copy.start}
+                </Link>
+              </motion.div>
+            )}
+          </div>
         </motion.div>
       </div>
     </>
@@ -387,6 +597,8 @@ function Satellite({
   paused,
   open,
   onOpen,
+  related,
+  hoverHint,
 }: {
   pill: ServicePill;
   side: "left" | "right";
@@ -396,8 +608,33 @@ function Satellite({
   paused: boolean;
   open: boolean;
   onOpen: () => void;
+  related: RelatedProject[];
+  hoverHint: string;
 }) {
   const delay = baseDelay + index * 0.09;
+  // 3 rows per side (index 0/2/4 left, 1/3/5 right) — the bottom row shows
+  // its hover panel above itself so it never spills past the viewport edge.
+  const row = Math.floor(index / 2);
+  const below = row < 2;
+
+  const chip = (
+    <div className="group/sat relative min-w-0 shrink-0">
+      <ServiceChip
+        pill={pill}
+        paused={paused}
+        floatDelay={index * 0.4}
+        open={open}
+        onOpen={onOpen}
+      />
+      <HoverPanel
+        pill={pill}
+        related={related}
+        hint={hoverHint}
+        side={side}
+        below={below}
+      />
+    </div>
+  );
 
   const line = (
     <motion.span
@@ -462,25 +699,13 @@ function Satellite({
     >
       {side === "left" ? (
         <>
-          <ServiceChip
-            pill={pill}
-            paused={paused}
-            floatDelay={index * 0.4}
-            open={open}
-            onOpen={onOpen}
-          />
+          {chip}
           {line}
         </>
       ) : (
         <>
           {line}
-          <ServiceChip
-            pill={pill}
-            paused={paused}
-            floatDelay={index * 0.4}
-            open={open}
-            onOpen={onOpen}
-          />
+          {chip}
         </>
       )}
     </motion.div>
@@ -544,6 +769,16 @@ export default function Services() {
 
   const left = pills.slice(0, 3);
   const right = pills.slice(3, 6);
+
+  // service pills reference projects by title (kept as the single source of
+  // truth in dict.projects.items) — resolve those into full project cards.
+  const projectByTitle = new Map(
+    dict.projects.items.map((p: any) => [p.title, p])
+  );
+  const getRelated = (pill: ServicePill): RelatedProject[] =>
+    (pill.relatedTitles ?? [])
+      .map((t) => projectByTitle.get(t))
+      .filter(Boolean) as RelatedProject[];
 
   // choreography offsets, relative to the camera pull-back starting
   const headDelay = fromIntro ? 0.85 : 0.05;
@@ -635,6 +870,8 @@ export default function Services() {
                     paused={paused}
                     open={openPill?.icon === pill.icon}
                     onOpen={() => setOpenPill(pill)}
+                    related={getRelated(pill)}
+                    hoverHint={s.dialog.hoverHint}
                   />
                 ))}
               </div>
@@ -683,6 +920,8 @@ export default function Services() {
                     paused={paused}
                     open={openPill?.icon === pill.icon}
                     onOpen={() => setOpenPill(pill)}
+                    related={getRelated(pill)}
+                    hoverHint={s.dialog.hoverHint}
                   />
                 ))}
               </div>
@@ -728,7 +967,8 @@ export default function Services() {
           {openPill && (
             <ServiceDetail
               pill={openPill}
-              ctaLabel={s.cta}
+              related={getRelated(openPill)}
+              copy={s.dialog}
               closeLabel={s.close}
               onClose={() => setOpenPill(null)}
             />
