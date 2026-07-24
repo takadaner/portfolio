@@ -18,6 +18,11 @@ export default function Contact() {
     phone: "",
     message: "",
   });
+  // Honeypot: a decoy field hidden from real users but auto-filled by many
+  // spam bots. Kept out of `formData` on purpose. NOTE: the form currently
+  // only console.logs, so this is inert scaffolding — once submit is wired
+  // to an email/API endpoint, the guard below already drops bot submissions.
+  const [botTrap, setBotTrap] = useState("");
 
   const inputClass =
     "w-full rounded-xl border border-line bg-surface px-4 py-3 text-sm text-foreground placeholder:text-muted-2 transition-colors duration-300 focus:border-muted outline-none focus:ring-1 focus:ring-muted";
@@ -46,6 +51,9 @@ export default function Contact() {
 
   const submitForm = (e: React.FormEvent) => {
     e.preventDefault();
+    // Silently drop submissions that filled the hidden honeypot — a real
+    // user can't see or reach it, so anything here is almost certainly a bot.
+    if (botTrap) return;
     console.log(formData);
   };
 
@@ -203,6 +211,23 @@ export default function Contact() {
               </div>
 
               <form onSubmit={submitForm} className="flex-1 flex flex-col relative overflow-hidden">
+                {/* Honeypot — hidden from users (and screen readers), a lure
+                    for bots that blindly fill every field. Must not use
+                    display:none alone, which some bots skip; keep it in-flow
+                    but visually removed and untabbable. */}
+                <div aria-hidden className="absolute left-[-9999px] top-0 h-0 w-0 overflow-hidden" tabIndex={-1}>
+                  <label htmlFor="company-website">Company website</label>
+                  <input
+                    id="company-website"
+                    name="company-website"
+                    type="text"
+                    autoComplete="off"
+                    tabIndex={-1}
+                    value={botTrap}
+                    onChange={(e) => setBotTrap(e.target.value)}
+                  />
+                </div>
+
                 <AnimatePresence mode="wait" custom={step}>
                   {step === 1 && (
                     <motion.div
