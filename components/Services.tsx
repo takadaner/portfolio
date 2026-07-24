@@ -15,6 +15,7 @@ import {
   X,
   Sparkle,
   ArrowRight,
+  ArrowUpRight,
   type LucideIcon,
 } from "lucide-react";
 import { useLanguage } from "@/lib/LanguageContext";
@@ -283,7 +284,7 @@ function ServiceChip({
         whileHover={{ scale: 1.06 }}
         whileTap={{ scale: 0.95 }}
         transition={{ type: "spring", stiffness: 320, damping: 26 }}
-        className="flex w-full min-w-0 cursor-pointer items-center gap-2.5 rounded-2xl border border-line bg-gradient-to-b from-[#161616] to-[#0e0e0e] px-4 py-3 text-left shadow-lg shadow-black/40 transition-colors duration-300 hover:border-[#333]"
+        className="flex w-full min-w-0 cursor-pointer items-center gap-2.5 rounded-2xl border border-line bg-gradient-to-b from-[#161616] to-[#0e0e0e] px-4 py-3 text-left shadow-lg shadow-black/40 transition-colors duration-300 hover:border-[#333] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground/50 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
       >
         <Icon size={16} strokeWidth={1.7} className="shrink-0 text-muted" />
         <span className="truncate text-sm font-medium text-foreground">
@@ -293,6 +294,11 @@ function ServiceChip({
     </motion.div>
   );
 }
+
+// Shared focus ring for the anchor/Link wrapping each project card — must
+// live on the focusable element itself, not the inner (non-focusable) div.
+const CARD_LINK_FOCUS =
+  "block rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground/50 focus-visible:ring-offset-2 focus-visible:ring-offset-background";
 
 /** Small project card used in the hover panel and the dialog. */
 function RelatedCard({ p }: { p: RelatedProject }) {
@@ -314,21 +320,35 @@ function RelatedCard({ p }: { p: RelatedProject }) {
   );
 
   if (p.href?.startsWith("/")) {
-    return <Link href={p.href}>{inner}</Link>;
+    return (
+      <Link href={p.href} className={CARD_LINK_FOCUS}>
+        {inner}
+      </Link>
+    );
   }
   if (p.href) {
     return (
-      <a href={p.href} target="_blank" rel="noopener noreferrer">
+      <a
+        href={p.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={CARD_LINK_FOCUS}
+      >
         {inner}
       </a>
     );
   }
-  return <Link href="/projects">{inner}</Link>;
+  return (
+    <Link href="/projects" className={CARD_LINK_FOCUS}>
+      {inner}
+    </Link>
+  );
 }
 
 /** Richer "case study" row used on the dialog's Projects step — bigger
     thumbnail plus description and tags, not just a title. */
 function RelatedCardLarge({ p }: { p: RelatedProject }) {
+  const external = Boolean(p.href) && !p.href!.startsWith("/");
   const inner = (
     <div className="group/rel flex gap-4 overflow-hidden rounded-2xl border border-line bg-surface p-3 transition-colors duration-300 hover:border-[#333]">
       <div className="relative h-20 w-28 shrink-0 overflow-hidden rounded-xl sm:h-24 sm:w-36">
@@ -339,6 +359,9 @@ function RelatedCardLarge({ p }: { p: RelatedProject }) {
           sizes="200px"
           className="object-cover transition-transform duration-500 ease-out group-hover/rel:scale-105"
         />
+        <span className="absolute bottom-1.5 right-1.5 flex h-6 w-6 items-center justify-center rounded-full border border-line bg-background/80 text-foreground backdrop-blur-sm transition-transform duration-300 group-hover/rel:-translate-y-0.5 group-hover/rel:translate-x-0.5">
+          <ArrowUpRight size={12} strokeWidth={2} />
+        </span>
       </div>
       <div className="min-w-0 py-0.5">
         <p className="truncate text-sm font-semibold text-foreground">
@@ -349,33 +372,50 @@ function RelatedCardLarge({ p }: { p: RelatedProject }) {
             {p.description}
           </p>
         )}
-        {p.tags && p.tags.length > 0 && (
-          <div className="mt-2 flex flex-wrap gap-1">
-            {p.tags.slice(0, 3).map((t) => (
-              <span
-                key={t}
-                className="rounded-full border border-line bg-surface-2 px-2 py-0.5 text-[10px] text-muted-2"
-              >
-                {t}
-              </span>
-            ))}
-          </div>
-        )}
+        <div className="mt-2 flex flex-wrap items-center gap-1">
+          {p.tags?.slice(0, 3).map((t) => (
+            <span
+              key={t}
+              className="rounded-full border border-line bg-surface-2 px-2 py-0.5 text-[10px] text-muted-2"
+            >
+              {t}
+            </span>
+          ))}
+          {external && (
+            <span className="ml-auto shrink-0 text-[10px] text-muted-2">
+              ↗
+            </span>
+          )}
+        </div>
       </div>
     </div>
   );
 
+  const cardLinkFocus = `${CARD_LINK_FOCUS} rounded-2xl`;
   if (p.href?.startsWith("/")) {
-    return <Link href={p.href}>{inner}</Link>;
+    return (
+      <Link href={p.href} className={cardLinkFocus}>
+        {inner}
+      </Link>
+    );
   }
   if (p.href) {
     return (
-      <a href={p.href} target="_blank" rel="noopener noreferrer">
+      <a
+        href={p.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={cardLinkFocus}
+      >
         {inner}
       </a>
     );
   }
-  return <Link href="/projects">{inner}</Link>;
+  return (
+    <Link href="/projects" className={cardLinkFocus}>
+      {inner}
+    </Link>
+  );
 }
 
 /** Desktop-only hover preview: enlarges the pill into a panel with the
@@ -444,12 +484,50 @@ function ServiceDetail({
     setStep(next);
   };
 
+  const dialogRef = useRef<HTMLDivElement>(null);
+
+  // Focus management: move focus in on open, trap Tab inside the dialog
+  // (background pills are still reachable by keyboard otherwise), restore
+  // it to whatever triggered the dialog on close, and lock body scroll so
+  // a long dialog body doesn't also scroll the page behind it.
   useEffect(() => {
+    const previouslyFocused = document.activeElement as HTMLElement | null;
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    const focusables = () =>
+      Array.from(
+        dialogRef.current?.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+        ) ?? []
+      );
+    focusables()[0]?.focus();
+
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
+      if (e.key === "Escape") {
+        onClose();
+        return;
+      }
+      if (e.key !== "Tab") return;
+      const list = focusables();
+      if (list.length === 0) return;
+      const first = list[0];
+      const last = list[list.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
     };
     window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
+
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prevOverflow;
+      previouslyFocused?.focus?.();
+    };
   }, [onClose]);
 
   // tech stack chips on the Details step, derived from the actual related
@@ -561,10 +639,11 @@ function ServiceDetail({
         exit={{ opacity: 0 }}
         transition={{ duration: 0.25 }}
         onClick={onClose}
-        className="fixed inset-0 z-40 bg-background/80 backdrop-blur-sm"
+        className="fixed inset-0 z-[60] bg-background/80 backdrop-blur-sm"
       />
-      <div className="pointer-events-none fixed inset-0 z-50 flex items-center justify-center px-6">
+      <div className="pointer-events-none fixed inset-0 z-[70] flex items-center justify-center px-6">
         <motion.div
+          ref={dialogRef}
           initial={{ opacity: 0, scale: 0.92, y: 18 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 10, transition: { duration: 0.18 } }}
@@ -587,7 +666,7 @@ function ServiceDetail({
             <button
               onClick={onClose}
               aria-label={closeLabel}
-              className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-line bg-surface text-muted transition-colors duration-300 hover:text-foreground"
+              className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-line bg-surface text-muted transition-colors duration-300 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground/50 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
             >
               <X size={16} />
             </button>
@@ -599,7 +678,7 @@ function ServiceDetail({
               <button
                 key={tab}
                 onClick={() => go(i)}
-                className="group/tab flex flex-1 flex-col gap-1.5"
+                className="group/tab flex flex-1 flex-col gap-1.5 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground/50"
               >
                 <span
                   className={`h-1 w-full rounded-full transition-colors duration-300 ${
@@ -612,6 +691,7 @@ function ServiceDetail({
                   }`}
                 >
                   {tab}
+                  {i === 1 && related.length > 0 && ` (${related.length})`}
                 </span>
               </button>
             ))}
@@ -637,7 +717,7 @@ function ServiceDetail({
             {step > 0 ? (
               <button
                 onClick={() => go(step - 1)}
-                className="inline-flex items-center gap-1.5 rounded-full border border-line bg-surface px-4 py-2 text-sm font-medium text-muted transition-colors duration-300 hover:text-foreground"
+                className="inline-flex items-center gap-1.5 rounded-full border border-line bg-surface px-4 py-2 text-sm font-medium text-muted transition-colors duration-300 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground/50 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
               >
                 {copy.back}
               </button>
@@ -650,7 +730,7 @@ function ServiceDetail({
                 onClick={() => go(step + 1)}
                 whileHover={{ scale: 1.04 }}
                 whileTap={{ scale: 0.96 }}
-                className="inline-flex items-center gap-1.5 rounded-full border border-[#2c2c2c] bg-gradient-to-b from-[#242424] to-[#141414] px-5 py-2.5 text-sm font-medium text-foreground transition-colors duration-300 hover:from-[#2c2c2c] hover:to-[#1a1a1a]"
+                className="inline-flex items-center gap-1.5 rounded-full border border-[#2c2c2c] bg-gradient-to-b from-[#242424] to-[#141414] px-5 py-2.5 text-sm font-medium text-foreground transition-colors duration-300 hover:from-[#2c2c2c] hover:to-[#1a1a1a] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground/50 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
               >
                 {step === 0 ? copy.seeProjects : copy.howWeWork}
                 <ArrowRight size={15} />
@@ -659,7 +739,7 @@ function ServiceDetail({
               <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }}>
                 <Link
                   href="/contact"
-                  className="inline-flex items-center gap-1.5 rounded-full border border-[#2c2c2c] bg-gradient-to-b from-[#242424] to-[#141414] px-5 py-2.5 text-sm font-medium text-foreground transition-colors duration-300 hover:from-[#2c2c2c] hover:to-[#1a1a1a]"
+                  className="inline-flex items-center gap-1.5 rounded-full border border-[#2c2c2c] bg-gradient-to-b from-[#242424] to-[#141414] px-5 py-2.5 text-sm font-medium text-foreground transition-colors duration-300 hover:from-[#2c2c2c] hover:to-[#1a1a1a] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground/50 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                 >
                   <Sparkle size={15} className="fill-foreground" />
                   {copy.start}
