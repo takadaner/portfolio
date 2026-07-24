@@ -137,7 +137,12 @@ function RingOrbit({ layer, paused }: { layer: "back" | "front"; paused: boolean
       viewBox="0 0 200 70"
       fill="none"
       aria-hidden
-      className={`pointer-events-none absolute left-1/2 top-1/2 w-[132%] -translate-x-1/2 -translate-y-1/2 -rotate-[20deg] ${
+      // will-change-transform promotes each ring SVG to its own compositor
+      // layer, so the per-frame comet (stroke-dashoffset) and particle
+      // repaints stay confined to this small layer instead of invalidating
+      // the whole scaled camera — that repaint was what dropped the first
+      // frames of the close-up.
+      className={`pointer-events-none absolute left-1/2 top-1/2 w-[132%] -translate-x-1/2 -translate-y-1/2 -rotate-[20deg] will-change-transform ${
         layer === "front" ? "z-20" : "z-0"
       } ${paused ? "[&_.animate-ring-orbit]:[animation-play-state:paused]" : ""}`}
     >
@@ -921,7 +926,9 @@ export default function Services() {
       return;
     }
 
-    // frame the close-up: pill fills ~62% of the viewport width, centered
+    // Frame the close-up NOW (while everything is still invisible): pill
+    // fills ~62% of the viewport width, centered. Applying the scale during
+    // "boot" lets the browser rasterize the scaled scene ahead of time.
     const rect = pillEl.getBoundingClientRect();
     const scale = Math.min(
       4.3,
@@ -929,14 +936,33 @@ export default function Services() {
     );
     setIntroScale(scale);
     setIntroY(window.innerHeight / 2 - (rect.top + rect.height / 2));
-    setFromIntro(true);
-    setPhase("intro");
 
-    const t = setTimeout(() => {
-      sessionStorage.setItem(INTRO_KEY, "1");
-      setPhase("page");
-    }, HOLD_MS);
-    return () => clearTimeout(t);
+    // ...but START the intro only after hydration and the first paint have
+    // settled (two frames + a short breather). Kicking it off immediately
+    // ran the fade-in during the busiest moment of page load, so its first
+    // frames dropped — perceived as lag right at the start.
+    let raf2 = 0;
+    let settle: ReturnType<typeof setTimeout> | undefined;
+    let hold: ReturnType<typeof setTimeout> | undefined;
+    const raf1 = requestAnimationFrame(() => {
+      raf2 = requestAnimationFrame(() => {
+        settle = setTimeout(() => {
+          setFromIntro(true);
+          setPhase("intro");
+          hold = setTimeout(() => {
+            sessionStorage.setItem(INTRO_KEY, "1");
+            setPhase("page");
+          }, HOLD_MS);
+        }, 150);
+      });
+    });
+
+    return () => {
+      cancelAnimationFrame(raf1);
+      cancelAnimationFrame(raf2);
+      clearTimeout(settle);
+      clearTimeout(hold);
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -969,6 +995,7 @@ export default function Services() {
           initial={false}
           style={{
             transformOrigin: originY !== null ? `50% ${originY}px` : "50% 50%",
+            willChange: "transform",
           }}
           animate={
             phase === "page"
@@ -1068,7 +1095,7 @@ export default function Services() {
                         ? { duration: 0.3 }
                         : { duration: 6.5, repeat: Infinity, ease: "easeInOut" }
                     }
-                    className="relative"
+                    className="relative will-change-transform"
                   >
                     <div
                       aria-hidden
