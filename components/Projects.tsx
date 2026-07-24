@@ -8,6 +8,7 @@ import { ArrowUpRight, ExternalLink } from "lucide-react";
 import { useLanguage } from "@/lib/LanguageContext";
 import Reveal from "./Reveal";
 import ProjectsNav from "./ProjectsNav";
+import ScrollTopButton from "./ScrollTopButton";
 
 function slugify(text: string) {
   return text
@@ -43,6 +44,7 @@ export default function Projects() {
   return (
     <section className="px-6 pb-28 pt-32 sm:pt-40">
       <ProjectsNav items={navItems} />
+      <ScrollTopButton label={lang === "ro" ? "Înapoi sus" : "Back to top"} />
 
       <div className="mx-auto max-w-content">
         {/* Header */}
@@ -97,6 +99,11 @@ export default function Projects() {
                             alt={project.imageAlt}
                             width={1200}
                             height={900}
+                            // Rendered at half-width in the two-column grid, full
+                            // width below `lg` — without this the browser assumes
+                            // 100vw and downloads a needlessly large file.
+                            sizes="(min-width: 1024px) 50vw, 100vw"
+                            priority={i === 0}
                             className="h-auto w-full"
                           />
                         </motion.div>
@@ -145,7 +152,8 @@ export default function Projects() {
                   {/* Text */}
                   <div className={reversed ? "lg:order-1" : ""}>
                     <span className="font-mono text-sm text-muted-2">
-                      0{i + 1} / 0{dict.projects.items.length}
+                      {String(i + 1).padStart(2, "0")} /{" "}
+                      {String(dict.projects.items.length).padStart(2, "0")}
                     </span>
                     <h2 className="mt-3 flex items-center gap-3 text-3xl font-semibold tracking-tight sm:text-4xl">
                       {project.title}
