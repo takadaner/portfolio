@@ -137,6 +137,11 @@ export default function Hero() {
   const [navDir, setNavDir] = useState<NavDir>("up");
   const [photoIndex, setPhotoIndex] = useState(0);
   const [mounted, setMounted] = useState(false);
+  // Below the sm breakpoint we swap the MCP promo card out of the first bento
+  // page (see the page-0 arrangement below). Starts false so SSR/first render
+  // match; the swap happens post-mount, before the staggered fade-in reveals
+  // that slot, so there's no visible flash.
+  const [isMobile, setIsMobile] = useState(false);
   const pageLoaded = useAfterPageLoad();
   const scrollCooldown = useRef(false);
   const sectionRef = useRef<HTMLElement>(null);
@@ -145,6 +150,15 @@ export default function Hero() {
   // Client-only enhancements (motion that depends on reduced-motion, etc.)
   // run after mount so SSR markup and the first client render stay identical.
   useEffect(() => setMounted(true), []);
+
+  // Track the mobile breakpoint so the first bento page can drop the MCP card.
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 639px)");
+    const update = () => setIsMobile(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
 
   // Auto-swipe the profile photo every 5s (pauses with the site's toggle).
   useEffect(() => {
@@ -281,7 +295,11 @@ export default function Hero() {
     arranged[0] = heroProjects[0]; // Villa 3D walkthrough video in the big square
     arranged[1] = heroProjects[1]; // Hotel SaaS Suite
     arranged[2] = heroProjects[2]; // SOL Restaurant
-    arranged[3] = mcpProject || ({ title: "empty-3", isEmptySlot: true } as any);
+    // MCP promo on desktop; on mobile swap in the next real project instead so
+    // the first screen stays project-focused (no "Try me" card, no empty slot).
+    arranged[3] = isMobile
+      ? heroProjects[5] || ({ title: "empty-3", isEmptySlot: true } as any)
+      : mcpProject || ({ title: "empty-3", isEmptySlot: true } as any);
     arranged[4] = heroProjects[3]; // Le Bab
     arranged[5] = heroProjects[4]; // Templates
     currentProjects = arranged;
@@ -366,7 +384,7 @@ export default function Hero() {
     <section
       ref={sectionRef}
       id="top"
-      className="relative flex min-h-[100svh] flex-col justify-start overflow-hidden px-6 pb-24 pt-24 sm:justify-center sm:px-8 sm:pb-6 sm:pt-28"
+      className="relative flex min-h-[100svh] flex-col justify-start overflow-hidden px-6 pb-8 pt-20 sm:justify-center sm:px-8 sm:pb-6 sm:pt-28"
     >
       <HeroBackground />
       <div className="relative z-10 mx-auto flex h-full w-full max-w-none flex-1 flex-col sm:flex-none lg:grid lg:grid-cols-[1.4fr_1fr] lg:items-start lg:gap-8">
@@ -410,7 +428,11 @@ export default function Hero() {
             )}
             className="mt-0 sm:mt-6"
           >
-            <div className="relative h-[32vh] w-full overflow-hidden rounded-2xl border border-line bg-surface/50 shadow-2xl sm:h-[42rem] sm:w-[28rem]">
+            {/* Height caps at 42rem but yields on short viewports: the page is
+                scrollless, so a fixed height pushed the big name below the
+                fold on anything shorter than ~1050px. 20rem ≈ navbar padding
+                + badge row + margins + one name line + bottom padding. */}
+            <div className="relative h-[38vh] w-full overflow-hidden rounded-2xl border border-line bg-surface/50 shadow-2xl sm:h-[min(42rem,calc(100svh_-_20rem))] sm:w-[28rem]">
               {/* Invisible eager copies of the other carousel photos, mounted
                   once the page is fully loaded. Same sizes attribute → same
                   optimizer URLs, so every 5s swap is already in cache and the
@@ -483,7 +505,7 @@ export default function Hero() {
                     key={label}
                     href={href}
                     target="_blank"
-                    rel="noopener noreferrer"
+                    rel="me noopener noreferrer"
                     aria-label={label}
                     data-cursor={label}
                     className="flex h-9 w-9 items-center justify-center rounded-full border border-line bg-background/70 text-foreground backdrop-blur-md transition-colors duration-300 hover:bg-foreground hover:text-background"
@@ -496,7 +518,7 @@ export default function Hero() {
           </motion.div>
 
           {/* Name — fades in word by word */}
-          <h1 className="mt-4 hidden flex-wrap items-start gap-x-2 text-[2.5rem] font-semibold leading-[0.95] tracking-tight sm:mt-6 sm:flex sm:gap-x-3 sm:text-7xl xl:text-[5.25rem]">
+          <h1 aria-label="Abdula Daner — Full-Stack Developer & Tech Builder" className="mt-4 hidden flex-wrap items-start gap-x-2 text-[2.5rem] font-semibold leading-[0.95] tracking-tight sm:mt-6 sm:flex sm:gap-x-3 sm:text-7xl xl:text-[5.25rem]">
             {words.map((word, i) => (
               <motion.span
                 key={`${word}-${i}`}

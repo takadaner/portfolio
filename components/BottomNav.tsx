@@ -14,8 +14,10 @@ export default function BottomNav() {
   const { dict } = useLanguage();
   const pathname = usePathname();
 
-  // Hide on immersive full-screen pages
-  if (pathname.startsWith("/mcp")) return null;
+  // Hide on immersive full-screen pages, and on the home hero — the mobile
+  // hero is deliberately bar-free so the photo/projects get the full height
+  // (navigation there happens via the project cards).
+  if (pathname.startsWith("/mcp") || pathname === "/") return null;
 
   const tabs: { href: string; label: string; icon: LucideIcon }[] = [
     { href: "/", label: dict.nav.home, icon: Home },
