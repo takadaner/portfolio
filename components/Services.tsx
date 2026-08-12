@@ -988,7 +988,26 @@ export default function Services() {
     // wants the intro identical for every visitor, including reduced-motion
     // users — do not switch this back to "user".
     <MotionConfig reducedMotion="never">
-      <section className="relative flex min-h-[100svh] flex-col items-center justify-center overflow-hidden px-6 pb-28 pt-24 sm:pb-14 sm:pt-28">
+      <section className="relative flex h-[100svh] flex-col items-center justify-center overflow-hidden px-6 pb-20 pt-20 sm:pb-14 sm:pt-28">
+        {/* page background: gray at the top falling off to the pure-black
+            page color, with a soft lift behind the composition */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(120% 80% at 50% 0%, rgba(255,255,255,0.06) 0%, transparent 60%), linear-gradient(180deg, #1b1b1b 0%, #121212 40%, #080808 75%, #050505 100%)",
+          }}
+        />
+        {/* faint noise so the long dark ramp doesn't band on 8-bit screens */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 opacity-[0.035] mix-blend-overlay"
+          style={{
+            backgroundImage:
+              "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E\")",
+          }}
+        />
         {/* the "camera": the whole composition scales about the pill's
             center — close-up during the intro, then a smooth pull-back */}
         <motion.div

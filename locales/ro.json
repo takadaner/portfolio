@@ -773,5 +773,33 @@
   "footer": {
     "copyright": "© 2026 Abdula Daner. Toate drepturile rezervate.",
     "built": "Construit cu Next.js & Tailwind CSS"
+  },
+  "faq": {
+    "label": "Întrebări Frecvente",
+    "title1": "Tot ce trebuie să știi",
+    "title2": "despre colaborare",
+    "subtitle": "Răspunsuri la cele mai comune întrebări despre Abdula Daner, servicii, tehnologii și modalități de lucru.",
+    "items": [
+      {
+        "q": "Cine este Abdula Daner?",
+        "a": "Abdula Daner este un Full-Stack Developer & Tech Builder din Constanța, România. Este specializat în construirea de aplicații web de înaltă performanță (Next.js, React), automatizări AI (boți WhatsApp, asistenți virtuali) și software dedicat pentru industria hotelieră (Hotel SaaS Suite)."
+      },
+      {
+        "q": "Ce servicii oferă Abdula Daner?",
+        "a": "Serviciile principale includ: 1) Dezvoltare Web Custom (site-uri de prezentare, aplicații web responsive), 2) AI & Automatizări (boți WhatsApp Meta Cloud API, asistenți AI pentru rezervări și suport), 3) Hotel SaaS Suite (sistem complet pentru hoteluri, compendiu digital, recenzii automate), 4) Vizualizări 3D Arhitecturale."
+      },
+      {
+        "q": "Ce stack tehnologic folosește Abdula Daner?",
+        "a": "Pe partea de frontend folosește Next.js 14 (App Router), React, TypeScript, Tailwind CSS și Framer Motion. Pe backend utilizează Python, FastAPI, Node.js, Supabase, PostgreSQL și API-uri Meta/Anthropic Claude."
+      },
+      {
+        "q": "În cât timp este livrat un proiect?",
+        "a": "Durata depinde de complexitatea cerințelor. Un site de prezentare sau un bot WhatsApp poate fi configurat în 1-2 săptămâni, în timp ce un sistem custom complex poate dura între 3 și 6 săptămâni. Fiecare proiect primește un calendar clar încă de la început."
+      },
+      {
+        "q": "Cum poți lua legătura cu Abdula Daner?",
+        "a": "Poți trimite un mesaj direct prin formularul din pagina de Contact, prin email la abduladaner70@gmail.com sau pe WhatsApp/telefon la +40 756 333 392."
+      }
+    ]
   }
 }

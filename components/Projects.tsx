@@ -71,6 +71,9 @@ export default function Projects() {
             const reversed = i % 2 === 1;
             const slug = slugify(project.title);
             const href = (project as any).href as string | undefined;
+            // Optional per-image framing (CSS object-position). Defaults to
+            // center, which keeps the subject of every current image in frame.
+            const focus = (project as any).focus as string | undefined;
 
             return (
               <div key={project.title}>
@@ -86,25 +89,29 @@ export default function Projects() {
                         initial="rest"
                         animate="rest"
                         data-cursor={dict.projects.view}
-                        className={`group relative w-full cursor-pointer overflow-hidden rounded-card border border-line bg-surface ${
+                        className={`group relative aspect-[4/3] w-full cursor-pointer overflow-hidden rounded-card border border-line bg-surface ${
                           reversed && !href ? "lg:order-2" : ""
                         }`}
                       >
                         <motion.div
                           variants={{ rest: { scale: 1 }, hover: { scale: 1.05 } }}
                           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                          className="absolute inset-0"
                         >
                           <Image
                             src={project.image}
                             alt={project.imageAlt}
-                            width={1200}
-                            height={900}
+                            fill
+                            // Every card shares a 4:3 frame; the image covers it
+                            // so all rows line up at the same size. `focus`
+                            // (object-position) keeps the best part in view.
+                            style={{ objectPosition: focus ?? "center" }}
                             // Rendered at half-width in the two-column grid, full
                             // width below `lg` — without this the browser assumes
                             // 100vw and downloads a needlessly large file.
                             sizes="(min-width: 1024px) 50vw, 100vw"
                             priority={i === 0}
-                            className="h-auto w-full"
+                            className="object-cover"
                           />
                         </motion.div>
                         <motion.div

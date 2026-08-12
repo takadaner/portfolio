@@ -773,5 +773,33 @@
   "footer": {
     "copyright": "© 2026 Abdula Daner. All rights reserved.",
     "built": "Built with Next.js & Tailwind CSS"
+  },
+  "faq": {
+    "label": "Frequently Asked Questions",
+    "title1": "Everything you need to know",
+    "title2": "about working together",
+    "subtitle": "Answers to the most common questions about Abdula Daner, services, tech stack, and workflow.",
+    "items": [
+      {
+        "q": "Who is Abdula Daner?",
+        "a": "Abdula Daner is a Full-Stack Developer & Tech Builder based in Constanța, Romania. He specializes in building high-performance web applications (Next.js, React), AI automations (WhatsApp bots, virtual assistants), and custom hotel management software (Hotel SaaS Suite)."
+      },
+      {
+        "q": "What services does Abdula Daner offer?",
+        "a": "Core services include: 1) Custom Web Development (landing pages, modern responsive web apps), 2) AI & Automations (WhatsApp Meta Cloud API bots, AI concierge for bookings and support), 3) Hotel SaaS Suite (digital compendium, automatic review manager, hotel sites), 4) 3D Architectural Visualizations."
+      },
+      {
+        "q": "What tech stack does Abdula Daner use?",
+        "a": "For frontend: Next.js 14 (App Router), React, TypeScript, Tailwind CSS, and Framer Motion. For backend: Python, FastAPI, Node.js, Supabase, PostgreSQL, and Meta Cloud / Anthropic Claude APIs."
+      },
+      {
+        "q": "What is the typical turnaround time for a project?",
+        "a": "Timeline depends on scope. A web application or WhatsApp bot is delivered in 1-2 weeks, while larger custom software suites take between 3 to 6 weeks. Every project starts with a detailed timeline."
+      },
+      {
+        "q": "How can you get in touch with Abdula Daner?",
+        "a": "You can reach out via the Contact page form, directly by email at abduladaner70@gmail.com, or via phone/WhatsApp at +40 756 333 392."
+      }
+    ]
   }
 }

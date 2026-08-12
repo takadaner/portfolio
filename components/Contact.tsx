@@ -140,7 +140,7 @@ export default function Contact() {
                       key={social.label}
                       href={social.href}
                       target="_blank"
-                      rel="noopener noreferrer"
+                      rel="me noopener noreferrer"
                       aria-label={social.label}
                       whileHover={{ scale: 1.08 }}
                       whileTap={{ scale: 0.95 }}

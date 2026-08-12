@@ -12,7 +12,11 @@ export default function NotFound() {
   const isRo = lang === "ro";
 
   return (
-    <section className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-background px-6">
+    <>
+      <head>
+        <meta name="robots" content="noindex, follow" />
+      </head>
+      <section className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-background px-6">
       {/* Ambient glow */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div className="absolute left-1/2 top-1/3 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-foreground/[0.02] blur-[120px]" />
@@ -102,5 +106,6 @@ export default function NotFound() {
         />
       </motion.div>
     </section>
+    </>
   );
 }
