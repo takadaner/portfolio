@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import Hero from "@/components/Hero";
 import LockScroll from "@/components/LockScroll";
-
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://abduladaner.com";
+import { siteUrl } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Abdula Daner — Full-Stack Developer & Tech Builder",

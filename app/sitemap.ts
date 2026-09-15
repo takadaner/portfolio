@@ -1,7 +1,7 @@
 import { MetadataRoute } from "next";
+import { siteUrl as baseUrl } from "@/lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://abduladaner.com";
   const lastModified = new Date();
 
   return [

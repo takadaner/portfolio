@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Contact from "@/components/Contact";
-
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://abduladaner.com";
+import { siteUrl } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Contact — Get in Touch",

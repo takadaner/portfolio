@@ -7,6 +7,7 @@ import BottomNav from "@/components/BottomNav";
 import CustomCursor from "@/components/CustomCursor";
 import ScrollBehavior from "@/components/ScrollBehavior";
 import JsonLd from "@/components/JsonLd";
+import { siteUrl } from "@/lib/site";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 
@@ -14,8 +15,6 @@ const inter = Inter({
   subsets: ["latin", "latin-ext"],
   variable: "--font-inter",
 });
-
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://abduladaner.com";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),

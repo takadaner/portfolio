@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import Services from "@/components/Services";
 import LockScroll from "@/components/LockScroll";
-
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://abduladaner.com";
+import { siteUrl } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Servicii — Dezvoltare Web, Automatizări AI & Software",

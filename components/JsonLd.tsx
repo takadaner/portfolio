@@ -1,8 +1,7 @@
 import React from "react";
+import { siteUrl } from "@/lib/site";
 
 export default function JsonLd() {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://abduladaner.com";
-
   const personSchema = {
     "@context": "https://schema.org",
     "@type": "Person",
