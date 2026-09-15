@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import About from "@/components/About";
-
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://abduladaner.com";
+import { siteUrl } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Despre Mine — About Abdula Daner",
