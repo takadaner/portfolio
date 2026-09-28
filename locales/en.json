@@ -30,21 +30,7 @@
     "ctaProjects": "See Projects",
     "ctaContact": "Contact",
     "floatLeft": "WhatsApp Bot UI",
-    "floatRight": "Hotel Dashboard",
-    "testimonials": [
-      {
-        "quote": "His bot fully automated our bookings.",
-        "author": "— Partner hotel"
-      },
-      {
-        "quote": "We cut our guest response time by 90%.",
-        "author": "— Client"
-      },
-      {
-        "quote": "Professional and fast. He shipped a solution that works.",
-        "author": "— Startup founder"
-      }
-    ]
+    "floatRight": "Hotel Dashboard"
   },
   "skills": {
     "label": "What I do",
@@ -251,7 +237,7 @@
       },
       {
         "title": "Hotel SaaS Suite",
-        "description": "WhatsApp Concierge AI, Digital Compendium, Review Automator",
+        "description": "Hospitality product exploration: a digital concierge, guest information, and support workflows.",
         "tags": [
           "Python",
           "FastAPI",
@@ -262,6 +248,20 @@
         "image": "/images/proiecte/Hotel Saas Suite/wapp concierge.webp",
         "imageAlt": "Hotel SaaS Suite",
         "href": "/projects/hotel-saas-suite"
+      },
+      {
+        "title": "Night Concierge — Concept",
+        "description": "An independent concept study for a small-hotel digital concierge: warm conversational UX, practical guest scenarios, and a calm after-hours interface. The interactive replies are simulated.",
+        "tags": [
+          "Independent Concept",
+          "Product Design",
+          "Hospitality UX",
+          "Next.js"
+        ],
+        "image": "/images/proiecte/Hotel Saas Suite/wapp concierge.webp",
+        "imageAlt": "Hotel concierge interface used as a visual reference for an independent concept demo",
+        "href": "/projects/night-concierge",
+        "concept": true
       },
       {
         "title": "SOL Restaurant",
@@ -507,68 +507,6 @@
       }
     ]
   },
-  "testimonials": {
-    "label": "What clients say",
-    "title1": "People who",
-    "title2": "worked with me",
-    "subtitle": "A few words from the partners and clients I've collaborated with.",
-    "items": [
-      {
-        "quote": "The WhatsApp bot fully automated our bookings. Guests get instant answers and we got rid of dozens of messages a day.",
-        "author": "Andrei Popescu",
-        "role": "Manager, Partner hotel",
-        "rating": 5
-      },
-      {
-        "quote": "The SOL website exceeded all expectations. The sleek design and fast loading times boosted our online reservations by 40%.",
-        "author": "Cristina Marinescu",
-        "role": "Marketing Director, SOL Restaurant",
-        "rating": 5
-      },
-      {
-        "quote": "The 3D renders completely transformed how we present projects to clients. Each villa looks like a real photograph.",
-        "author": "Mihai Constantinescu",
-        "role": "Architect, Architecture Studio",
-        "rating": 5
-      },
-      {
-        "quote": "The Le Bab website came to life exactly as we imagined. Interactive menus and booking integration work flawlessly.",
-        "author": "Denisa Vasilescu",
-        "role": "Co-founder, Le Bab Bucharest",
-        "rating": 5
-      },
-      {
-        "quote": "The hotel digital suite saved us hours of manual work. Reviews are now collected automatically.",
-        "author": "Vlad Georgescu",
-        "role": "Founder, Hospitality startup",
-        "rating": 5
-      },
-      {
-        "quote": "The Terasa Florilor platform with the full ordering flow, events and admin panel was delivered right on time. An excellent collaboration.",
-        "author": "Elena Dumitru",
-        "role": "Owner, Terasa Florilor",
-        "rating": 5
-      },
-      {
-        "quote": "The architecture templates have incredible visual impact. We implemented them straight into our portfolio and clients are impressed.",
-        "author": "Radu Stanescu",
-        "role": "Creative Director, Real Estate Agency",
-        "rating": 5
-      },
-      {
-        "quote": "The Darkroom projection mapping installation was the centrepiece of the exhibition. The generative visuals left the audience speechless.",
-        "author": "Ioana Preda",
-        "role": "Curator, Art Gallery",
-        "rating": 5
-      },
-      {
-        "quote": "The law firm website looks extremely professional — the dark/gold aesthetics and RO/EN bilingualism brought us new clients from day one.",
-        "author": "Ovidiu Secoșan",
-        "role": "Lawyer, Secoșan Law Office",
-        "rating": 5
-      }
-    ]
-  },
   "about": {
     "label": "About me",
     "title1": "Abdula Daner,",
@@ -585,6 +523,24 @@
       "Supabase",
       "Claude API",
       "FastAPI"
+    ],
+    "approachLabel": "How I think",
+    "approachTitle1": "Software shaped",
+    "approachTitle2": "by real work",
+    "approachSubtitle": "My perspective comes from working close to hospitality operations and building software around practical needs.",
+    "approach": [
+      {
+        "title": "Start with the people doing the work",
+        "description": "First-hand front-desk experience makes the small but costly points of friction easier to notice: repeated questions, hand-offs, and missing information."
+      },
+      {
+        "title": "Automate the repetitive, not the human",
+        "description": "Good automation should give teams more room to care for guests—not hide the people behind a bot or make important decisions opaque."
+      },
+      {
+        "title": "Think beyond the screen",
+        "description": "A useful product connects the guest-facing interface to the team's actual workflow, so the whole experience feels coherent rather than bolted together."
+      }
     ],
     "connect": "Let's talk",
     "socials": [
@@ -745,6 +701,9 @@
     "emailLabel": "Email",
     "email": "abduladaner70@gmail.com",
     "socialsLabel": "You can also find me on",
+    "phoneLabel": "Phone",
+    "phoneReveal": "Show",
+    "begin": "Let's begin!",
     "form": {
       "name": "Name",
       "namePlaceholder": "Your Name",
@@ -755,6 +714,14 @@
       "message": "Message",
       "messagePlaceholder": "Tell me more about your project...",
       "submit": "Send Message",
+      "sending": "Sending...",
+      "successTitle": "Message sent",
+      "successBody": "Thanks — I’ll reply within 48 hours.",
+      "sendAnother": "Send another message",
+      "fallbackTitle": "Open your email app",
+      "fallbackBody": "Direct delivery is temporarily unavailable. Your message is ready to send from your email app.",
+      "openEmail": "Open email app",
+      "error": "I couldn’t send that message. Please try again or email me directly.",
       "note": "(I will reach out to you within 48hrs)",
       "next": "Next",
       "back": "Back",
@@ -763,6 +730,8 @@
       "step3Title": "3. Project details",
       "interests": {
         "web": "Web Development",
+        "ai": "AI & Automation",
+        "hospitality": "Hospitality Software",
         "uiux": "UI/UX Design",
         "seo": "SEO & Optimization",
         "consulting": "Consulting",

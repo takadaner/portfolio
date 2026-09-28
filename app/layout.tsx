@@ -9,6 +9,8 @@ import ScrollBehavior from "@/components/ScrollBehavior";
 import JsonLd from "@/components/JsonLd";
 import { siteUrl } from "@/lib/site";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { cookies, headers } from "next/headers";
+import { normalizeLang } from "@/lib/i18n";
 import "./globals.css";
 
 const inter = Inter({
@@ -44,14 +46,6 @@ export const metadata: Metadata = {
   authors: [{ name: "Abdula Daner", url: siteUrl }],
   creator: "Abdula Daner",
   publisher: "Abdula Daner",
-  alternates: {
-    canonical: siteUrl,
-    languages: {
-      "ro-RO": siteUrl,
-      "en-US": siteUrl,
-      "x-default": siteUrl,
-    },
-  },
   openGraph: {
     type: "website",
     locale: "ro_RO",
@@ -96,18 +90,24 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  const [requestHeaders, cookieStore] = await Promise.all([headers(), cookies()]);
+  const initialLang =
+    normalizeLang(requestHeaders.get("x-daner-language")) ??
+    normalizeLang(cookieStore.get("daner-language")?.value) ??
+    "ro";
+
   return (
-    <html lang="ro" className={inter.variable}>
+    <html lang={initialLang} className={inter.variable}>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
       <body className="font-sans" suppressHydrationWarning>
         <JsonLd />
-        <LanguageProvider>
+        <LanguageProvider initialLang={initialLang}>
           <AnimationProvider>
             <CustomCursor />
             <ScrollBehavior />

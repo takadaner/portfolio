@@ -1,20 +1,21 @@
-import type { Metadata } from "next";
 import HotelSaaSProject from "@/components/HotelSaaSProject";
+import { createPageMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
-  title: "Hotel SaaS Suite",
-  description:
-    "O suită completă de soluții digitale pentru industria ospitalității: WhatsApp Concierge AI, Hotel Websites, Digital Compendium și Review Automator.",
-  alternates: {
-    canonical: "/projects/hotel-saas-suite",
-  },
-  openGraph: {
-    title: "Hotel SaaS Suite — Soluții Digitale pentru Hoteluri | Abdula Daner",
-    description:
-      "Automatizări complete pentru recepție și comunicare oaspeți: WhatsApp Concierge cu AI, site-uri de prezentare, compendiu digital și management recenzii.",
-    url: "/projects/hotel-saas-suite",
-  },
-};
+type PageProps = { searchParams?: Promise<{ lang?: string | string[] }> };
+
+export async function generateMetadata({ searchParams }: PageProps) {
+  const params = await searchParams;
+  return createPageMetadata("/projects/hotel-saas-suite", params?.lang, {
+    ro: {
+      title: "Hotel SaaS Suite",
+      description: "Soluții digitale pentru ospitalitate: concierge AI, site-uri hoteliere, compendiu digital și automatizarea recenziilor.",
+    },
+    en: {
+      title: "Hotel SaaS Suite",
+      description: "Digital hospitality tools: AI concierge, hotel websites, digital compendium, and review automation.",
+    },
+  });
+}
 
 export default function HotelSaaSPage() {
   return <HotelSaaSProject />;

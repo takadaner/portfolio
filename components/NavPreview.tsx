@@ -17,6 +17,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { useLanguage } from "@/lib/LanguageContext";
+import { publishedProjects } from "@/lib/projects";
 
 const skillIcons: Record<string, LucideIcon> = {
   "Frontend": Monitor,
@@ -111,10 +112,11 @@ export default function NavPreview({
 
 
     case "/projects":
+      const projects = publishedProjects(dict.projects.items);
       return (
-        <Shell title={`${label} · ${dict.projects.items.length}`}>
+        <Shell title={`${label} · ${projects.length}`}>
           <div className="grid grid-cols-3 gap-2">
-            {dict.projects.items.slice(0, 3).map((p) => (
+            {projects.slice(0, 3).map((p) => (
               <div
                 key={p.title}
                 className="overflow-hidden rounded-lg border border-line"

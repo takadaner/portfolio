@@ -30,21 +30,7 @@
     "ctaProjects": "Vezi Proiecte",
     "ctaContact": "Contact",
     "floatLeft": "WhatsApp Bot UI",
-    "floatRight": "Hotel Dashboard",
-    "testimonials": [
-      {
-        "quote": "Botul lui ne-a automatizat complet rezervările.",
-        "author": "— Hotel partener"
-      },
-      {
-        "quote": "Am redus timpul de răspuns către oaspeți cu 90%.",
-        "author": "— Client"
-      },
-      {
-        "quote": "Profesionist și rapid. A înțeles exact ce aveam nevoie.",
-        "author": "— Startup fondator"
-      }
-    ]
+    "floatRight": "Hotel Dashboard"
   },
   "skills": {
     "label": "Ce știu să fac",
@@ -251,7 +237,7 @@
       },
       {
         "title": "Hotel SaaS Suite",
-        "description": "WhatsApp Concierge AI, Digital Compendium, Review Automator",
+        "description": "Explorare de produs pentru ospitalitate: concierge digital, informații pentru oaspeți și fluxuri de suport.",
         "tags": [
           "Python",
           "FastAPI",
@@ -262,6 +248,20 @@
         "image": "/images/proiecte/Hotel Saas Suite/wapp concierge.webp",
         "imageAlt": "Hotel SaaS Suite",
         "href": "/projects/hotel-saas-suite"
+      },
+      {
+        "title": "Night Concierge — Concept",
+        "description": "Studiu de concept independent pentru un concierge digital dedicat hotelurilor mici: conversații naturale, scenarii utile pentru oaspeți și o interfață calmă, disponibilă noaptea. Răspunsurile interactive sunt simulate.",
+        "tags": [
+          "Concept independent",
+          "Design de produs",
+          "UX pentru ospitalitate",
+          "Next.js"
+        ],
+        "image": "/images/proiecte/Hotel Saas Suite/wapp concierge.webp",
+        "imageAlt": "Interfață de concierge hotelier folosită ca referință vizuală pentru un demo conceptual independent",
+        "href": "/projects/night-concierge",
+        "concept": true
       },
       {
         "title": "SOL Restaurant",
@@ -507,68 +507,6 @@
       }
     ]
   },
-  "testimonials": {
-    "label": "Ce spun clienții",
-    "title1": "Oameni care",
-    "title2": "au lucrat cu mine",
-    "subtitle": "Câteva cuvinte de la partenerii și clienții cu care am colaborat.",
-    "items": [
-      {
-        "quote": "Botul de WhatsApp ne-a automatizat complet rezervările. Oaspeții primesc răspunsuri instant, iar noi am scăpat de zeci de mesaje pe zi.",
-        "author": "Andrei Popescu",
-        "role": "Manager, Hotel partener",
-        "rating": 5
-      },
-      {
-        "quote": "Website-ul pentru SOL a depășit toate așteptările. Designul elegant și viteza de încărcare ne-au crescut rezervările online cu 40%.",
-        "author": "Cristina Marinescu",
-        "role": "Director Marketing, SOL Restaurant",
-        "rating": 5
-      },
-      {
-        "quote": "Randările 3D au transformat complet modul în care prezentăm proiectele clienților. Fiecare vilă arată ca o fotografie reală.",
-        "author": "Mihai Constantinescu",
-        "role": "Arhitect, Studio de Arhitectură",
-        "rating": 5
-      },
-      {
-        "quote": "Website-ul Le Bab a prins viață exact cum ne-am imaginat. Meniurile interactive și integrarea rezervărilor funcționează impecabil.",
-        "author": "Denisa Vasilescu",
-        "role": "Co-fondator, Le Bab București",
-        "rating": 5
-      },
-      {
-        "quote": "Suita digitală pentru hotel ne-a economisit ore întregi de muncă manuală. Recenziile se colectează automat acum.",
-        "author": "Vlad Georgescu",
-        "role": "Fondator, Startup ospitalitate",
-        "rating": 5
-      },
-      {
-        "quote": "Platforma Terasa Florilor cu tot flow-ul de comenzi, evenimente și panou admin a fost livrată exact la timp. O colaborare excelentă.",
-        "author": "Elena Dumitru",
-        "role": "Proprietar, Terasa Florilor",
-        "rating": 5
-      },
-      {
-        "quote": "Template-urile de arhitectură au un impact vizual incredibil. Le-am implementat direct pentru portofoliul nostru și clienții sunt impresionați.",
-        "author": "Radu Stanescu",
-        "role": "Director Creativ, Agenție Imobiliară",
-        "rating": 5
-      },
-      {
-        "quote": "Instalația Darkroom cu projection mapping a fost punctul central al expoziției. Vizualurile generative au lăsat publicul fără cuvinte.",
-        "author": "Ioana Preda",
-        "role": "Curator, Galerie de Artă",
-        "rating": 5
-      },
-      {
-        "quote": "Site-ul de avocatură arată extrem de profesional — estetica dark/gold și bilingvismul RO/EN ne-au adus clienți noi din prima săptămână.",
-        "author": "Ovidiu Secoșan",
-        "role": "Avocat, Cabinet Secoșan",
-        "rating": 5
-      }
-    ]
-  },
   "about": {
     "label": "Despre mine",
     "title1": "Abdula Daner,",
@@ -585,6 +523,24 @@
       "Supabase",
       "Claude API",
       "FastAPI"
+    ],
+    "approachLabel": "Cum gândesc",
+    "approachTitle1": "Software pornit",
+    "approachTitle2": "din realitate",
+    "approachSubtitle": "Perspectiva mea vine din apropierea de operațiunile din ospitalitate și din construirea de software pornind de la nevoi practice.",
+    "approach": [
+      {
+        "title": "Încep cu oamenii care fac treaba",
+        "description": "Experiența directă la recepție ajută la observarea fricțiunilor mici, dar costisitoare: întrebări repetate, predarea informațiilor și detalii care se pierd."
+      },
+      {
+        "title": "Automatizez rutina, nu latura umană",
+        "description": "O automatizare bună oferă echipelor mai mult spațiu să aibă grijă de oaspeți — nu ascunde oamenii în spatele unui bot și nu face deciziile importante opace."
+      },
+      {
+        "title": "Gândesc dincolo de ecran",
+        "description": "Un produs util leagă interfața pentru oaspeți de fluxul real al echipei, astfel încât experiența să fie coerentă, nu doar o funcție adăugată peste sistem."
+      }
     ],
     "connect": "Hai să vorbim",
     "socials": [
@@ -745,6 +701,9 @@
     "emailLabel": "Email",
     "email": "abduladaner70@gmail.com",
     "socialsLabel": "Mă găsești și pe",
+    "phoneLabel": "Telefon",
+    "phoneReveal": "Arată",
+    "begin": "Să începem!",
     "form": {
       "name": "Nume",
       "namePlaceholder": "Numele tău",
@@ -755,6 +714,14 @@
       "message": "Mesaj",
       "messagePlaceholder": "Spune-mi mai multe despre proiectul tău...",
       "submit": "Trimite mesajul",
+      "sending": "Se trimite...",
+      "successTitle": "Mesaj trimis",
+      "successBody": "Mulțumesc — îți răspund în maximum 48 de ore.",
+      "sendAnother": "Trimite alt mesaj",
+      "fallbackTitle": "Deschide aplicația de email",
+      "fallbackBody": "Trimiterea directă nu este disponibilă momentan. Mesajul tău este pregătit în aplicația de email.",
+      "openEmail": "Deschide emailul",
+      "error": "Mesajul nu a putut fi trimis. Încearcă din nou sau scrie-mi direct pe email.",
       "note": "(Îți răspund în maximum 48 de ore)",
       "next": "Continuă",
       "back": "Înapoi",
@@ -763,6 +730,8 @@
       "step3Title": "3. Detalii proiect",
       "interests": {
         "web": "Dezvoltare Web",
+        "ai": "AI & Automatizări",
+        "hospitality": "Software pentru ospitalitate",
         "uiux": "Design UI/UX",
         "seo": "SEO & Optimizare",
         "consulting": "Consultanță",

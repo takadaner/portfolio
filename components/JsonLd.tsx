@@ -27,7 +27,7 @@ export default function JsonLd() {
     },
     sameAs: [
       "https://github.com/takadaner",
-      "https://linkedin.com/in/abdula-daner",
+      "https://www.linkedin.com/in/daner-abdula-816425188/",
     ],
     knowsAbout: [
       "Web Development",
@@ -144,45 +144,6 @@ export default function JsonLd() {
     ],
   };
 
-  const faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: [
-      {
-        "@type": "Question",
-        name: "Cine este Abdula Daner? / Who is Abdula Daner?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Abdula Daner este un Full-Stack Developer & Tech Builder din Constanța, România. Este specializat în aplicații web rapide (Next.js, React), automatizări AI (boți WhatsApp, Claude API) și software dedicat pentru industria hotelieră (Hotel SaaS Suite).",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "Ce servicii oferă Abdula Daner? / What services does Abdula Daner offer?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Abdula Daner oferă servicii de Dezvoltare Web Custom, Boți WhatsApp & Automatizări AI, Suită Software pentru Hoteluri (Hotel SaaS Suite) și Vizualizări 3D Arhitecturale.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "Ce tehnologii folosește Abdula Daner? / What tech stack does Abdula Daner use?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Tehnologiile principale utilizate sunt Next.js 14, React, TypeScript, Tailwind CSS, Python, FastAPI, Supabase, PostgreSQL, Meta Cloud API și Anthropic Claude API.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "Cum îl poți contacta pe Abdula Daner? / How can you contact Abdula Daner?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Îl poți contacta prin email la abduladaner70@gmail.com, prin WhatsApp / telefon la +40756333392 sau direct pe formularul de pe site-ul oficial.",
-        },
-      },
-    ],
-  };
-
   return (
     <>
       <script
@@ -204,10 +165,6 @@ export default function JsonLd() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(siteNavigationSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
     </>
   );

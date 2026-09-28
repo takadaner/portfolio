@@ -34,23 +34,8 @@ export default function HotelSaaSProject() {
     {
       src: "/images/proiecte/Hotel Saas Suite/wapp concierge.webp",
       title: lang === "ro" ? "WhatsApp Concierge AI" : "WhatsApp Concierge AI",
-      desc: lang === "ro" ? "Asistent virtual inteligent care gestionează rezervările și răspunde oaspeților non-stop." : "Intelligent virtual assistant that handles bookings and answers guests 24/7.",
+      desc: lang === "ro" ? "Explorare de interfață pentru un asistent digital dedicat întrebărilor uzuale ale oaspeților." : "Interface exploration for a digital assistant focused on common guest questions.",
       showcase: true
-    },
-    {
-      src: "/images/placeholder-toontone.svg",
-      title: lang === "ro" ? "Hotel Websites" : "Hotel Websites",
-      desc: lang === "ro" ? "Website-uri moderne, rapide și responsive pentru a crește conversiile și a oferi o experiență premium." : "Modern, fast, and responsive websites to increase conversions and provide a premium experience."
-    },
-    {
-      src: "/images/placeholder-hotel-suite.svg",
-      title: lang === "ro" ? "Digital Compendium" : "Digital Compendium",
-      desc: lang === "ro" ? "Aplicație web pentru oaspeți cu servicii, meniu restaurant și atracții locale, accesibilă via cod QR." : "Guest web app featuring services, restaurant menu, and local attractions, accessible via QR code."
-    },
-    {
-      src: "/images/placeholder-hueknew.svg",
-      title: lang === "ro" ? "Review Automator" : "Review Automator",
-      desc: lang === "ro" ? "Sistem automat pentru colectarea recenziilor pozitive și gestionarea feedback-ului intern." : "Automated system for collecting positive reviews and managing internal feedback."
     }
   ];
 
@@ -77,7 +62,7 @@ export default function HotelSaaSProject() {
   }, [lightboxIndex, mediaItems.length]);
 
   return (
-    <div className="min-h-screen bg-[#050505] text-foreground pb-24 pt-32 px-6 sm:px-8">
+    <div className="min-h-screen overflow-x-hidden bg-[#050505] text-foreground pb-24 pt-32 px-6 sm:px-8">
       {/* Background Gradient Mesh */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
         <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-blue-500/10 blur-[120px]" />
@@ -100,15 +85,15 @@ export default function HotelSaaSProject() {
         <Reveal>
           <div className="flex flex-col gap-4">
             <span className="inline-flex max-w-fit items-center gap-2 rounded-full border border-line bg-surface px-4 py-1.5 text-xs text-muted">
-              SaaS Suite
+              {lang === "ro" ? "Direcție de produs" : "Product direction"}
             </span>
             <h1 className="text-4xl sm:text-6xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-foreground via-foreground to-blue-400">
               Hotel SaaS Suite
             </h1>
             <p className="max-w-2xl text-lg text-muted mt-2 leading-relaxed">
               {lang === "ro"
-                ? "O suită completă de soluții digitale pentru industria ospitalității, menită să automatizeze operațiunile, să crească numărul de rezervări directe și să ofere oaspeților o experiență de neuitat."
-                : "A complete suite of digital solutions for the hospitality industry, designed to automate operations, increase direct bookings, and provide guests with an unforgettable experience."}
+                ? "O direcție de produs pentru unelte digitale dedicate hotelurilor mici: asistență pentru întrebările oaspeților, informații utile și fluxuri de suport mai clare. Concierge-ul este explorarea actuală; celelalte module sunt idei de validat, nu integrări active."
+                : "A product direction for digital tools designed for small hotels: help with guest questions, useful information, and clearer support workflows. The concierge is the current exploration; other modules are ideas to validate, not live integrations."}
             </p>
           </div>
         </Reveal>
@@ -134,12 +119,12 @@ export default function HotelSaaSProject() {
             <div className="space-y-8 text-muted leading-relaxed">
               <div className="space-y-4">
                 <h2 className="text-xl sm:text-2xl font-semibold text-foreground">
-                  {lang === "ro" ? "Ce Oferim pentru Hoteluri" : "What We Offer for Hotels"}
+                  {lang === "ro" ? "Direcții de explorat" : "Directions to explore"}
                 </h2>
                 <p>
                   {lang === "ro"
-                    ? "Într-o piață competitivă, digitalizarea și automatizarea sunt esențiale pentru a reduce costurile și a oferi o experiență premium. Hotel SaaS Suite integrează mai multe componente care lucrează împreună pentru succesul afacerii tale."
-                    : "In a competitive market, digitalization and automation are essential to reduce costs and offer a premium experience. Hotel SaaS Suite integrates multiple components working together for your business's success."}
+                    ? "Proiectul pornește de la o întrebare practică: cum pot instrumentele digitale să ajute echipele hoteliere să răspundă mai clar și să reducă pașii repetați? Concierge-ul este explorarea principală de acum."
+                    : "The project starts with a practical question: how can digital tools help hotel teams respond more clearly and reduce repeated steps? The concierge is the current main exploration."}
                 </p>
               </div>
 
@@ -149,19 +134,19 @@ export default function HotelSaaSProject() {
                   {[
                     {
                       title: lang === "ro" ? "Concierge AI pe WhatsApp" : "WhatsApp Concierge AI",
-                      desc: lang === "ro" ? "Răspunde instantaneu la întrebările oaspeților 24/7. De la programul restaurantului până la asistență pentru rezervări, bot-ul AI preia munca recepției." : "Answers guest inquiries instantly 24/7. From restaurant hours to booking assistance, the AI bot handles front-desk work."
+                      desc: lang === "ro" ? "Un asistent ar putea răspunde la întrebările uzuale și i-ar putea ajuta pe oaspeți să ajungă la un membru al echipei pentru cereri speciale." : "An assistant could answer common questions and help guests reach a team member for requests that need a personal touch."
                     },
                     {
                       title: lang === "ro" ? "Website-uri de Hotel" : "Hotel Websites",
-                      desc: lang === "ro" ? "Construim website-uri rapide, cu un design premium și responsive, optimizate pentru a transforma vizitatorii în clienți." : "We build fast, premium, and responsive websites optimized to turn visitors into guests."
+                      desc: lang === "ro" ? "Un site hotelier clar ar putea pune la îndemână camerele, facilitățile și informațiile esențiale despre ședere." : "A clear hotel website could make rooms, amenities, and essential stay information easy to find."
                     },
                     {
                       title: lang === "ro" ? "Digital Compendium" : "Digital Compendium",
-                      desc: lang === "ro" ? "O platformă web accesibilă printr-un simplu scan de QR cod în cameră, unde oaspeții pot explora serviciile hotelului și meniul restaurantului." : "A web platform accessible via in-room QR scan, where guests can explore hotel services and restaurant menus."
+                      desc: lang === "ro" ? "Un compendiu digital accesibil prin QR ar putea reuni serviciile hotelului, opțiunile de masă și recomandările locale." : "A QR-accessible digital compendium could bring together hotel services, dining options, and local recommendations."
                     },
                     {
                       title: lang === "ro" ? "Review Automator" : "Review Automator",
-                      desc: lang === "ro" ? "Campanii automate care încurajează oaspeții mulțumiți să lase o recenzie pe Google/Booking, filtrând feedback-ul intern." : "Automated campaigns encouraging happy guests to leave reviews on Google/Booking while filtering internal feedback."
+                      desc: lang === "ro" ? "Un flux de feedback ar putea colecta sugestii după ședere și invita oaspeții să-și împărtășească experiența fără a filtra recenziile publice." : "A feedback flow could collect suggestions after a stay and invite guests to share their experience without filtering public reviews."
                     }
                   ].map((service, idx) => (
                     <li
@@ -191,16 +176,16 @@ export default function HotelSaaSProject() {
                   <span className="text-foreground font-medium">B2B Hospitality</span>
                 </div>
                 <div>
-                  <span className="text-muted-2 block">{lang === "ro" ? "Tehnologie Backend" : "Backend Tech"}</span>
+                  <span className="text-muted-2 block">{lang === "ro" ? "Backend propus" : "Proposed backend"}</span>
                   <span className="text-foreground font-medium">Python, FastAPI</span>
                 </div>
                 <div>
-                  <span className="text-muted-2 block">{lang === "ro" ? "Inteligență Artificială" : "AI Provider"}</span>
+                  <span className="text-muted-2 block">{lang === "ro" ? "Integrări propuse" : "Proposed integrations"}</span>
                   <span className="text-foreground font-medium">Claude AI, Meta API</span>
                 </div>
                 <div>
-                  <span className="text-muted-2 block">{lang === "ro" ? "Impact" : "Impact"}</span>
-                  <span className="text-foreground font-medium">Reducerea timpului de suport cu peste 80%</span>
+                  <span className="text-muted-2 block">{lang === "ro" ? "Obiectiv" : "Goal"}</span>
+                  <span className="text-foreground font-medium">{lang === "ro" ? "Răspunsuri mai consecvente la întrebările uzuale" : "More consistent answers to common guest questions"}</span>
                 </div>
               </div>
             </div>
@@ -211,9 +196,16 @@ export default function HotelSaaSProject() {
         <div className="mt-24">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-line pb-6">
             <Reveal>
-              <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">
-                {lang === "ro" ? "Galerie" : "Gallery"}
-              </h2>
+              <div>
+                <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">
+                  {lang === "ro" ? "Explorare vizuală" : "Visual exploration"}
+                </h2>
+                <p className="mt-2 max-w-xl text-sm leading-relaxed text-muted">
+                  {lang === "ro"
+                    ? "Imaginea prezintă direcția vizuală a concierge-ului. Compendiul digital și fluxurile pentru recenzii rămân idei de validat, nu produse conectate."
+                    : "The image shows the concierge's visual direction. The digital compendium and review workflows remain ideas to validate, not connected products."}
+                </p>
+              </div>
             </Reveal>
           </div>
 

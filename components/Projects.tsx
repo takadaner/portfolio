@@ -9,6 +9,7 @@ import { useLanguage } from "@/lib/LanguageContext";
 import Reveal from "./Reveal";
 import ProjectsNav from "./ProjectsNav";
 import ScrollTopButton from "./ScrollTopButton";
+import { publishedProjects } from "@/lib/projects";
 
 function slugify(text: string) {
   return text
@@ -19,8 +20,9 @@ function slugify(text: string) {
 
 export default function Projects() {
   const { dict, lang } = useLanguage();
+  const projects = publishedProjects(dict.projects.items);
 
-  const navItems = dict.projects.items.map((project) => ({
+  const navItems = projects.map((project) => ({
     title: project.title,
     slug: slugify(project.title),
   }));
@@ -67,7 +69,7 @@ export default function Projects() {
 
         {/* Alternating feature rows */}
         <div className="mt-20 flex flex-col gap-20 sm:gap-28">
-          {dict.projects.items.map((project, i) => {
+          {projects.map((project, i) => {
             const reversed = i % 2 === 1;
             const slug = slugify(project.title);
             const href = (project as any).href as string | undefined;
@@ -160,7 +162,7 @@ export default function Projects() {
                   <div className={reversed ? "lg:order-1" : ""}>
                     <span className="font-mono text-sm text-muted-2">
                       {String(i + 1).padStart(2, "0")} /{" "}
-                      {String(dict.projects.items.length).padStart(2, "0")}
+                      {String(projects.length).padStart(2, "0")}
                     </span>
                     <h2 className="mt-3 flex items-center gap-3 text-3xl font-semibold tracking-tight sm:text-4xl">
                       {project.title}
@@ -173,6 +175,11 @@ export default function Projects() {
                       {project.description}
                     </p>
                     <ul className="mt-6 flex flex-wrap gap-2">
+                      {(project as { concept?: boolean }).concept && (
+                        <li className="rounded-full border border-emerald-500/25 bg-emerald-500/[0.06] px-3 py-1 text-xs text-emerald-700 dark:text-emerald-300">
+                          {lang === "ro" ? "Concept independent" : "Independent concept"}
+                        </li>
+                      )}
                       {project.tags.map((tag) => (
                         <li
                           key={tag}

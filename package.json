@@ -7,7 +7,11 @@
     "prebuild": "node scripts/check-assets.mjs",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "node scripts/quality-check.mjs",
+    "typecheck": "tsc --noEmit --incremental false",
+    "test": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test --test-concurrency=1",
+    "test:coverage": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test --test-concurrency=1 --experimental-test-coverage --test-coverage-include=lib/contact.ts --test-coverage-include=lib/i18n.ts --test-coverage-include=lib/projects.ts --test-coverage-include=lib/night-concierge.ts --test-coverage-lines=80 --test-coverage-functions=80 --test-coverage-branches=80",
+    "check": "npm run lint && npm run typecheck && npm run test:coverage && npm run build",
     "check-assets": "node scripts/check-assets.mjs"
   },
   "dependencies": {
@@ -19,7 +23,7 @@
     "framer-motion": "^11.11.17",
     "lenis": "^1.3.25",
     "lucide-react": "^0.460.0",
-    "next": "^14.2.18",
+    "next": "^16.3.6",
     "ogl": "^1.0.11",
     "postprocessing": "^6.39.1",
     "react": "^18.3.1",

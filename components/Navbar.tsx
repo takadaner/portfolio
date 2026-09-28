@@ -98,7 +98,10 @@ export default function Navbar() {
             {(["ro", "en"] as Lang[]).map((l) => (
               <button
                 key={l}
+                type="button"
                 onClick={() => toggleLang(l)}
+                aria-label={l === "ro" ? "Schimbă limba în română" : "Switch language to English"}
+                aria-pressed={lang === l}
                 className={`rounded-full px-2.5 py-1 uppercase transition-colors duration-300 ${
                   lang === l
                     ? "bg-foreground text-background"
@@ -111,9 +114,19 @@ export default function Navbar() {
           </div>
 
           <button
+            type="button"
             onClick={toggle}
-            aria-label={paused ? "Pornește animația" : "Oprește animația"}
-            title={paused ? "Pornește animația" : "Oprește animația"}
+            aria-label={
+              paused
+                ? lang === "ro" ? "Pornește animațiile" : "Resume animations"
+                : lang === "ro" ? "Oprește animațiile" : "Pause animations"
+            }
+            aria-pressed={paused}
+            title={
+              paused
+                ? lang === "ro" ? "Pornește animațiile" : "Resume animations"
+                : lang === "ro" ? "Oprește animațiile" : "Pause animations"
+            }
             className="flex h-9 w-9 items-center justify-center rounded-full border border-line bg-surface text-muted transition-colors duration-300 hover:text-foreground"
           >
             {paused ? (

@@ -42,7 +42,7 @@ export default function MPCMachine({ song }: MPCMachineProps) {
   // Which pads are currently flashing
   const [hitPads, setHitPads] = useState<Set<number>>(new Set());
 
-  const { triggerPad, isLoading, loadedPads } = useAudioEngine(song);
+  const { triggerPad, isLoading, loadedPads, failedPads } = useAudioEngine(song);
 
   const handlePadHit = useCallback((padId: number) => {
     setHitPads((prev) => new Set(prev).add(padId));
@@ -94,7 +94,12 @@ export default function MPCMachine({ song }: MPCMachineProps) {
         {/* ─────────── LEFT PANEL ─────────── */}
         <div className="mpc-left">
           {/* LCD screen */}
-          <MPCScreen song={song} isLoading={isLoading} loadedCount={loadedPads.size} />
+          <MPCScreen
+            song={song}
+            isLoading={isLoading}
+            loadedCount={loadedPads.size}
+            failedCount={failedPads.size}
+          />
 
           {/* F1 – F6 buttons */}
           <div className="mpc-f-buttons">

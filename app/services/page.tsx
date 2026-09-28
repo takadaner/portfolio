@@ -1,33 +1,23 @@
-import type { Metadata } from "next";
 import Services from "@/components/Services";
 import LockScroll from "@/components/LockScroll";
-import { siteUrl } from "@/lib/site";
+import { createPageMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
-  title: "Servicii — Dezvoltare Web, Automatizări AI & Software",
-  description:
-    "Servicii profesionale oferite de Abdula Daner: Dezvoltare Web custom (Next.js, React), Automatizări AI (Boți WhatsApp Meta Cloud API) și Hotel SaaS Suite.",
-  alternates: {
-    canonical: `${siteUrl}/services`,
-    languages: {
-      "ro-RO": `${siteUrl}/services`,
-      "en-US": `${siteUrl}/services`,
-      "x-default": `${siteUrl}/services`,
+type PageProps = { searchParams?: Promise<{ lang?: string | string[] }> };
+
+export async function generateMetadata({ searchParams }: PageProps) {
+  const params = await searchParams;
+  return createPageMetadata("/services", params?.lang, {
+    ro: {
+      title: "Servicii — Dezvoltare Web, Automatizări AI & Software",
+      description: "Dezvoltare web custom, automatizări AI, integrări și soluții digitale pentru industria ospitalității.",
     },
-  },
-  openGraph: {
-    title: "Servicii Web Development & AI Automations — Abdula Daner",
-    description:
-      "Aplicații web responsive de înaltă performanță, asistenți virtuali AI pe WhatsApp și soluții digitale dedicate pentru industria ospitalității.",
-    url: `${siteUrl}/services`,
-  },
-};
+    en: {
+      title: "Services — Web Development, AI Automation & Software",
+      description: "Custom web development, AI automation, integrations, and digital solutions for hospitality businesses.",
+    },
+  });
+}
 
 export default function ServicesPage() {
-  return (
-    <>
-      <LockScroll />
-      <Services />
-    </>
-  );
+  return <><LockScroll /><Services /></>;
 }

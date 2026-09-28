@@ -21,14 +21,15 @@ import {
 import { useLanguage } from "@/lib/LanguageContext";
 import { useAnimationToggle } from "@/lib/AnimationContext";
 import { LogoMark } from "@/components/Logo";
+import { publishedProjects } from "@/lib/projects";
 import "./ServicesRing.css";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 /** Camera pull-back: fast start, long settle — reads as a physical dolly. */
 const CAMERA_EASE = [0.65, 0, 0.18, 1] as const;
 const INTRO_KEY = "services-intro-played";
-const HOLD_MS = 1050; // close-up hold on the pill before the pull-back
-const CAMERA_S = 1.3; // camera pull-back duration (s)
+const HOLD_MS = 400; // brief brand close-up before revealing useful content
+const CAMERA_S = 0.75; // camera pull-back duration (s)
 
 const pillIcons: Record<string, LucideIcon> = {
   globe: Globe,
@@ -921,7 +922,11 @@ export default function Services() {
     setOriginY(wrap.offsetTop + wrap.offsetHeight / 2);
 
     // The intro plays once per session — repeat visits get a fast fade-in.
-    if (pausedRef.current || sessionStorage.getItem(INTRO_KEY)) {
+    if (
+      pausedRef.current ||
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
+      sessionStorage.getItem(INTRO_KEY)
+    ) {
       setPhase("page");
       return;
     }
@@ -972,7 +977,7 @@ export default function Services() {
   // service pills reference projects by title (kept as the single source of
   // truth in dict.projects.items) — resolve those into full project cards.
   const projectByTitle = new Map(
-    dict.projects.items.map((p: any) => [p.title, p])
+    publishedProjects(dict.projects.items).map((project) => [project.title, project])
   );
   const getRelated = (pill: ServicePill): RelatedProject[] =>
     (pill.relatedTitles ?? [])
@@ -980,14 +985,11 @@ export default function Services() {
       .filter(Boolean) as RelatedProject[];
 
   // choreography offsets, relative to the camera pull-back starting
-  const headDelay = fromIntro ? 0.85 : 0.05;
-  const satBase = fromIntro ? 1.05 : 0.15;
+  const headDelay = fromIntro ? 0.25 : 0.05;
+  const satBase = fromIntro ? 0.35 : 0.15;
 
   return (
-    // reducedMotion="never" is a deliberate product decision: the owner
-    // wants the intro identical for every visitor, including reduced-motion
-    // users — do not switch this back to "user".
-    <MotionConfig reducedMotion="never">
+    <MotionConfig reducedMotion="user">
       <section className="relative flex h-[100svh] flex-col items-center justify-center overflow-hidden px-6 pb-20 pt-20 sm:pb-14 sm:pt-28">
         {/* page background: gray at the top falling off to the pure-black
             page color, with a soft lift behind the composition */}

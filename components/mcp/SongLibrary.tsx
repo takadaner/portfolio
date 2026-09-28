@@ -12,8 +12,6 @@ interface SongLibraryProps {
 // Which mini-thumbnail pads glow, per song — each card gets its own pattern
 const LIT_PADS: Record<string, number[]> = {
   runaway: [0, 5, 10, 15],
-  father: [1, 4, 11, 14],
-  power: [2, 7, 8, 13],
 };
 
 // Deterministic equalizer bar heights (%) so SSR and client agree

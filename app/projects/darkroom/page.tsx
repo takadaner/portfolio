@@ -1,20 +1,21 @@
-import type { Metadata } from "next";
 import DarkroomProject from "@/components/DarkroomProject";
+import { createPageMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
-  title: "Darkroom — Projection Mapping",
-  description:
-    "Instalație imersivă de projection mapping formată din 5 camere tematice: Portal, Odyssey, Link, Alter Ego și Syntesys. Proiect vizual și auditiv interactiv.",
-  alternates: {
-    canonical: "/projects/darkroom",
-  },
-  openGraph: {
-    title: "Darkroom — Projection Mapping & Immersive Art | Abdula Daner",
-    description:
-      "Experiență vizuală imersivă compusă din 5 camere conceptuale cu proiecții video sincronizate și sound design dinamic.",
-    url: "/projects/darkroom",
-  },
-};
+type PageProps = { searchParams?: Promise<{ lang?: string | string[] }> };
+
+export async function generateMetadata({ searchParams }: PageProps) {
+  const params = await searchParams;
+  return createPageMetadata("/projects/darkroom", params?.lang, {
+    ro: {
+      title: "Darkroom — Projection Mapping",
+      description: "Instalație imersivă de projection mapping cu cinci camere tematice, vizualuri generative și sound design.",
+    },
+    en: {
+      title: "Darkroom — Projection Mapping",
+      description: "An immersive projection-mapping installation with five themed rooms, generative visuals, and sound design.",
+    },
+  });
+}
 
 export default function DarkroomPage() {
   return <DarkroomProject />;

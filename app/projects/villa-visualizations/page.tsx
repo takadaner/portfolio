@@ -1,20 +1,21 @@
-import type { Metadata } from "next";
 import VillaVisualizationsProject from "@/components/VillaVisualizationsProject";
+import { createPageMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
-  title: "Villa Visualizations — 3D Architectural Renders",
-  description:
-    "Randări 3D arhitecturale fotorealiste pentru vile rezidențiale de lux. Concepte vizuale cu schițe suprapuse, planuri de etaj și videoclipuri cinematografice.",
-  alternates: {
-    canonical: "/projects/villa-visualizations",
-  },
-  openGraph: {
-    title: "Villa Visualizations — 3D Architectural Renders | Abdula Daner",
-    description:
-      "Visualizări fotorealiste 3D pentru concepte arhitecturale de vile moderne, tururi virtuale și planuri tehnice.",
-    url: "/projects/villa-visualizations",
-  },
-};
+type PageProps = { searchParams?: Promise<{ lang?: string | string[] }> };
+
+export async function generateMetadata({ searchParams }: PageProps) {
+  const params = await searchParams;
+  return createPageMetadata("/projects/villa-visualizations", params?.lang, {
+    ro: {
+      title: "Vizualizări de Vilă — Randări Arhitecturale 3D",
+      description: "Randări arhitecturale 3D, concepte vizuale și tururi cinematografice pentru vile moderne.",
+    },
+    en: {
+      title: "Villa Visualizations — 3D Architectural Renders",
+      description: "3D architectural renders, visual concepts, and cinematic walkthroughs for modern villas.",
+    },
+  });
+}
 
 export default function VillaVisualizationsPage() {
   return <VillaVisualizationsProject />;

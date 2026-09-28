@@ -11,6 +11,7 @@ import { useAnimationToggle } from "@/lib/AnimationContext";
 import HeroBackground from "@/components/HeroBackground";
 import ShinyText from "@/components/ShinyText";
 import BorderGlow from "@/components/BorderGlow";
+import { publishedProjects } from "@/lib/projects";
 
 const enter = (
   initial: Record<string, number | string>,
@@ -282,8 +283,9 @@ export default function Hero() {
     },
   ];
 
-  const mcpProject = dict.projects.items.find((p: any) => p.title.includes("MCP"));
-  const heroProjects = dict.projects.items.filter((p: any) => !p.title.includes("MCP"));
+  const liveProjects = publishedProjects(dict.projects.items);
+  const mcpProject = liveProjects.find((project) => project.title.includes("MCP"));
+  const heroProjects = liveProjects.filter((project) => !project.title.includes("MCP"));
 
   let currentProjects = heroProjects.slice(
     bentoPage * 6,
@@ -513,6 +515,11 @@ export default function Hero() {
                     <Icon size={16} />
                   </a>
                 ))}
+              </div>
+
+              <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[5] bg-gradient-to-t from-black/85 via-black/35 to-transparent px-4 pb-16 pt-16 sm:hidden">
+                <p className="text-2xl font-semibold leading-none tracking-tight text-white">Abdula Daner</p>
+                <p className="mt-1 text-xs text-white/70">Full-Stack Developer &amp; Tech Builder</p>
               </div>
             </div>
           </motion.div>

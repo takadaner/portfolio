@@ -1,26 +1,21 @@
-import type { Metadata } from "next";
 import About from "@/components/About";
-import { siteUrl } from "@/lib/site";
+import { createPageMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
-  title: "Despre Mine — About Abdula Daner",
-  description:
-    "Află mai multe despre Abdula Daner, parcursul profesional în dezvoltare web și automatizări AI, competențele tehnice și testimonialele clienților.",
-  alternates: {
-    canonical: `${siteUrl}/about`,
-    languages: {
-      "ro-RO": `${siteUrl}/about`,
-      "en-US": `${siteUrl}/about`,
-      "x-default": `${siteUrl}/about`,
+type PageProps = { searchParams?: Promise<{ lang?: string | string[] }> };
+
+export async function generateMetadata({ searchParams }: PageProps) {
+  const params = await searchParams;
+  return createPageMetadata("/about", params?.lang, {
+    ro: {
+      title: "Despre Mine — Abdula Daner",
+      description: "Află despre experiența, competențele tehnice și modul de lucru al lui Abdula Daner.",
     },
-  },
-  openGraph: {
-    title: "Despre Mine — About Abdula Daner",
-    description:
-      "Full-Stack Developer & Tech Builder bazat în Constanța, România. Experiență în React, Next.js, Python, FastAPI și automatizări inteligență artificială.",
-    url: `${siteUrl}/about`,
-  },
-};
+    en: {
+      title: "About — Abdula Daner",
+      description: "Learn about Abdula Daner’s experience, technical skills, and approach to building digital products.",
+    },
+  });
+}
 
 export default function AboutPage() {
   return <About />;

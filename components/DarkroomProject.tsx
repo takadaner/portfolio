@@ -150,7 +150,7 @@ export default function DarkroomProject() {
   }, [lightboxIndex, filteredItems.length]);
 
   return (
-    <div className="min-h-screen bg-[#050505] text-foreground pb-24 pt-32 px-6 sm:px-8">
+    <div className="min-h-screen overflow-x-hidden bg-[#050505] text-foreground pb-24 pt-32 px-6 sm:px-8">
       {/* Background Gradient Mesh */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
         <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-purple-500/10 blur-[120px]" />

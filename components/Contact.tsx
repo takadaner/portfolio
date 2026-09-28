@@ -7,10 +7,12 @@ import { useLanguage } from "@/lib/LanguageContext";
 import Reveal from "./Reveal";
 
 export default function Contact() {
-  const { dict } = useLanguage();
+  const { dict, lang } = useLanguage();
   const [step, setStep] = useState(1);
   const [hasStarted, setHasStarted] = useState(false);
   const [phoneRevealed, setPhoneRevealed] = useState(false);
+  const [submitState, setSubmitState] = useState<"idle" | "sending" | "success" | "fallback" | "error">("idle");
+  const [fallbackUrl, setFallbackUrl] = useState("");
   const [formData, setFormData] = useState({
     interest: "",
     name: "",
@@ -18,10 +20,6 @@ export default function Contact() {
     phone: "",
     message: "",
   });
-  // Honeypot: a decoy field hidden from real users but auto-filled by many
-  // spam bots. Kept out of `formData` on purpose. NOTE: the form currently
-  // only console.logs, so this is inert scaffolding — once submit is wired
-  // to an email/API endpoint, the guard below already drops bot submissions.
   const [botTrap, setBotTrap] = useState("");
 
   const inputClass =
@@ -37,6 +35,8 @@ export default function Contact() {
 
   const interests = [
     { id: "web", label: dict.contact.form.interests.web },
+    { id: "ai", label: dict.contact.form.interests.ai },
+    { id: "hospitality", label: dict.contact.form.interests.hospitality },
     { id: "uiux", label: dict.contact.form.interests.uiux },
     { id: "seo", label: dict.contact.form.interests.seo },
     { id: "consulting", label: dict.contact.form.interests.consulting },
@@ -49,12 +49,41 @@ export default function Contact() {
     exit: { opacity: 0, x: -20 },
   };
 
-  const submitForm = (e: React.FormEvent) => {
+  const submitForm = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Silently drop submissions that filled the hidden honeypot — a real
-    // user can't see or reach it, so anything here is almost certainly a bot.
-    if (botTrap) return;
-    console.log(formData);
+    if (botTrap || submitState === "sending") return;
+
+    setSubmitState("sending");
+    setFallbackUrl("");
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...formData, companyWebsite: botTrap }),
+      });
+      const result = (await response.json()) as { success?: boolean; fallback?: string };
+
+      if (response.ok && result.success) {
+        setSubmitState("success");
+        return;
+      }
+      if (result.fallback) {
+        setFallbackUrl(result.fallback);
+        setSubmitState("fallback");
+        return;
+      }
+      setSubmitState("error");
+    } catch {
+      setSubmitState("error");
+    }
+  };
+
+  const resetForm = () => {
+    setFormData({ interest: "", name: "", email: "", phone: "", message: "" });
+    setBotTrap("");
+    setStep(1);
+    setSubmitState("idle");
+    setFallbackUrl("");
   };
 
   const isStepValid = () => {
@@ -86,10 +115,7 @@ export default function Contact() {
               <span className="text-foreground">{dict.contact.title1} </span>
               <span className="text-muted-2">{dict.contact.title2}</span>
             </h1>
-            <p className="mt-4 max-w-md text-base text-muted">
-              Ai un proiect sau o idee?<br />
-              Scrie-mi și revin în maximum 48 de ore.
-            </p>
+            <p className="mt-4 max-w-md text-base text-muted">{dict.contact.subtitle}</p>
 
             <div className="mt-8 flex flex-col gap-6 sm:flex-row sm:gap-12">
               <div>
@@ -107,10 +133,12 @@ export default function Contact() {
 
               <div>
                 <p className="text-xs uppercase tracking-wide text-muted-2">
-                  Telefon
+                  {dict.contact.phoneLabel}
                 </p>
-                <div 
-                  className="mt-1 relative inline-flex items-center gap-2 cursor-pointer group"
+                <button
+                  type="button"
+                  aria-expanded={phoneRevealed}
+                  className="group relative mt-1 inline-flex items-center gap-2 text-left"
                   onClick={() => setPhoneRevealed(true)}
                 >
                   <Phone size={18} className="text-muted" />
@@ -120,11 +148,11 @@ export default function Contact() {
                     </span>
                     {!phoneRevealed && (
                       <span className="absolute inset-0 flex items-center justify-center text-xs font-semibold text-foreground group-hover:scale-105 transition-transform bg-surface/50 backdrop-blur-[2px]">
-                        Arată
+                        {dict.contact.phoneReveal}
                       </span>
                     )}
                   </div>
-                </div>
+                </button>
               </div>
             </div>
 
@@ -167,7 +195,7 @@ export default function Contact() {
               <div className="mt-4 grid gap-3 border-t border-line pt-4 text-sm text-muted">
                 <div className="flex items-center gap-3">
                   <MapPin size={16} className="shrink-0 text-muted-2" />
-                  Constanța, România
+                  {lang === "ro" ? "Constanța, România" : "Constanța, Romania"}
                 </div>
                 <div className="flex items-center gap-3">
                   <Clock size={16} className="shrink-0 text-muted-2" />
@@ -180,15 +208,27 @@ export default function Contact() {
 
         <Reveal delay={0.15}>
           <div className="relative rounded-card border border-line bg-surface/50 p-6 sm:p-8 min-h-[520px] flex flex-col justify-between overflow-hidden">
+            {submitState === "success" && (
+              <div className="absolute inset-0 z-30 flex flex-col items-center justify-center bg-background/95 p-8 text-center backdrop-blur-md" role="status">
+                <span className="flex h-12 w-12 items-center justify-center rounded-full border border-green-400/40 bg-green-400/10 text-green-300">
+                  <Check size={24} />
+                </span>
+                <h2 className="mt-5 text-2xl font-semibold text-foreground">{dict.contact.form.successTitle}</h2>
+                <p className="mt-2 max-w-sm text-sm leading-relaxed text-muted">{dict.contact.form.successBody}</p>
+                <button type="button" onClick={resetForm} className="mt-6 rounded-full border border-line bg-surface px-5 py-2.5 text-sm font-medium text-foreground transition-colors hover:border-muted">
+                  {dict.contact.form.sendAnother}
+                </button>
+              </div>
+            )}
             
             {!hasStarted && (
               <div className="absolute inset-0 z-20 flex items-center justify-center bg-background/20 backdrop-blur-[6px]">
-                <button onClick={() => setHasStarted(true)} className="pearl-button">
+                <button type="button" onClick={() => setHasStarted(true)} className="pearl-button">
                   <div className="wrap">
                     <p>
                       <span>✧</span>
                       <span>✦</span>
-                      Let's begin!
+                      {dict.contact.begin}
                     </p>
                   </div>
                 </button>
@@ -247,14 +287,15 @@ export default function Contact() {
                           <button
                             key={item.id}
                             type="button"
-                            onClick={() => handleInterestSelect(item.label)}
+                            aria-pressed={formData.interest === item.id}
+                            onClick={() => handleInterestSelect(item.id)}
                             className={`flex items-center justify-between p-4 rounded-xl border text-sm transition-all duration-300
-                              ${formData.interest === item.label 
+                              ${formData.interest === item.id
                                 ? 'border-foreground bg-foreground/5 text-foreground' 
                                 : 'border-line bg-surface text-muted hover:border-muted hover:text-foreground'}`}
                           >
                             {item.label}
-                            {formData.interest === item.label && (
+                            {formData.interest === item.id && (
                               <Check size={16} className="text-foreground" />
                             )}
                           </button>
@@ -283,7 +324,11 @@ export default function Contact() {
                         </label>
                         <input
                           id="name"
+                          name="name"
                           type="text"
+                          autoComplete="name"
+                          required
+                          maxLength={120}
                           value={formData.name}
                           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                           placeholder={dict.contact.form.namePlaceholder}
@@ -296,7 +341,11 @@ export default function Contact() {
                         </label>
                         <input
                           id="email"
+                          name="email"
                           type="email"
+                          autoComplete="email"
+                          required
+                          maxLength={254}
                           value={formData.email}
                           onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                           placeholder={dict.contact.form.emailPlaceholder}
@@ -309,7 +358,10 @@ export default function Contact() {
                         </label>
                         <input
                           id="phone"
+                          name="phone"
                           type="tel"
+                          autoComplete="tel"
+                          maxLength={40}
                           value={formData.phone}
                           onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                           placeholder={dict.contact.form.phonePlaceholder}
@@ -339,6 +391,10 @@ export default function Contact() {
                         </label>
                         <textarea
                           id="message"
+                          name="message"
+                          required
+                          minLength={10}
+                          maxLength={4000}
                           value={formData.message}
                           onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                           placeholder={dict.contact.form.messagePlaceholder}
@@ -348,6 +404,23 @@ export default function Contact() {
                     </motion.div>
                   )}
                 </AnimatePresence>
+
+                {submitState === "fallback" && (
+                  <div className="mt-5 rounded-xl border border-amber-400/30 bg-amber-400/5 p-4" role="alert">
+                    <p className="text-sm font-medium text-foreground">{dict.contact.form.fallbackTitle}</p>
+                    <p className="mt-1 text-xs leading-relaxed text-muted">{dict.contact.form.fallbackBody}</p>
+                    <a href={fallbackUrl} className="mt-3 inline-flex items-center gap-2 text-sm font-medium text-foreground underline underline-offset-4">
+                      <Mail size={15} />
+                      {dict.contact.form.openEmail}
+                    </a>
+                  </div>
+                )}
+
+                {submitState === "error" && (
+                  <p className="mt-5 rounded-xl border border-red-400/30 bg-red-400/5 p-4 text-sm text-red-200" role="alert">
+                    {dict.contact.form.error}
+                  </p>
+                )}
 
                 <div className="mt-8 flex items-center justify-between pt-6 border-t border-line">
                   {step > 1 ? (
@@ -367,7 +440,7 @@ export default function Contact() {
                     <button
                       type="button"
                       onClick={nextStep}
-                      disabled={!isStepValid()}
+                      disabled={!isStepValid() || submitState === "sending"}
                       className="flex items-center gap-2 rounded-full bg-foreground px-6 py-2.5 text-sm font-medium text-background transition-all duration-300 hover:bg-white disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       {dict.contact.form.next}
@@ -379,7 +452,7 @@ export default function Contact() {
                       disabled={!isStepValid()}
                       className="flex items-center gap-2 rounded-full bg-foreground px-6 py-2.5 text-sm font-medium text-background transition-all duration-300 hover:bg-white disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                      {dict.contact.form.submit}
+                      {submitState === "sending" ? dict.contact.form.sending : dict.contact.form.submit}
                       <Check size={16} />
                     </button>
                   )}

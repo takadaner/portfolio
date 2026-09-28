@@ -1,33 +1,23 @@
-import type { Metadata } from "next";
 import Hero from "@/components/Hero";
 import LockScroll from "@/components/LockScroll";
-import { siteUrl } from "@/lib/site";
+import { createPageMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
-  title: "Abdula Daner — Full-Stack Developer & Tech Builder",
-  description:
-    "Official portfolio of Abdula Daner. High-performance web applications, AI automations, WhatsApp bots, and custom hotel SaaS software.",
-  alternates: {
-    canonical: siteUrl,
-    languages: {
-      "ro-RO": siteUrl,
-      "en-US": siteUrl,
-      "x-default": siteUrl,
+type PageProps = { searchParams?: Promise<{ lang?: string | string[] }> };
+
+export async function generateMetadata({ searchParams }: PageProps) {
+  const params = await searchParams;
+  return createPageMetadata("/", params?.lang, {
+    ro: {
+      title: "Abdula Daner — Full-Stack Developer & Tech Builder",
+      description: "Portofoliul oficial al lui Abdula Daner: aplicații web, automatizări AI și software pentru industria hotelieră.",
     },
-  },
-  openGraph: {
-    title: "Abdula Daner — Full-Stack Developer & Tech Builder",
-    description:
-      "Aplicații web moderne, automatizări AI și soluții digitale construite cu Next.js, React și Python de Abdula Daner.",
-    url: siteUrl,
-  },
-};
+    en: {
+      title: "Abdula Daner — Full-Stack Developer & Tech Builder",
+      description: "The official portfolio of Abdula Daner: web applications, AI automation, and software for the hospitality industry.",
+    },
+  });
+}
 
 export default function Home() {
-  return (
-    <>
-      <LockScroll />
-      <Hero />
-    </>
-  );
+  return <><LockScroll /><Hero /></>;
 }

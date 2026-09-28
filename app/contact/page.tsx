@@ -1,26 +1,21 @@
-import type { Metadata } from "next";
 import Contact from "@/components/Contact";
-import { siteUrl } from "@/lib/site";
+import { createPageMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
-  title: "Contact — Get in Touch",
-  description:
-    "Ia legătura direct cu Abdula Daner pentru proiecte de dezvoltare web, automatizări AI și consultanță software. Răspuns garantat în 48h.",
-  alternates: {
-    canonical: `${siteUrl}/contact`,
-    languages: {
-      "ro-RO": `${siteUrl}/contact`,
-      "en-US": `${siteUrl}/contact`,
-      "x-default": `${siteUrl}/contact`,
+type PageProps = { searchParams?: Promise<{ lang?: string | string[] }> };
+
+export async function generateMetadata({ searchParams }: PageProps) {
+  const params = await searchParams;
+  return createPageMetadata("/contact", params?.lang, {
+    ro: {
+      title: "Contact — Hai să lucrăm împreună",
+      description: "Contactează-l pe Abdula Daner pentru dezvoltare web, automatizări AI și consultanță software.",
     },
-  },
-  openGraph: {
-    title: "Contact — Abdula Daner | Full-Stack Developer",
-    description:
-      "Formular de contact direct, email și telefon pentru colaborări cu Abdula Daner.",
-    url: `${siteUrl}/contact`,
-  },
-};
+    en: {
+      title: "Contact — Let’s Work Together",
+      description: "Contact Abdula Daner about web development, AI automation, and software consulting.",
+    },
+  });
+}
 
 export default function ContactPage() {
   return <Contact />;

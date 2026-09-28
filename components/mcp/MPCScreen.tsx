@@ -7,6 +7,7 @@ interface MPCScreenProps {
   song: MPCSong;
   isLoading?: boolean;
   loadedCount?: number;
+  failedCount?: number;
 }
 
 // ─── LCD Screen Component ─────────────────────────────────────────────────────
@@ -14,7 +15,7 @@ interface MPCScreenProps {
 // cursor and a live sample-load status readout.
 // ─────────────────────────────────────────────────────────────────────────────
 
-export default function MPCScreen({ song, isLoading, loadedCount }: MPCScreenProps) {
+export default function MPCScreen({ song, isLoading, loadedCount = 0, failedCount = 0 }: MPCScreenProps) {
   const [tick, setTick] = useState(0);
 
   // Blinking cursor effect
@@ -26,9 +27,9 @@ export default function MPCScreen({ song, isLoading, loadedCount }: MPCScreenPro
   const cursor = tick % 2 === 0 ? "█" : " ";
   const status = isLoading
     ? "LOAD…"
-    : loadedCount && loadedCount > 0
-      ? `SMP:${String(loadedCount).padStart(2, "0")}`
-      : "READY";
+    : failedCount > 0
+      ? `ERR:${String(failedCount).padStart(2, "0")}`
+      : `SMP:${String(loadedCount).padStart(2, "0")}`;
 
   return (
     <div className="mpc-lcd">

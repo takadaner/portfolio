@@ -15,10 +15,7 @@ const csp = [
   "default-src 'self'",
   `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""} https://va.vercel-scripts.com`,
   "style-src 'self' 'unsafe-inline'",
-  // images.unsplash.com: testimonial avatars in About are hotlinked via a
-  // raw <img> (not next/image), so they load direct from Unsplash. Localize
-  // them into /public later to tighten this back to just 'self'.
-  "img-src 'self' data: blob: https://images.unsplash.com",
+  "img-src 'self' data: blob:",
   "font-src 'self' data:",
   "connect-src 'self' https://vitals.vercel-insights.com",
   "media-src 'self'",

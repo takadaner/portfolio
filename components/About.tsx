@@ -1,7 +1,7 @@
 "use client";
 
-import { useRef, useState, useCallback } from "react";
-import { motion, useScroll, useSpring, AnimatePresence, type Variants } from "framer-motion";
+import { useRef } from "react";
+import { motion, useScroll, useSpring, type Variants } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -15,7 +15,6 @@ import {
 } from "lucide-react";
 import { useLanguage } from "@/lib/LanguageContext";
 import ExperienceBackground from "./ExperienceBackground";
-import { TestimonialsColumn } from "@/components/ui/testimonials-columns-1";
 
 /* ------------------------------------------------------------------ */
 /* Social icon mapping                                                  */
@@ -27,23 +26,6 @@ const socialIcons: Record<string, LucideIcon> = {
   Instagram: Instagram,
   Email: Mail,
 };
-
-/* ------------------------------------------------------------------ */
-/* Testimonials configuration                                           */
-/* ------------------------------------------------------------------ */
-
-// Gender-correct photos: male names get male photos, female names get female photos
-const defaultImages = [
-  "https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=150&h=150&fit=crop&q=80", // male
-  "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop&q=80", // female
-  "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&h=150&fit=crop&q=80", // male
-  "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop&q=80", // female
-  "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&q=80", // male
-  "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=150&h=150&fit=crop&q=80", // female
-  "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&q=80", // male
-  "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&q=80", // female
-  "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=150&h=150&fit=crop&q=80", // male
-];
 
 /* ------------------------------------------------------------------ */
 /* Animation constants & variants (from Experience)                     */
@@ -315,23 +297,6 @@ function TimelineSection({
 export default function About() {
   const { dict } = useLanguage();
   const e = dict.experience;
-  const t = dict.testimonials;
-
-  // Testimonials spotlight state
-  const [spotlightItem, setSpotlightItem] = useState<any | null>(null);
-
-  const onSpotlight = useCallback((item: any | null) => {
-    setSpotlightItem(item);
-  }, []);
-
-  const allTestimonials = t.items.map((item: any, i: number) => ({
-    ...item,
-    image: defaultImages[i] || defaultImages[0],
-  }));
-
-  const firstColumn = allTestimonials.slice(0, 3);
-  const secondColumn = allTestimonials.slice(3, 6);
-  const thirdColumn = allTestimonials.slice(6, 9);
 
   return (
     <section className="relative isolate overflow-hidden">
@@ -594,10 +559,10 @@ export default function About() {
       />
 
       {/* ============================================================ */}
-      {/* SECTION 3 — Testimoniale                                      */}
+      {/* SECTION 3 — A grounded product perspective                   */}
       {/* ============================================================ */}
       <div className="relative z-10 px-6 pb-28 pt-8">
-        <div className="mx-auto max-w-content z-10">
+        <div className="mx-auto max-w-content">
           <motion.div
             variants={headerStagger}
             initial="hidden"
@@ -613,70 +578,40 @@ export default function About() {
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent/60" />
                 <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-accent" />
               </span>
-              {dict.testimonials.label || "Feedback"}
+              {dict.about.approachLabel}
             </motion.span>
 
             <h2 className="mt-6 text-5xl font-semibold leading-[0.95] tracking-tight sm:text-6xl">
-              <span className="text-foreground">{t.title1}</span>{" "}
-              <span className="text-muted-2">{t.title2}</span>
+              <span className="text-foreground">{dict.about.approachTitle1}</span>{" "}
+              <span className="text-muted-2">{dict.about.approachTitle2}</span>
             </h2>
 
             <motion.p
               variants={riseIn}
               className="mx-auto mt-4 max-w-xl text-base text-muted"
             >
-              {t.subtitle}
+              {dict.about.approachSubtitle}
             </motion.p>
           </motion.div>
 
-          <div className="flex justify-center gap-6 mt-16 [mask-image:linear-gradient(to_bottom,transparent,black_15%,black_85%,transparent)] h-[600px] overflow-hidden">
-            <TestimonialsColumn testimonials={firstColumn} duration={15} onSpotlight={onSpotlight} />
-            <TestimonialsColumn testimonials={secondColumn} className="hidden md:block" duration={19} onSpotlight={onSpotlight} />
-            <TestimonialsColumn testimonials={thirdColumn} className="hidden lg:block" duration={17} onSpotlight={onSpotlight} />
+          <div className="mt-14 grid gap-4 md:grid-cols-3">
+            {dict.about.approach.map((item, index) => (
+              <motion.article
+                key={item.title}
+                variants={riseIn}
+                initial="hidden"
+                whileInView="show"
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{ delay: index * 0.08 }}
+                className="rounded-2xl border border-line bg-surface/65 p-6 backdrop-blur-sm sm:p-7"
+              >
+                <span className="font-mono text-xs text-muted-2">0{index + 1}</span>
+                <h3 className="mt-5 text-xl font-semibold tracking-tight text-foreground">{item.title}</h3>
+                <p className="mt-3 text-sm leading-relaxed text-muted">{item.description}</p>
+              </motion.article>
+            ))}
           </div>
         </div>
-
-        {/* Spotlight overlay */}
-        <AnimatePresence>
-          {spotlightItem && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
-              className="fixed inset-0 z-50 flex items-center justify-center bg-background/80 backdrop-blur-md pointer-events-none"
-            >
-              <motion.div
-                initial={{ scale: 0.85, opacity: 0, y: 20 }}
-                animate={{ scale: 1, opacity: 1, y: 0 }}
-                exit={{ scale: 0.9, opacity: 0, y: 10 }}
-                transition={{ type: "spring", stiffness: 400, damping: 25 }}
-                className="p-10 sm:p-14 rounded-3xl border border-line shadow-2xl shadow-black/20 bg-surface max-w-lg w-full mx-4 pointer-events-none"
-              >
-                <div className="text-foreground/90 text-lg sm:text-xl leading-relaxed">
-                  &ldquo;{spotlightItem.quote}&rdquo;
-                </div>
-                <div className="flex items-center gap-4 mt-8">
-                  <img
-                    width={48}
-                    height={48}
-                    src={spotlightItem.image}
-                    alt={spotlightItem.author}
-                    className="h-12 w-12 rounded-full object-cover border border-line"
-                  />
-                  <div className="flex flex-col">
-                    <div className="font-semibold tracking-tight leading-5 text-foreground text-base">
-                      {spotlightItem.author}
-                    </div>
-                    <div className="text-sm text-muted leading-5 tracking-tight">
-                      {spotlightItem.role}
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            </motion.div>
-          )}
-        </AnimatePresence>
       </div>
     </section>
   );
