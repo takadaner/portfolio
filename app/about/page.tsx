@@ -7,11 +7,11 @@ export async function generateMetadata({ searchParams }: PageProps) {
   const params = await searchParams;
   return createPageMetadata("/about", params?.lang, {
     ro: {
-      title: "Despre Mine — Abdula Daner",
+      title: "Despre Mine",
       description: "Află despre experiența, competențele tehnice și modul de lucru al lui Abdula Daner.",
     },
     en: {
-      title: "About — Abdula Daner",
+      title: "About",
       description: "Learn about Abdula Daner’s experience, technical skills, and approach to building digital products.",
     },
   });
