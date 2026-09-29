@@ -48,6 +48,7 @@ npm run build
 
 - `/` — homepage
 - `/services` — services
+- `/websites` — websites for hotels and residential developments: live demos, launch offer, offer PDFs (`public/oferta/`)
 - `/projects` — published portfolio work
 - `/about` — profile and experience
 - `/contact` — contact information and enquiry form

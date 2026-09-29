@@ -5,7 +5,7 @@ import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight, CircleDot, Instagram, Dribbble, Linkedin } from "lucide-react";
+import { ArrowUpRight, CircleDot, Globe, Instagram, Dribbble, Linkedin } from "lucide-react";
 import { useLanguage } from "@/lib/LanguageContext";
 import { useAnimationToggle } from "@/lib/AnimationContext";
 import HeroBackground from "@/components/HeroBackground";
@@ -516,6 +516,16 @@ export default function Hero() {
                   </a>
                 ))}
               </div>
+
+              {/* Websites offer — top corner of the photo, mirroring the socials */}
+              <Link
+                href="/websites"
+                className="absolute left-3 top-3 z-10 inline-flex max-w-[calc(100%-1.5rem)] items-center gap-1.5 rounded-full border border-line bg-background/70 px-3 py-1.5 text-xs font-medium text-foreground backdrop-blur-md transition-colors duration-300 [text-shadow:none] hover:bg-foreground hover:text-background"
+              >
+                <Globe size={14} strokeWidth={1.8} className="shrink-0" />
+                <span className="truncate">{dict.hero.websitesLink}</span>
+                <ArrowUpRight size={14} strokeWidth={1.8} className="shrink-0" />
+              </Link>
 
               <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[5] bg-gradient-to-t from-black/85 via-black/35 to-transparent px-4 pb-16 pt-16 sm:hidden">
                 <p className="text-2xl font-semibold leading-none tracking-tight text-white">Abdula Daner</p>

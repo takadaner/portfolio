@@ -30,7 +30,8 @@
     "ctaProjects": "Vezi Proiecte",
     "ctaContact": "Contact",
     "floatLeft": "WhatsApp Bot UI",
-    "floatRight": "Hotel Dashboard"
+    "floatRight": "Hotel Dashboard",
+    "websitesLink": "Site-uri pentru hoteluri și imobiliare"
   },
   "skills": {
     "label": "Ce știu să fac",
@@ -691,6 +692,155 @@
         }
       ],
       "stackLabel": "Tehnologii folosite"
+    },
+    "websitesLink": {
+      "title": "Site-uri pentru hoteluri și ansambluri rezidențiale",
+      "short": "Site-uri pentru hoteluri și imobiliare",
+      "subtitle": "Demo-uri live și oferta de lansare"
+    }
+  },
+  "websites": {
+    "label": "Pentru hoteluri și dezvoltatori imobiliari",
+    "title1": "Site-uri pentru hoteluri",
+    "title2": "și ansambluri rezidențiale",
+    "intro": "Un site complet, ca demo-ul pe care l-ai primit, adaptat cu fotografiile și informațiile tale. Îl livrez în 10 zile de la primirea materialelor.",
+    "ctaPrimary": "Scrie-mi pe WhatsApp",
+    "ctaSecondary": "Vezi oferta",
+    "facts": [
+      {
+        "value": "10 zile",
+        "label": "de la primirea materialelor până la lansare"
+      },
+      {
+        "value": "690 €",
+        "label": "o singură dată, apoi 29 €/lună"
+      },
+      {
+        "value": "RO + EN",
+        "label": "în română și engleză, adaptat pentru telefon"
+      }
+    ],
+    "demos": {
+      "label": "Demo-uri live",
+      "title1": "Două site-uri demo,",
+      "title2": "gata de văzut",
+      "subtitle": "Sunt site-uri complete, publicate online. Le poți deschide acum, de pe telefon sau de pe calculator.",
+      "open": "Deschide demo-ul",
+      "newTab": "(se deschide într-o filă nouă)",
+      "items": [
+        {
+          "id": "hotel",
+          "kind": "Hoteluri și pensiuni",
+          "title": "Site pentru hotel sau pensiune",
+          "imageAlt": "Prima pagină a site-ului demo pentru hoteluri",
+          "features": [
+            "Camere, câte o pagină pentru fiecare tip",
+            "Galerie foto, facilități și oferte",
+            "Locație cu hartă și pagină de contact",
+            "Formular de rezervare, cu cererile trimise pe emailul tău",
+            "Română și engleză, construit pentru telefon"
+          ]
+        },
+        {
+          "id": "estate",
+          "kind": "Ansambluri rezidențiale",
+          "title": "Site pentru ansamblu rezidențial",
+          "imageAlt": "Prima pagină a site-ului demo pentru ansambluri rezidențiale",
+          "features": [
+            "Apartamente cu planuri interactive și suprafața fiecărei camere",
+            "Tabel de disponibilitate și calculator de rată",
+            "Stadiul lucrărilor, facilități, galerie și locație",
+            "Programări la vizionare, cu cererile trimise pe emailul tău",
+            "Română și engleză, construit pentru telefon"
+          ]
+        }
+      ]
+    },
+    "offer": {
+      "label": "Ofertă de lansare",
+      "title1": "Un preț clar,",
+      "title2": "stabilit de la început",
+      "subtitle": "Plătești o singură dată realizarea site-ului, apoi un abonament lunar pentru găzduire și întreținere.",
+      "availability": "Valabilă pentru primii trei clienți",
+      "prices": [
+        {
+          "amount": "690 €",
+          "suffix": "",
+          "period": "o singură dată",
+          "note": "Realizarea completă a site-ului, până la lansare."
+        },
+        {
+          "amount": "29 €",
+          "suffix": "/lună",
+          "period": "găzduire și întreținere",
+          "note": "Din luna următoare lansării, fără perioadă minimă."
+        }
+      ],
+      "termsTitle": "Condiții",
+      "terms": [
+        "Livrare în 10 zile de la primirea materialelor",
+        "50% avans la comandă și 50% la lansare",
+        "Două runde de modificări incluse",
+        "Domeniul, textele și fotografiile rămân ale tale"
+      ],
+      "includesTitle": "Ce include abonamentul",
+      "includes": [
+        "Găzduire și certificat https",
+        "Copii de siguranță (backup)",
+        "Reînnoirea domeniului",
+        "Modificări mici de conținut: texte, fotografii, prețuri",
+        "Pentru ansambluri, și actualizarea disponibilității"
+      ],
+      "pdfTitle": "Oferta completă, pe o pagină",
+      "pdfs": [
+        {
+          "id": "hotel",
+          "label": "Oferta pentru hoteluri (PDF)"
+        },
+        {
+          "id": "developer",
+          "label": "Oferta pentru dezvoltatori (PDF)"
+        }
+      ]
+    },
+    "process": {
+      "label": "Cum lucrăm",
+      "title1": "De la comandă la lansare",
+      "title2": "în 10 zile",
+      "subtitle": "Termenul curge din ziua în care primesc materialele: fotografii, texte și informații.",
+      "steps": [
+        {
+          "day": "Ziua 0",
+          "title": "Comanda și avansul",
+          "description": "Confirmi comanda, plătești avansul de 50% și îmi trimiți materialele."
+        },
+        {
+          "day": "Zilele 1–7",
+          "title": "Construiesc site-ul",
+          "description": "Pun fotografiile, textele și informațiile tale pe structura din demo."
+        },
+        {
+          "day": "Zilele 8–9",
+          "title": "Verifici și ceri modificări",
+          "description": "Parcurgi site-ul și îmi spui ce vrei schimbat. Două runde de modificări sunt incluse."
+        },
+        {
+          "day": "Ziua 10",
+          "title": "Lansare pe domeniul tău",
+          "description": "Site-ul intră online pe domeniul tău, iar restul de 50% se plătește la lansare."
+        }
+      ]
+    },
+    "contact": {
+      "label": "Contact",
+      "title1": "Vrei un site",
+      "title2": "ca în demo?",
+      "subtitle": "Scrie-mi pe WhatsApp, sună-mă sau trimite-mi un email.",
+      "whatsapp": "WhatsApp",
+      "phone": "Telefon",
+      "email": "Email",
+      "formHint": "Preferi un formular?",
+      "form": "Formular de contact"
     }
   },
   "contact": {

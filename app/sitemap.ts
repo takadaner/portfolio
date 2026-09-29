@@ -5,6 +5,7 @@ import { siteUrl as baseUrl } from "@/lib/site";
 const routes = [
   { path: "/", changeFrequency: "daily", priority: 1 },
   { path: "/services", changeFrequency: "weekly", priority: 0.9 },
+  { path: "/websites", changeFrequency: "monthly", priority: 0.9 },
   { path: "/projects", changeFrequency: "weekly", priority: 0.9 },
   { path: "/about", changeFrequency: "monthly", priority: 0.8 },
   { path: "/contact", changeFrequency: "monthly", priority: 0.8 },

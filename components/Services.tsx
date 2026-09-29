@@ -1149,7 +1149,7 @@ export default function Services() {
             </div>
 
             {/* mobile: chips stack under the pill */}
-            <div className="mt-10 grid grid-cols-2 gap-3 sm:hidden">
+            <div className="mt-10 grid grid-cols-2 gap-3 sm:hidden [@media(max-height:700px)]:mt-6">
               {pills.map((pill, i) => (
                 <motion.div
                   key={pill.label}
@@ -1181,6 +1181,39 @@ export default function Services() {
               ))}
             </div>
           </div>
+
+          {/* websites offer — compact pill echoing the label pill above */}
+          <motion.div
+            initial={false}
+            animate={
+              phase === "page" ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }
+            }
+            transition={{
+              duration: 0.6,
+              ease: EASE,
+              delay: phase === "page" ? satBase + 0.55 : 0,
+            }}
+            className="mt-6 flex max-w-full justify-center sm:mt-12 max-sm:[@media(max-height:700px)]:mt-3 max-sm:[@media(max-height:650px)]:hidden"
+          >
+            <Link
+              href="/websites"
+              className="group inline-flex max-w-full items-center gap-2 rounded-full border border-line bg-surface py-1.5 pl-3 pr-3.5 text-xs text-muted transition-colors duration-300 hover:border-[#333] hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground/50 focus-visible:ring-offset-2 focus-visible:ring-offset-background sm:py-2 sm:pl-3.5 sm:pr-4 sm:text-sm"
+            >
+              <Hotel size={14} strokeWidth={1.7} className="shrink-0" />
+              <span className="truncate font-medium text-foreground">
+                <span className="sm:hidden">{s.websitesLink.short}</span>
+                <span className="hidden sm:inline">{s.websitesLink.title}</span>
+              </span>
+              <span aria-hidden className="hidden text-muted-2 md:inline">
+                ·
+              </span>
+              <span className="hidden truncate md:inline">{s.websitesLink.subtitle}</span>
+              <ArrowUpRight
+                size={14}
+                className="shrink-0 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+              />
+            </Link>
+          </motion.div>
         </motion.div>
 
         {/* pill detail dialog — the clicked chip morphs into this card */}

@@ -30,7 +30,8 @@
     "ctaProjects": "See Projects",
     "ctaContact": "Contact",
     "floatLeft": "WhatsApp Bot UI",
-    "floatRight": "Hotel Dashboard"
+    "floatRight": "Hotel Dashboard",
+    "websitesLink": "Websites for hotels and real estate"
   },
   "skills": {
     "label": "What I do",
@@ -691,6 +692,155 @@
         }
       ],
       "stackLabel": "Tech stack used"
+    },
+    "websitesLink": {
+      "title": "Websites for hotels and residential developments",
+      "short": "Websites for hotels and real estate",
+      "subtitle": "Live demos and the launch offer"
+    }
+  },
+  "websites": {
+    "label": "For hotels and property developers",
+    "title1": "Websites for hotels",
+    "title2": "and residential developments",
+    "intro": "A complete website, like the demo you received, adapted with your photos and information. Delivered within 10 days of receiving your materials.",
+    "ctaPrimary": "Message me on WhatsApp",
+    "ctaSecondary": "See the offer",
+    "facts": [
+      {
+        "value": "10 days",
+        "label": "from receiving your materials to launch"
+      },
+      {
+        "value": "690 €",
+        "label": "one-time, then 29 €/month"
+      },
+      {
+        "value": "RO + EN",
+        "label": "in Romanian and English, built for phones"
+      }
+    ],
+    "demos": {
+      "label": "Live demos",
+      "title1": "Two demo websites,",
+      "title2": "ready to explore",
+      "subtitle": "Both are complete websites, published online. Open them now, on your phone or your computer.",
+      "open": "Open the demo",
+      "newTab": "(opens in a new tab)",
+      "items": [
+        {
+          "id": "hotel",
+          "kind": "Hotels and guesthouses",
+          "title": "Website for a hotel or guesthouse",
+          "imageAlt": "Home page of the hotel demo website",
+          "features": [
+            "Rooms, one page per room type",
+            "Photo gallery, facilities and offers",
+            "Location with map and a contact page",
+            "Booking request form, with requests sent to your email",
+            "Romanian and English, built for phones"
+          ]
+        },
+        {
+          "id": "estate",
+          "kind": "Residential developments",
+          "title": "Website for a residential development",
+          "imageAlt": "Home page of the residential development demo website",
+          "features": [
+            "Apartments with interactive floor plans and the area of each room",
+            "Availability table and mortgage calculator",
+            "Construction progress, facilities, gallery and location",
+            "Viewing requests sent to your email",
+            "Romanian and English, built for phones"
+          ]
+        }
+      ]
+    },
+    "offer": {
+      "label": "Launch offer",
+      "title1": "A clear price,",
+      "title2": "agreed up front",
+      "subtitle": "You pay once for the website, then a monthly subscription for hosting and maintenance.",
+      "availability": "Open to the first three clients",
+      "prices": [
+        {
+          "amount": "690 €",
+          "suffix": "",
+          "period": "one-time",
+          "note": "The complete website, built and launched."
+        },
+        {
+          "amount": "29 €",
+          "suffix": "/month",
+          "period": "hosting and maintenance",
+          "note": "From the month after launch, no minimum term."
+        }
+      ],
+      "termsTitle": "Terms",
+      "terms": [
+        "Delivery within 10 days of receiving your materials",
+        "50% advance on order, 50% at launch",
+        "Two rounds of changes included",
+        "The domain, texts and photos remain yours"
+      ],
+      "includesTitle": "What the subscription covers",
+      "includes": [
+        "Hosting and https certificate",
+        "Backups",
+        "Domain renewal",
+        "Small content updates: texts, photos, prices",
+        "For developments, availability updates too"
+      ],
+      "pdfTitle": "The full offer on one page (in Romanian)",
+      "pdfs": [
+        {
+          "id": "hotel",
+          "label": "Offer for hotels (PDF)"
+        },
+        {
+          "id": "developer",
+          "label": "Offer for developers (PDF)"
+        }
+      ]
+    },
+    "process": {
+      "label": "How it works",
+      "title1": "From order to launch",
+      "title2": "in 10 days",
+      "subtitle": "The 10 days count from the day I receive your materials: photos, texts and information.",
+      "steps": [
+        {
+          "day": "Day 0",
+          "title": "Order and advance",
+          "description": "You confirm the order, pay the 50% advance and send me your materials."
+        },
+        {
+          "day": "Days 1–7",
+          "title": "I build the website",
+          "description": "Your photos, texts and information go into the structure you saw in the demo."
+        },
+        {
+          "day": "Days 8–9",
+          "title": "You review and request changes",
+          "description": "You go through the site and tell me what to change. Two rounds of changes are included."
+        },
+        {
+          "day": "Day 10",
+          "title": "Launch on your domain",
+          "description": "The site goes live on your domain, and the remaining 50% is paid at launch."
+        }
+      ]
+    },
+    "contact": {
+      "label": "Contact",
+      "title1": "Want a website",
+      "title2": "like the demo?",
+      "subtitle": "Message me on WhatsApp, call me or send me an email.",
+      "whatsapp": "WhatsApp",
+      "phone": "Phone",
+      "email": "Email",
+      "formHint": "Prefer a form?",
+      "form": "Contact form"
     }
   },
   "contact": {
