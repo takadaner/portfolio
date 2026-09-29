@@ -53,7 +53,7 @@ npm run build
 - `/contact` — contact information and enquiry form
 - `/mcp` — interactive Web Audio project
 
-Language selection is represented by `?lang=ro` or `?lang=en`, persisted in a cookie and local storage, and reflected in the document language and SEO alternate links.
+Language selection is represented by `?lang=ro` or `?lang=en`, persisted in the first-party `daner-language` preference cookie, and reflected in the document language, self-canonical URLs, and SEO alternate links. The cookie notice is available at `/cookies`.
 
 ## Deployment
 

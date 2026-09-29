@@ -34,8 +34,7 @@ export function LanguageProvider({
   const persistLanguage = useCallback((nextLang: Lang) => {
     setLanguageState(nextLang);
     document.documentElement.lang = nextLang;
-    window.localStorage.setItem("daner-language", nextLang);
-    document.cookie = `daner-language=${nextLang}; Path=/; Max-Age=31536000; SameSite=Lax; Secure`;
+    document.cookie = `daner-language=${nextLang}; Path=/; Max-Age=31536000; SameSite=Lax${window.location.protocol === "https:" ? "; Secure" : ""}`;
   }, []);
 
   const setLang = useCallback(
@@ -51,8 +50,7 @@ export function LanguageProvider({
 
   useEffect(() => {
     const queryLanguage = normalizeLang(new URLSearchParams(window.location.search).get("lang"));
-    const storedLanguage = normalizeLang(window.localStorage.getItem("daner-language"));
-    const preferredLanguage = queryLanguage ?? storedLanguage ?? initialLang;
+    const preferredLanguage = queryLanguage ?? initialLang;
     persistLanguage(preferredLanguage);
     setInitialized(true);
   }, [initialLang, persistLanguage]);

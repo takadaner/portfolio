@@ -4,6 +4,7 @@ import { LanguageProvider } from "@/lib/LanguageContext";
 import { AnimationProvider } from "@/lib/AnimationContext";
 import Navbar from "@/components/Navbar";
 import BottomNav from "@/components/BottomNav";
+import Footer from "@/components/Footer";
 import CustomCursor from "@/components/CustomCursor";
 import ScrollBehavior from "@/components/ScrollBehavior";
 import JsonLd from "@/components/JsonLd";
@@ -25,7 +26,7 @@ export const metadata: Metadata = {
     template: "%s | Abdula Daner",
   },
   description:
-    "Official website of Abdula Daner — Full-Stack Developer & Tech Builder based in Constanța, Romania. Web Development, AI Automations, WhatsApp Bots & Hotel SaaS Software.",
+    "Official website of Abdula Daner — Full-Stack Developer & Tech Builder based in Constanța, Romania. Web Development, AI Automations, and WhatsApp bots.",
   keywords: [
     "Abdula Daner",
     "Daner Abdula",
@@ -38,7 +39,6 @@ export const metadata: Metadata = {
     "Python Developer",
     "Automatizari AI",
     "WhatsApp Bot UI",
-    "Hotel SaaS Suite",
     "Render 3D Arhitectura",
     "Software Hoteluri",
     "Programator Constanta",
@@ -113,6 +113,7 @@ export default async function RootLayout({
             <ScrollBehavior />
             <Navbar />
             <main className="min-h-screen">{children}</main>
+            <Footer />
             <BottomNav />
           </AnimationProvider>
         </LanguageProvider>

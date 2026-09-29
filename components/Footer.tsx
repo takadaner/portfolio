@@ -5,10 +5,10 @@ import { useLanguage } from "@/lib/LanguageContext";
 import Logo from "@/components/Logo";
 
 export default function Footer() {
-  const { dict } = useLanguage();
+  const { dict, lang } = useLanguage();
 
   return (
-    <footer className="border-t border-line px-6 py-12">
+    <footer className="border-t border-line px-6 py-12 pb-28 md:pb-12">
       <div className="mx-auto max-w-content">
         <div className="flex flex-col gap-8 sm:flex-row sm:items-center sm:justify-between">
           <Link href="/" aria-label={dict.nav.logo} className="text-sm font-semibold">
@@ -31,6 +31,14 @@ export default function Footer() {
                 className="text-sm text-muted transition-colors duration-300 hover:text-foreground"
               >
                 {dict.nav.cta}
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/cookies"
+                className="text-sm text-muted transition-colors duration-300 hover:text-foreground"
+              >
+                {lang === "en" ? "Cookies" : "Cookie-uri"}
               </Link>
             </li>
           </ul>

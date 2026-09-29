@@ -86,7 +86,6 @@ export default function JsonLd() {
       addressLocality: "Constanța",
       addressCountry: "RO",
     },
-    priceRange: "$$",
     provider: {
       "@id": `${siteUrl}/#person`,
     },
@@ -100,11 +99,6 @@ export default function JsonLd() {
         "@type": "Offer",
         name: "AI & Automatizări / AI Automations",
         description: "WhatsApp bots, Claude AI virtual assistants, and workflow automations.",
-      },
-      {
-        "@type": "Offer",
-        name: "Hotel SaaS Suite",
-        description: "Digital compendium, automated guest reviews, and hospitality software.",
       },
     ],
   };

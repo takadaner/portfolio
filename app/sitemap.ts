@@ -16,20 +16,20 @@ const routes = [
 ] as const;
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const lastModified = new Date();
-
-  return routes.map(({ path, changeFrequency, priority }) => ({
-    url: `${baseUrl}${path === "/" ? "" : path}`,
-    lastModified,
-    changeFrequency,
-    priority,
-    alternates: {
-      languages: Object.fromEntries(
-        Object.entries(languageAlternates(path)).map(([lang, href]) => [
-          lang,
-          `${baseUrl}${href}`,
-        ]),
-      ),
-    },
-  }));
+  return routes.flatMap(({ path, changeFrequency, priority }) => {
+    const languages = languageAlternates(path);
+    return (["ro-RO", "en-US"] as const).map((locale) => ({
+      url: `${baseUrl}${languages[locale]}`,
+      changeFrequency,
+      priority,
+      alternates: {
+        languages: Object.fromEntries(
+          Object.entries(languages).map(([language, href]) => [
+            language,
+            `${baseUrl}${href}`,
+          ]),
+        ),
+      },
+    }));
+  });
 }

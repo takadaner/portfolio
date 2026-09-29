@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { languageAlternates, normalizeLang } from "@/lib/i18n";
+import { languageAlternates, normalizeLang, withLanguage } from "@/lib/i18n";
 
 type MetadataCopy = {
   title: string;
@@ -16,18 +16,19 @@ export function createPageMetadata(
     : requestedLanguage;
   const lang = normalizeLang(languageValue) ?? "ro";
   const content = copy[lang];
+  const localizedPath = withLanguage(path, lang);
 
   return {
     title: content.title,
     description: content.description,
     alternates: {
-      canonical: path,
+      canonical: localizedPath,
       languages: languageAlternates(path),
     },
     openGraph: {
       title: content.title,
       description: content.description,
-      url: path,
+      url: localizedPath,
       locale: lang === "ro" ? "ro_RO" : "en_US",
       alternateLocale: [lang === "ro" ? "en_US" : "ro_RO"],
     },
