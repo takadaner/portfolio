@@ -8,6 +8,19 @@ import ErrorBoundary from "@/components/ErrorBoundary";
 
 // Dither renders a WebGL (three.js) shader — load it only on the client.
 const Dither = dynamic(() => import("./Dither"), { ssr: false });
+// Canvas 2D look-alike used when WebGL is unavailable or fails.
+const DitherFallback = dynamic(() => import("./DitherFallback"), { ssr: false });
+
+const WAVE_PROPS = {
+  waveColor: [0.9686274509803922, 0.9686274509803922, 0.9686274509803922] as [number, number, number],
+  enableMouseInteraction: true,
+  mouseRadius: 0.1,
+  colorNum: 14,
+  pixelSize: 2,
+  waveAmplitude: 0.45,
+  waveFrequency: 3,
+  waveSpeed: 0.02,
+};
 
 // Probe whether a WebGL context can actually be created. Some environments
 // (sandboxed browsers, disabled hardware acceleration) report WebGL as
@@ -36,9 +49,13 @@ export default function HeroBackground() {
   // then flips on once we've confirmed WebGL works. Deferred to an idle
   // moment so the three.js chunk (~500KB) never competes with hydration and
   // the hero photo — the background has a 1.1s fade-in anyway.
-  const [webglReady, setWebglReady] = useState(false);
+  const [mode, setMode] = useState<"pending" | "webgl" | "canvas">("pending");
   useEffect(() => {
-    const probe = () => setWebglReady(isWebGLAvailable());
+    const probe = () => {
+      // ?nogl forces the Canvas 2D fallback (handy for testing).
+      const forceFallback = new URLSearchParams(window.location.search).has("nogl");
+      setMode(!forceFallback && isWebGLAvailable() ? "webgl" : "canvas");
+    };
     const w = window as Window & {
       requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number;
       cancelIdleCallback?: (id: number) => void;
@@ -73,20 +90,15 @@ export default function HeroBackground() {
             : { duration: 0 }
         }
       >
-        {webglReady && (
-          <ErrorBoundary fallback={null}>
-            <Dither
-              waveColor={[0.9686274509803922, 0.9686274509803922, 0.9686274509803922]}
-              disableAnimation={paused}
-              enableMouseInteraction
-              mouseRadius={0.1}
-              colorNum={14}
-              pixelSize={2}
-              waveAmplitude={0.45}
-              waveFrequency={3}
-              waveSpeed={0.02}
-            />
+        {mode === "webgl" && (
+          <ErrorBoundary
+            fallback={<DitherFallback {...WAVE_PROPS} disableAnimation={paused} />}
+          >
+            <Dither {...WAVE_PROPS} disableAnimation={paused} />
           </ErrorBoundary>
+        )}
+        {mode === "canvas" && (
+          <DitherFallback {...WAVE_PROPS} disableAnimation={paused} />
         )}
       </motion.div>
 
